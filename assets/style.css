@@ -326,3 +326,18 @@ th{background:var(--blue-l);color:var(--blue-d);font-weight:600;white-space:nowr
 .favbtn:hover{background:#fff8e6}
 .favbtn.on{background:#fff3cd;border-color:#e6c200;color:#9a6b00;font-weight:600}
 .badge.fav-c{background:var(--ok-l);color:var(--ok);border-radius:10px;padding:1px 7px;font-size:11px;margin-left:4px}
+
+/* 所有学校动态（逐校追踪） */
+.alldyn-filter{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0 14px}
+.alldyn-filter select,.alldyn-filter .mini{padding:5px 8px;border:1px solid var(--line);border-radius:8px;background:#fff;font-family:inherit;font-size:13px}
+.ad-chk{font-size:13px;color:var(--ink3);display:flex;align-items:center;gap:4px;cursor:pointer}
+.alldyn-list{display:flex;flex-direction:column;gap:8px}
+.schooldyn-card{border:1px solid var(--line);border-radius:12px;background:#fff;overflow:hidden}
+.sdc-head{display:flex;align-items:center;gap:8px;padding:10px 12px;cursor:pointer;background:#fafbfc}
+.sdc-head:hover{background:#f1f4f8}
+.sdc-head b{font-size:14px}
+.sdc-head .muted{font-size:12px}
+.ad-count{margin-left:auto;background:var(--ok-l);color:var(--ok);border-radius:10px;padding:1px 8px;font-size:11px;font-weight:600}
+.sdc-head .btn{margin-left:8px}
+.sdc-latest{margin:0;padding:6px 12px 0;font-size:13px;color:var(--ink3)}
+.sdc-body{padding:8px 12px 12px}

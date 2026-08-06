@@ -493,8 +493,7 @@ function renderPolitics(){
 /* ===== 升学规划中心 ===== */
 function renderEduplan(){
   let h='<div class="banner"><b>升学规划中心 · 双师共用</b><br>政策库 + 太原院校/录取数据库 + 智能规划方案 + 咨询接待（Phase 2 占位）。规划号最强对标：毛老师聊升学（15万粉）。</div>';
-  h += hotZoneHTML('B');
-  h += schoolZoneHTML('B', true);
+  h+='<div class="kv" style="margin-bottom:12px"><span class="muted">🔥 实时时事 与 🏫 学校/教研动态 已统一聚合在首页「今日行动台」，避免两页重复。此处为升学规划<b>深度资源库</b>：</span> <button class="btn s" onclick="switchTab(\'home\')">→ 去首页看最新动态</button></div>';
   if(EDU.facts){
     const F=EDU.facts;
     h+='<h2 class="sec">2026 真实数据速查（联网核实 '+esc(F.asOf)+'，出稿前以官方为准）</h2>';
@@ -1257,7 +1256,7 @@ window.genLiveScript=genLiveScript; window.genLiveFromTopic=genLiveFromTopic; wi
 window.showLive=showLive; window.pushDraft=pushDraft; window.delDraft=delDraft; window.clearDrafts=clearDrafts; window.mergeDrafts=mergeDrafts; window.openDraftPanel=openDraftPanel; window.closeDraftPanel=closeDraftPanel; window.loadDrafts=loadDrafts; window.renderDraftList=renderDraftList; window.updateDraftBadge=updateDraftBadge;
 window.genShortFromHot=genShortFromHot; window.genLiveFromHot=genLiveFromHot; window.genLiveMaterial=genLiveMaterial; window.refreshHot=refreshHot;
 window.refreshMy=refreshMy; window.openAddHot=openAddHot; window.closeAddHot=closeAddHot; window.delMyEvent=delMyEvent; window.syncMyHot=syncMyHot; window.addMyEvent=addMyEvent; window.aiEnrichOne=aiEnrichOne; window.aiEnrichAll=aiEnrichAll;
-window.renderSchool=renderSchool; window.schoolSub=schoolSub; window.renderSchoolMap=renderSchoolMap; window.schoolZoneHTML=schoolZoneHTML; window.openAddSchool=openAddSchool; window.closeAddSchool=closeAddSchool; window.delSchoolEvent=delSchoolEvent; window.syncSchoolHot=syncSchoolHot; window.addSchoolEvent=addSchoolEvent; window.genShortFromSchool=genShortFromSchool; window.genLiveFromSchool=genLiveFromSchool; window.refreshSchool=refreshSchool;
+window.renderSchool=renderSchool; window.schoolSub=schoolSub; window.renderSchoolMap=renderSchoolMap; window.schoolZoneHTML=schoolZoneHTML; window.openAddSchool=openAddSchool; window.closeAddSchool=closeAddSchool; window.delSchoolEvent=delSchoolEvent; window.syncSchoolHot=syncSchoolHot; window.addSchoolEvent=addSchoolEvent; window.genShortFromSchool=genShortFromSchool; window.genLiveFromSchool=genLiveFromSchool; window.refreshSchool=refreshSchool; window.renderAllDynamics=renderAllDynamics; window.allDynRender=allDynRender; window.schoolDynCard=schoolDynCard; window.toggleSchoolDyn=toggleSchoolDyn; window.openAddSchoolFor=openAddSchoolFor;
 window.renderCollect=renderCollect; window.schoolCompleteness=schoolCompleteness; window.collectListHTML=collectListHTML; window.renderCollectList=renderCollectList; window.genSchoolBrief=genSchoolBrief; window.aiCollectOne=aiCollectOne; window.aiCollectBatch=aiCollectBatch; window.openSchoolFill=openSchoolFill; window.closeSchoolFill=closeSchoolFill; window.renderEduplan=renderEduplan; window.renderLive=renderLive;
 window.schoolSub=schoolSub; window.renderSchoolOverview=renderSchoolOverview; window.renderKeySchools=renderKeySchools; window.renderOpeningCalendar=renderOpeningCalendar; window.renderSchoolMap=renderSchoolMap; window.schoolDetail=schoolDetail; window.schoolDetailByName=schoolDetailByName; window.schoolDetailToTopic=schoolDetailToTopic; window.soView=soView; window.soRender=soRender; window.soRenderBody=soRenderBody; window.schoolCard=schoolCard; window.groupCards=groupCards; window.allSchools=allSchools; window.segOf=segOf; window.uniq=uniq; window.findSchool=findSchool; window.artSchool=artSchool; window.closeSchoolDetail=closeSchoolDetail; window.showOverlay=showOverlay; window.schoolScoreHTML=schoolScoreHTML; window.schoolClassHTML=schoolClassHTML; window.schoolPlacementHTML=schoolPlacementHTML; window.schoolCalendarHTML=schoolCalendarHTML; window.schoolCampusHTML=schoolCampusHTML; window.renderRival=renderRival; window.renderParent=renderParent;
 window.reviewLiveNew=reviewLiveNew; window.liveFilterQA=liveFilterQA;
@@ -1532,10 +1531,102 @@ function schoolSub(v){
   else if(v==='calendar') box.innerHTML=renderOpeningCalendar();
   else if(v==='map'){ box.innerHTML=renderSchoolMap(); mapRenderList('all','all'); }
   else if(v==='feed') box.innerHTML=schoolZoneHTML('AB',false);
+  else if(v==='alldynamics'){ box.innerHTML=renderAllDynamics(); allDynRender(); }
   else if(v==='rival') box.innerHTML=renderRival();
   else if(v==='parent') box.innerHTML=renderParent();
   document.querySelectorAll('#school .subtab').forEach(b=>b.classList.toggle('on', b.dataset.sv===v));
 }
+
+/* ===== 所有学校动态（逐校追踪太原各校动向） ===== */
+function renderAllDynamics(){
+  const schools=allSchools();
+  const districts=[...new Set(schools.map(s=>s.district))].sort();
+  const tiers=['一类重点','民办优质','公办一般','民办普通'];
+  let h='<p class="muted" style="margin:4px 0 10px">太原 <b>'+schools.length+'</b> 所学校动态逐校追踪。选「区县 / 层级」筛选，点校名展开看该校全部动态，可手动补。机构动态（教育局 / 招考中心等）在顶部「全市性动态」。</p>';
+  h+='<div class="alldyn-filter"><select id="adDist" onchange="allDynRender()"><option value="">全部区县</option>'+districts.map(d=>'<option>'+esc(d)+'</option>').join('')+'</select>'
+    +'<select id="adTier" onchange="allDynRender()"><option value="">全部层级</option>'+tiers.map(t=>'<option>'+esc(t)+'</option>').join('')+'</select>'
+    +'<label class="ad-chk"><input type="checkbox" id="adOnly" onchange="allDynRender()"> 只看有动态的</label>'
+    +'<input id="adSearch" class="mini" placeholder="搜校名" oninput="allDynRender()" style="width:140px"></div>';
+  h+='<div id="adBody"></div>';
+  return h;
+}
+function allDynRender(){
+  const box=document.getElementById('adBody'); if(!box) return;
+  rebuildSchool();
+  const schools=allSchools();
+  const dist=document.getElementById('adDist').value;
+  const tier=document.getElementById('adTier').value;
+  const only=document.getElementById('adOnly').checked;
+  const q=(document.getElementById('adSearch').value||'').trim();
+  const items=SCLALL;
+  const isOrg=function(s){ return /(局|中心|教研|招考|共同体|山西省|太原市|教科研|教育厅|考试管理中心)/.test(s||''); };
+  const orgItems=items.filter(function(it){ return isOrg(it.school); });
+  let h='';
+  if(orgItems.length){
+    h+='<div class="scl-group"><div class="scl-gtitle">📌 全市性 / 机构动态（影响所有学校） <span class="muted" style="font-size:12px">('+orgItems.length+')</span></div><div class="grid g2">';
+    orgItems.forEach(function(ev){ h+=schoolDynCard(ev); });
+    h+='</div></div>';
+  }
+  const matched=schools.filter(function(s){
+    if(dist && s.district!==dist) return false;
+    if(tier && s.tier!==tier) return false;
+    if(q && !((s.name||'').indexOf(q)>=0 || (s.short||'').indexOf(q)>=0 || (s.district||'').indexOf(q)>=0)) return false;
+    return true;
+  });
+  // 非机构动态归校（昵称也识别）+ 未归校的进「区域/其他」
+  const claimed={};
+  matched.forEach(function(s){ claimed[s.name]=items.filter(function(it){ return schoolDynMatch(it.school, s); }); });
+  const claimedSet={};
+  matched.forEach(function(s){ (claimed[s.name]||[]).forEach(function(it){ claimedSet[SCLALL.indexOf(it)]=true; }); });
+  const otherItems=items.filter(function(it){ return !isOrg(it.school) && !claimedSet[SCLALL.indexOf(it)]; });
+  h+='<div class="alldyn-list">';
+  matched.forEach(function(s){
+    const key=s.short||s.name;
+    const dyn=claimed[s.name]||[];
+    if(only && !dyn.length) return;
+    const latest=dyn[0];
+    const tierC = s.tier==='一类重点'?'t1':(s.tier&&s.tier.indexOf('民办')>=0?'tpri':'t2');
+    h+='<div class="schooldyn-card"><div class="sdc-head" onclick="toggleSchoolDyn(\''+escAttr(key)+'\')">'
+      +'<span class="badge '+tierC+'">'+esc(s.tier||'')+'</span>'
+      +'<b>'+esc(s.short||s.name)+'</b> <span class="muted">'+esc(s.district||'')+'</span>'
+      +(dyn.length?'<span class="ad-count">'+dyn.length+' 条动态</span>':'<span class="muted" style="font-size:12px">暂无动态</span>')
+      +'<button class="btn s o" onclick="event.stopPropagation();openAddSchoolFor(\''+escAttr(key)+'\')">➕补一条</button></div>';
+    if(latest) h+='<div class="sdc-latest">最新：'+esc(latest.title)+'</div>';
+    h+='<div class="sdc-body" id="sdd_'+escAttr(key)+'" style="display:none">';
+    if(dyn.length){ dyn.forEach(function(ev){ h+=schoolDynCard(ev); }); }
+    else h+='<p class="muted">该校暂无动态。点「➕补一条」把刷到的动态加进来（也能在首页 / 实时动态手动加，自动归到该校）。</p>';
+    h+='</div></div>';
+  });
+  h+='</div>';
+  if(otherItems.length){
+    h+='<div class="scl-group" style="margin-top:14px"><div class="scl-gtitle">📍 区域 / 其他动态（未精确到单校）</div><div class="grid g2">';
+    otherItems.forEach(function(ev){ h+=schoolDynCard(ev); });
+    h+='</div></div>';
+  }
+  box.innerHTML=h;
+}
+function schoolDynMatch(itemSchool, s){
+  if(!itemSchool) return false;
+  const ALIAS=window.SCHOOL_ALIASES||{};
+  const cand=[s.short, s.name].concat(s.aliases||[]).filter(Boolean);
+  for(const c of cand){ if(itemSchool.indexOf(c)>=0) return true; }
+  for(const nick in ALIAS){ if(itemSchool.indexOf(nick)>=0 && (ALIAS[nick]===s.name||ALIAS[nick]===s.short)) return true; }
+  return false;
+}
+function schoolDynCard(ev){
+  const idx=SCLALL.indexOf(ev);
+  const zc=ev.zone==='A'?'badge zoneA':'badge zoneB';
+  const zlabel=ev.zone==='A'?'老闫物理':(ev.zone==='B'?'张姐规划':'双号');
+  const srcb=ev._src==='mine'?'<span class="badge mine">我的</span>':(ev._src==='share'?'<span class="badge share">共享</span>':'<span class="badge auto">自动</span>');
+  const del=ev._src==='mine'?'<button class="btn s x" onclick="delSchoolEvent(\''+ev.id+'\')">✕删</button>':'';
+  return '<div class="card hot"><div class="arow"><span class="'+zc+'">'+zlabel+'</span>'+srcb+'</div>'
+    +'<div class="at">'+esc(ev.school?('【'+ev.school+'】'):'')+esc(ev.title)+'</div>'
+    +'<div class="aw">'+esc(ev.data||'')+'</div>'
+    +'<div class="row"><button class="btn s" onclick="genShortFromSchool('+idx+')">⚡ 短视频</button><button class="btn s o" onclick="genLiveFromSchool('+idx+')">📺 直播</button>'+favBtn('school','sc_'+ev.id,(ev.school||'')+ev.title)+del+'</div></div>';
+}
+function toggleSchoolDyn(id){ var el=document.getElementById('sdd_'+id); if(el) el.style.display = el.style.display==='none'?'block':'none'; }
+function openAddSchoolFor(name){ var el=document.querySelector('#addSchoolForm [data-k="as-school"]'); if(el) el.value=name; openAddSchool(); }
+
 function allSchools(){ return (window.SCHOOLS&&SCHOOLS.schools)||[]; }
 function segOf(s){ return ['高级中学','完全中学','十二年一贯制'].indexOf(s.type)>=0 ? 'high':'junior'; }
 function uniq(a){ var o={},r=[]; a.forEach(function(x){ if(!o[x]){o[x]=1;r.push(x);} }); return r; }
@@ -2050,6 +2141,7 @@ function renderSchool(){
     +'<button class="subtab" data-sv="rival" onclick="schoolSub(\'rival\')">🥊 竞品情报</button>'
     +'<button class="subtab" data-sv="parent" onclick="schoolSub(\'parent\')">👪 家长需求</button>'
     +'<button class="subtab" data-sv="feed" onclick="schoolSub(\'feed\')">📰 实时动态</button>'
+    +'<button class="subtab" data-sv="alldynamics" onclick="schoolSub(\'alldynamics\')">🏫 所有学校动态</button>'
     +'</div>';
   h+='<div id="schoolSub">'+renderSchoolOverview()+'</div>';
   $('#school').innerHTML=h;
