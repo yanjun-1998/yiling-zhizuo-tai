@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>亿领智作台 · 使用说明</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+    background:#f4f6fb;color:#1f2533;line-height:1.8;font-size:15px;padding:28px 16px 60px}
+  .wrap{max-width:820px;margin:0 auto;background:#fff;border-radius:16px;overflow:hidden;
+    box-shadow:0 8px 30px rgba(47,95,208,.10)}
+  .hd{background:linear-gradient(135deg,#2f5fd0,#5b86e5);color:#fff;padding:28px 30px}
+  .hd h1{font-size:22px;margin-bottom:6px}
+  .hd p{opacity:.92;font-size:13.5px}
+  .qrbox{display:flex;gap:22px;align-items:center;background:#fff;border-radius:12px;
+    padding:18px 20px;margin:20px 30px 0;box-shadow:0 4px 16px rgba(47,95,208,.08)}
+  .qrbox img{width:140px;height:140px;border-radius:10px;background:#fff;display:block}
+  .qrbox .meta{flex:1}
+  .qrbox .link{font-size:13px;word-break:break-all;color:#2f5fd0;font-weight:600}
+  .qrbox .pw{margin-top:8px;font-size:14px}
+  .qrbox .pw b{background:#fff3d6;color:#a36b00;padding:2px 10px;border-radius:6px;font-size:15px}
+  .bd{padding:8px 30px 30px}
+  h2{font-size:17px;color:#2f5fd0;margin:26px 0 10px;border-left:4px solid #2f5fd0;padding-left:10px}
+  h3{font-size:14.5px;margin:16px 0 6px;color:#1f2533}
+  p,li{font-size:14px;color:#333}
+  ul,ol{margin:6px 0 6px 22px}
+  li{margin:4px 0}
+  .card{background:#f7f9ff;border:1px solid #e3e9f7;border-radius:10px;padding:12px 16px;margin:10px 0}
+  .tag{display:inline-block;background:#eaf0ff;color:#2f5fd0;border-radius:6px;
+    padding:1px 9px;font-size:12.5px;margin-right:6px;font-weight:600}
+  .warn{background:#fff5f0;border:1px solid #ffd9c2;color:#a8430a;border-radius:10px;padding:12px 16px;margin:10px 0}
+  .ok{background:#f0fff4;border:1px solid #bdebca;color:#1a7a3c;border-radius:10px;padding:12px 16px;margin:10px 0}
+  .step{background:#fff;border:1px solid #e3e9f7;border-radius:10px;padding:12px 16px;margin:8px 0}
+  .step b{color:#2f5fd0}
+  code{background:#eef1f8;padding:1px 6px;border-radius:5px;font-size:13px;color:#333}
+  .foot{text-align:center;color:#9aa3b2;font-size:12.5px;margin-top:26px}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+  th,td{border:1px solid #e3e9f7;padding:7px 10px;text-align:left;vertical-align:top}
+  th{background:#f2f6ff;color:#2f5fd0;font-weight:600}
+  @media print{body{background:#fff;padding:0}.wrap{box-shadow:none}.qrbox{box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hd">
+    <h1>亿领智作台</h1>
+    <p>老闫物理（A） × 张姐规划（B）｜ 内容生产 · 引流 · 私域转化一站式工具</p>
+  </div>
+
+  <div class="qrbox">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAhIAAAISAQAAAACxRhsSAAADrUlEQVR42u2dQY7bMAxFifoAPpKv7iP5AAY0sSRSX27RLqagZvG8CMaJ8xeDB4qfpBQr375OQwMNNNBAAw000EADjf+qYf3annfsee/+vFzb54P9+XT/3D4f2PE8fFz+/FE1ftn3LzTQ+OvVOK3AdTDvRmzFsRLbbtt7DrB8DU7RSOP0CZFHBNCj0Vnfex6JAFoja+O5YQunaKzh1DqYfaFvf9UAejdO/Tk4RWMlp/1FE9f9tgEwnKLxE/LTftvZLT0NGD6K/BSNVZyG32/B8l8v+H00VnCqlapag6ppaLmjELVN3ur1Df6naGRxevXSaV33P5yWMrJScfktAxjpKpyikRtPu5mXNPTcPbw2+79Hprr7N1j30UjOT+eS1BRP/TawLZoVwCkaafG0VkhbnBzd0tZG1YSg10+dU9Z9NHLjaa83uenvnPZbL/t7L/W0LYiFUzQy1/1IPou0TDex/2PJ79WAy+AUjex46i0m91G3JgTF3dP4oKMMp2hkc+r56ahV9Sa/pwa3DTPFuo/Gqvw08k7NVM2H+45L01VvqMIpGqmc9mDpxFqM+WnBVEqnxFM00jmVOagjyql9JtrcM9V4Sv0UjcV+3+NkkfKT7DYxMVg36z4aS+LpIPHaxEL1K9zTPCoFp2hk+/0Im7sGS5mXqg+f8akks/xP0Uhb92+bcPQO6jzjL88RT9FY4fd1il/3R0V1tXiJdcRT+vto5Oanp8yaTjtLes5qbvCvKWeFUzSSOZ36+2N7ySE7T7cYR9ViP5yikZifhl1qw9Kx6VQygLBQYx8VnKKRGk99I7TE036NAerxnhnz/GisWvfD0Wunf5pSmYZRyE/RSF/3Y3yvW6hbHNWYTRkTKX1sGk7RyOQ0zPxo3r92SmlJym0VnKKxyu+fvitKJ6JiV1RsSR3Ywikayev+ZbHHZG73y5Ep3VuNDiqcopHH6a7zp2qhyq0G316bpOAUjcx1v7zOiZ6ap34UStFTfNtzcIpGan7aqLt1oZd0dQ+KfQ6FuhQa6/x+lKTst/lTbe071HCKRv66rxN+4vKLzPrJXBXzp2is8PvmeeceJ6NIz386XFJOQoVTNHLX/eg9jSPPZ/t/2nzaNHPSaORz6vtN9fi+fZo/ff8QCnMoaCzlVH8hapyHIg2AYzgvOEVjCacWEym6sptv4fvDr0zAKRr5+anPQU0n9801AP0GnKKxxO+Pw9BGwXTqVm2CKPEUjVRO+V1iNNBAAw000EADDTR+hsYXVbsTgWuUtpgAAAAASUVORK5CYII=" alt="工作台二维码">
+    <div class="meta">
+      <div style="font-weight:700;margin-bottom:4px">扫码访问（手机/电脑浏览器均可）</div>
+      <div class="link">https://1e82f75555f54f10877a320bdd75aba9.gz2.agentos-app.net</div>
+      <div class="pw">打开密码：<b>324</b>（输入一次，本机记住）</div>
+    </div>
+  </div>
+
+  <div class="bd">
+
+    <h2>一、这是什么</h2>
+    <p>一个<strong>夫妻二人自己用的 AI 内容生产工作台</strong>，不是给学员用的平台。核心目的：提效做个人 IP、内容引流转私域、再做咨询/课程变现。所有功能（选题、脚本、素材、情报）都围绕"出稿→成稿箱→复制发布"这条主线。</p>
+    <div class="ok">✅ 手机、电脑浏览器都能用，数据在云端，每天 <b>早 8 点 / 晚 8 点</b> 自动更新一次（时事、情报、今日行动台）。</div>
+
+    <h2>二、八大模块速览</h2>
+    <table>
+      <tr><th>Tab</th><th>作用</th><th>谁用</th></tr>
+      <tr><td><span class="tag">首页</span></td><td>今日行动台（每天自动排好的选题+口播稿）+ 双号时事入口</td><td>共用</td></tr>
+      <tr><td><span class="tag">物理中心</span></td><td>初高中物理选题/脚本/知识点/太原中考高考物理考法</td><td>老闫 A</td></tr>
+      <tr><td><span class="tag">政治中心</span></td><td>政治学科选题/主观题批改/时政</td><td>张姐 B</td></tr>
+      <tr><td><span class="tag">升学规划中心</span></td><td>小升初/中考/高考政策、定向生、山西高校就业、职业库</td><td>张姐 B</td></tr>
+      <tr><td><span class="tag">脚本工厂</span></td><td>各类选题→口播稿生成器 + 成稿箱镜像</td><td>共用</td></tr>
+      <tr><td><span class="tag">公共中台</span></td><td>对标拆解库 / 人设账号卡 / 发布日历 / 粉丝问题池</td><td>共用</td></tr>
+      <tr><td><span class="tag">直播工作台</span></td><td>直播脚本（手播/露脸双版）、开播物料包、清单、复盘，就地生成</td><td>张姐 B 主用</td></tr>
+      <tr><td><span class="tag">太原教育情报站</span></td><td>太原/山西各校、教研科研中心最新动态（自动+手动）</td><td>共用</td></tr>
+    </table>
+
+    <h2>三、核心使用流程</h2>
+
+    <h3>① 生成短视频口播稿</h3>
+    <div class="step"><b>步骤：</b>进任意模块（首页/物理中心/政治中心/升学规划）→ 找到「🔥 实时时事」区 → 点某条热点的 <b>生成短视频</b> → 稿子自动进右下角「📋 成稿箱」。</div>
+    <p>成稿是<strong>一段连贯能照读的口播稿</strong>（钩子带角度切入 → 身份 → 结论带数据 → 操作 → 引导），不再是一段一段的碎片。</p>
+
+    <h3>② 直播工作台（张姐主用）</h3>
+    <div class="step"><b>步骤：</b>进「直播工作台」→ 选账号、填<b>直播主题</b> → 点 <b>⚡ 生成开播物料包</b>。</div>
+    <p>物料包会<strong>跟着你填的主题动态生成</strong>：PPT 分镜、志愿卡文字、数据截图清单（按主题关键词匹配，如"国企"→校招截图、"物理"→实验题模板）、福袋设置、本场钩子话术、相关高频 QA，全部代入主题，直接显示在直播页本页（不跳走）。</p>
+    <p>另有：直播脚本（手播/露脸双版）、开播前清单、直播复盘表，均就地生成、可多条叠加。</p>
+
+    <h3>③ 补录"我刷到的热点"（极简）</h3>
+    <div class="step"><b>步骤：</b>在时事区点 <b>➕ 我刷到的热点</b> → 只填一句话「看到了什么」（+ 可选来源平台）→ 存本机。</div>
+    <p>其余字段（角度/数据/钩子/选题）留空会自动标记"待补全"。想填细再点「展开填更多」。</p>
+
+    <h3>④ 太原教育情报站</h3>
+    <p>看自动抓取的太原/山西各校、教研动态即可；想加自己刷到的，点「➕ 我刷到的学校/教研动态」填表，存本机即时出稿。</p>
+
+    <h3>⑤ 成稿箱（📋 右下角悬浮按钮）</h3>
+    <p>所有生成的内容都累积在这里，按类型打标签（短视频/直播/直播物料/清单/复盘），每条可<strong>单独复制、下载、删除</strong>。还有「🧩 合并全部」按钮，把多条拼成一篇。本机持久化，刷新不丢。</p>
+
+    <h2>四、AI 补全怎么用（让"只填事件名"变完整）</h2>
+    <div class="warn">⚠️ 纯网页本身不能联网搜索。所以"剩下的由工作台去搜索"这一步，发生在<strong>你和我的对话里</strong>。</div>
+    <div class="step">
+      <b>三步：</b><br>
+      1. 你只填事件名存好（标记为待补全）；<br>
+      2. 在本对话里发一句「<b>补全：XXX</b>」给我；<br>
+      3. 我联网搜完、写进共享库并重部署 → 你俩刷新就看到带角度/数据/钩子/选题的完整版。
+    </div>
+    <p>也可以在工作台点「🤖 AI补全待补」按钮，它会复制成一段"请搜索补全"的请求，你转给我即可。</p>
+
+    <h2>五、合规红线（务必遵守）</h2>
+    <div class="warn">
+      🚫 <b>对外绝对不提</b>：国企、太钢、纪检、在职单位、任何内部信息。<br>
+      ✅ 男方只以"7年初高中物理兼职老师"身份出镜；女方以"张姐规划/校长"身份。<br>
+      ✅ 国企/央企就业类内容，只讲<b>公开信息</b>和普遍规律，不暗示能帮忙、不碰内部。<br>
+      ✅ 变现主体用"亿领教育咨询工作室"，与国企身份隔离。
+    </div>
+
+    <h2>六、手机使用贴士</h2>
+    <div class="ok">✅ 已修复：手机端不再自动缩放、不再有白边（输入框字号已调到 16px 防 iOS 放大，窄屏自动适配）。</div>
+    <ul>
+      <li>建议把链接「添加到主屏幕」，像 App 一样用。</li>
+      <li>手动补录的内容存在<strong>本机浏览器</strong>，换手机/清缓存会丢；想夫妻共享要走「☁ 同步云端」共享库。</li>
+      <li>每天早 8 / 晚 8 自动刷新，打开即是当天最新时事。</li>
+    </ul>
+
+    <h2>七、常见问题</h2>
+    <ul>
+      <li><b>打不开 / 白屏？</b> 确认密码输的是 <code>324</code>；或刷新一下等几秒（首次加载需拉取云端数据）。</li>
+      <li><b>直播物料包没出现？</b> 在「直播工作台」页本页顶部「📤 本场成稿」区查看，生成后直接显示在这里。</li>
+      <li><b>生成的内容是旧的？</b> 等下一个自动更新点（早8/晚8），或让我手动重部署。</li>
+      <li><b>想加新功能？</b> 直接在对话里说，我改完随下次自动部署上线。</li>
+    </ul>
+
+    <div class="foot">亿领智作台 · 使用说明 · 生成于 2026-08-06</div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>亿领智作台</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <span class="logo">YL</span>
+      <div>
+        <h1>亿领智作台</h1>
+        <p>老闫物理 × 张姐规划 ｜ 内容生产 · 选题 · 脚本 · 合规 ｜ 内部提效，请勿外传</p>
+      </div>
+    </div>
+    <div class="today" id="today"></div>
+    <button class="lock-btn" id="relockBtn">🔒 锁定</button>
+  </div>
+</header>
+
+<nav class="nav">
+  <div class="wrap navwrap">
+    <button class="tab on" data-v="home">首页 · 今日行动</button>
+    <button class="tab" data-v="zoneA">物理中心</button>
+    <button class="tab" data-v="politics">政治中心</button>
+    <button class="tab" data-v="eduplan">升学规划中心</button>
+    <button class="tab" data-v="factory">脚本工厂</button>
+    <button class="tab" data-v="live">直播工作台</button>
+    <button class="tab" data-v="school">太原教育情报站</button>
+    <button class="tab" data-v="hub">公共中台</button>
+  </div>
+</nav>
+
+<main class="wrap">
+  <section id="home" class="view on"></section>
+  <section id="zoneA" class="view"></section>
+  <section id="politics" class="view"></section>
+  <section id="eduplan" class="view"></section>
+  <section id="factory" class="view"></section>
+  <section id="live" class="view"></section>
+  <section id="school" class="view"></section>
+  <section id="hub" class="view"></section>
+</main>
+
+<footer class="ft">
+  <div class="wrap">
+    <p>架构：1 统一入口 + 3 大业务模块（物理 / 政治 / 升学）+ 1 公共中台 ｜ 数据来源：7 本运营手册 + 战略决策 + 每日热点 ｜ 自用，勿外传</p>
+    <p class="warn">身份红线：对外身份仅为「太原初高中物理老师 / 教育咨询」，任何内容不得出现工作单位信息。</p>
+  </div>
+</footer>
+
+<button class="draft-fab" id="draftFab">📋 成稿 <span id="draftCount">0</span></button>
+<div class="draft-panel hide" id="draftPanel">
+  <div class="draft-head">
+    <span>📋 我的成稿箱</span>
+    <span class="muted" style="font-size:12px">点开任意成稿 → 复制 / 下载，按类型分好、不覆盖</span>
+    <span class="draft-head-btns"><button class="btn s o" id="draftMerge">🧩 合并全部</button><button class="btn s x" id="draftClear">清空</button><button class="btn s" id="draftClose">收起</button></span>
+  </div>
+  <div class="draft-list" id="draftList"></div>
+</div>
+<div class="toast" id="toast"></div>
+
+<div class="lock-overlay" id="lockOverlay">
+  <div class="lock-box">
+    <div class="lk">🔐</div>
+    <h3>工作台已上锁</h3>
+    <p>输入访问密码后使用（内部工具，请勿外传）</p>
+    <div class="lock-err" id="lockErr"></div>
+    <input id="lockInput" type="password" inputmode="numeric" pattern="[0-9]*" placeholder="•••" autocomplete="off">
+    <button id="lockBtn">解锁</button>
+  </div>
+</div>
+
+<div class="lock-overlay hide" id="addHotOverlay">
+  <div class="lock-box" style="max-width:480px;text-align:left">
+    <h3>➕ 我刷到的热点</h3>
+    <p class="muted" style="margin:2px 0 12px">只填「看到了什么」，剩下的交给 AI 搜索补齐（存本机后点「🤖 AI补全」发我就行）。</p>
+    <div id="addHotForm" class="form2">
+      <label class="fld"><span>看到了什么 *</span><input data-k="ah-title" placeholder="如：太原中考补报8/7截止"></label>
+      <label class="fld"><span>从哪个平台刷到的</span><select data-k="ah-src"><option value="">不清楚/其他</option><option value="抖音">抖音</option><option value="视频号">视频号</option><option value="小红书">小红书</option><option value="微博">微博</option><option value="公众号">公众号</option></select></label>
+      <details class="more" style="margin:2px 0">
+        <summary style="font-size:13px;color:var(--ink3);cursor:pointer">展开填更多（可选，不填也能存）</summary>
+        <div style="margin-top:8px">
+          <label class="fld"><span>账号</span><select data-k="ah-zone"><option value="B">张姐规划 B</option><option value="A">老闫物理 A</option><option value="AB">双号都可</option></select></label>
+          <label class="fld"><span>优先级</span><select data-k="ah-pri"><option value="P1">P1 建议今天发</option><option value="P0">P0 必须今天发</option><option value="P2">P2 可发可不发</option></select></label>
+          <label class="fld"><span>切入角度</span><input data-k="ah-angle" placeholder="政策解读/避坑/数据盘点"></label>
+          <label class="fld"><span>关键数据</span><input data-k="ah-data" placeholder="分数线/时间/数字"></label>
+          <label class="fld"><span>开场钩子</span><input data-k="ah-hook" placeholder="前3秒说的话，≤30字"></label>
+          <label class="fld"><span>短视频选题</span><input data-k="ah-topic" placeholder="标题式"></label>
+          <label class="fld"><span>直播主题</span><input data-k="ah-live" placeholder="直播讲什么"></label>
+        </div>
+      </details>
+    </div>
+    <div class="row" style="margin-top:14px">
+      <button class="btn" id="addHotSave">存本机</button>
+      <button class="btn o" id="addHotSync">☁ 同步云端</button>
+      <button class="btn x" id="addHotCancel">取消</button>
+    </div>
+  </div>
+</div>
+
+<div class="lock-overlay hide" id="addSchoolOverlay">
+  <div class="lock-box" style="max-width:480px;text-align:left">
+    <h3>➕ 我刷到的学校/教研动态</h3>
+    <p class="muted" style="margin:2px 0 12px">填关键字段 → 存本机即可出稿；想让爱人也能用，点「☁ 同步云端」把代码发给我（AI）。</p>
+    <div id="addSchoolForm" class="form2">
+      <label class="fld"><span>学校/机构 *</span><input data-k="as-school" placeholder="如：山大附中 / 太原市教研科研中心"></label>
+      <label class="fld"><span>类型</span><select data-k="as-type"><option value="edu">教育局/教研中心</option><option value="hs">高中名校</option><option value="ms">初中名校</option><option value="researcher">教研员观点</option></select></label>
+      <label class="fld"><span>动态标题 *</span><input data-k="as-title" placeholder="如：XX校2026特长生招生启动"></label>
+      <label class="fld"><span>账号</span><select data-k="as-zone"><option value="B">张姐规划 B</option><option value="A">老闫物理 A</option><option value="AB">双号都可</option></select></label>
+      <label class="fld"><span>优先级</span><select data-k="as-pri"><option value="P1">P1 建议今天发</option><option value="P0">P0 必须今天发</option><option value="P2">P2 可发可不发</option></select></label>
+      <label class="fld"><span>切入角度</span><input data-k="as-angle" placeholder="招生/命题风向/政策解读"></label>
+      <label class="fld"><span>关键数据</span><input data-k="as-data" placeholder="时间/分数线/数字"></label>
+      <label class="fld"><span>开场钩子</span><input data-k="as-hook" placeholder="前3秒说的话，≤30字"></label>
+      <label class="fld"><span>短视频选题</span><input data-k="as-topic" placeholder="标题式"></label>
+      <label class="fld"><span>直播主题</span><input data-k="as-live" placeholder="直播讲什么"></label>
+      <label class="fld"><span>来源</span><input data-k="as-src" placeholder="我刷到的/公众号/官网"></label>
+    </div>
+    <div class="row" style="margin-top:14px">
+      <button class="btn" id="addSchoolSave">存本机</button>
+      <button class="btn o" id="addSchoolSync">☁ 同步云端</button>
+      <button class="btn x" id="addSchoolCancel">取消</button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/data-core.js"></script>
+<script src="assets/data-methods.js"></script>
+<script src="assets/data-a.js"></script>
+<script src="assets/data-physics-content.js"></script>
+<script src="assets/data-politics.js"></script>
+<script src="assets/data-eduplan.js"></script>
+<script src="assets/data-tpl.js"></script>
+<script src="assets/data-strategy.js"></script>
+<script src="assets/data-today.js"></script>
+<script src="assets/today-feed.js"></script>
+<script src="assets/hot-events.js"></script>
+<script src="assets/my-events.js"></script>
+<script src="assets/school-news.js"></script>
+<script src="assets/school-shared.js"></script>
+<script src="assets/data-live.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
