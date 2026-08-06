@@ -705,6 +705,236 @@ function renderLive(){
   liveFilterQA('all');
 }
 
+/* ===== 文案中心（朋友圈 + 公众号推文 + 导出） ===== */
+var CP_MOMENT=[]; var CP_ARTICLE='';
+function copyMomentPool(zone){ return (window.COPY && COPY.moment[zone])||[]; }
+function allSchoolList(){
+  var hs=(window.SCHOOLS&&SCHOOLS.highSchools)||[], js=(window.SCHOOLS&&SCHOOLS.juniorSchools)||[];
+  return hs.concat(js);
+}
+function findSchool(name){
+  if(!name) return null;
+  return allSchoolList().filter(function(s){return s.name===name||s.short===name;})[0]||null;
+}
+function genMoment(zone, theme, school){
+  var pool=copyMomentPool(zone).slice();
+  for(var i=pool.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=pool[i];pool[i]=pool[j];pool[j]=t;}
+  var picks=pool.slice(0,3);
+  var cta=(window.COPY&&COPY.cta[zone])||'评论区扣「资料」领取。';
+  var nm=zone==='A'?'老闫':'张姐';
+  var intro=zone==='A'?'我是老闫，太原10年初高中物理。':'我是张姐，太原教育咨询第5年。';
+  var schFact='';
+  var m=findSchool(school);
+  if(m){
+    if(m.score2026) schFact=m.short+' 2026录取线 '+m.score2026+' 分';
+    else if(m.mid2025) schFact=m.short+' 中考均分 '+m.mid2025;
+    else if(m.rate1) schFact=m.short+' 一本率约 '+m.rate1;
+  }
+  var th=(theme?'【'+theme+'】'+(school?'·'+school:''):'')+'\n';
+  var cards=[];
+  cards.push(th+picks[0]+'\n\n'+cta);
+  if(schFact) cards.push(intro+'\n刚扒到 '+schFact+'。'+(theme?('\n关于'+theme+'，'):'\n')+'想了解更细，评论区扣「资料」。');
+  else cards.push(intro+'\n'+picks[1]+'\n\n'+cta);
+  cards.push(picks[2]+'\n\n'+(school?('以'+school+'为例，'):'')+(theme?('关于'+theme+'，'):'')+'我的建议：先弄清楚规则，再谈努力。\n\n'+cta);
+  return cards;
+}
+/* —— 公众号推文：版式（与你样例一致） —— */
+var ARTICLE_CSS=`:root{--wx:#07c160;--ink:#1a1a1a;--sub:#666;--bg:#ededed;--card:#fff;--accent:#2b6cb0;--warn:#c0392b;--gold:#b45309}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}
+.phone{max-width:430px;margin:0 auto;background:var(--card);min-height:100vh;box-shadow:0 2px 18px rgba(0,0,0,.12);overflow:hidden}
+.mp-head{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid #f0f0f0}
+.mp-avatar{width:34px;height:34px;border-radius:6px;background:linear-gradient(135deg,#ff7a45,#ff4d4f);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+.mp-name{font-size:15px;font-weight:600;color:#222}
+.mp-sub{font-size:11px;color:#999}
+.mp-follow{margin-left:auto;background:var(--wx);color:#fff;font-size:12px;padding:5px 12px;border-radius:4px;font-weight:600}
+.cover{height:200px;background:linear-gradient(135deg,#1e3a8a 0%,#0ea5e9 100%);position:relative;display:flex;align-items:flex-end;padding:18px}
+.cover .ctext{color:#fff}
+.cover h1{margin:0;font-size:20px;line-height:1.4;font-weight:800;text-shadow:0 1px 4px rgba(0,0,0,.3)}
+.cover .csub{font-size:12px;opacity:.92;margin-top:6px}
+.article{padding:20px 18px 40px}
+.title{font-size:21px;font-weight:800;line-height:1.4;color:var(--ink);margin:0 0 10px}
+.byline{font-size:12px;color:#999;margin-bottom:18px;border-bottom:1px solid #f2f2f2;padding-bottom:12px}
+.lead{background:#f7f9fc;border-left:4px solid var(--accent);padding:12px 14px;border-radius:0 8px 8px 0;font-size:15px;color:#333;line-height:1.7;margin-bottom:22px}
+h2.sec{font-size:18px;font-weight:800;color:#fff;background:linear-gradient(90deg,#2563eb,#0ea5e9);display:inline-block;padding:6px 14px;border-radius:0 12px 12px 0;margin:26px 0 14px}
+h3.sub{font-size:15px;color:var(--gold);font-weight:800;margin:16px 0 6px}
+.p{font-size:15.5px;line-height:1.8;color:#2b2b2b;margin:0 0 14px}
+.tip{background:#fff7e6;border:1px solid #ffe08a;border-radius:10px;padding:12px 14px;font-size:14px;color:#7a5b00;line-height:1.7;margin:14px 0}
+.timeline{margin:0 0 8px;padding:0;list-style:none}
+.timeline li{position:relative;padding:10px 0 10px 22px;border-left:2px solid #d6e4ff;margin-left:6px}
+.timeline li:last-child{border-left-color:transparent}
+.timeline li::before{content:"";position:absolute;left:-7px;top:14px;width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px #e8f0fe}
+.tl-date{display:inline-block;background:#e8f0fe;color:#1d4ed8;font-weight:700;font-size:13px;padding:2px 9px;border-radius:6px;margin-right:8px}
+.tl-school{font-size:15px;color:#1a1a1a;font-weight:600}
+.tl-note{font-size:12.5px;color:#888;margin-top:3px;display:block}
+.kv{margin:0;padding:0;list-style:none}
+.kv li{display:flex;gap:8px;padding:5px 0;border-bottom:1px dashed #eee;font-size:14px;line-height:1.6}
+.kv li .k{color:var(--accent);font-weight:700;min-width:74px;flex-shrink:0}
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0}
+.tbl th{background:#e8f0fe;color:#1d4ed8;padding:7px 8px;text-align:left}
+.tbl td{padding:7px 8px;border-bottom:1px solid #eee}
+.footer-cta{margin-top:30px;background:linear-gradient(135deg,#eef6ff,#f7f0ff);border-radius:14px;padding:18px;text-align:center}
+.footer-cta .big{font-size:16px;font-weight:800;color:#222}
+.footer-cta .sm{font-size:13px;color:#666;margin-top:6px;line-height:1.7}
+.end{text-align:center;color:#bbb;font-size:12px;margin:26px 0 6px;letter-spacing:2px}
+.tagrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.tagrow span{background:#f2f4f7;color:#555;font-size:12px;padding:4px 10px;border-radius:20px}
+.hl{color:var(--warn);font-weight:800}
+.solid{color:var(--accent);font-weight:700}`;
+function mpHeadHTML(c){c=c||{};return '<div class="mp-head"><div class="mp-avatar">'+(c.avatarText||'并州')+'</div><div><div class="mp-name">'+(c.mpName||'太原升学指南')+'</div><div class="mp-sub">'+(c.mpSub||'本地教育资讯')+'</div></div><div class="mp-follow">+ 关注</div></div>';}
+function coverHTML(c,title,sub){c=c||{};return '<div class="cover"><div class="ctext"><h1>'+esc(title)+'</h1><div class="csub">'+(sub||'')+'</div></div></div>';}
+function endHTML(){return '<div class="footer-cta"><div class="big">📩 觉得有用？三连支持一下</div><div class="sm">点「在看」+「赞」+「转发」到家长群<br>下期想看哪所学校的深度解读？留言告诉我们</div></div><div class="tagrow"><span>#太原升学</span><span>#太原家长</span><span>#2026级新生</span></div><div class="end">—  END  —</div>';}
+function escAttr(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function dateStr(){var d=new Date();var p=function(n){return('0'+n).slice(-2);};return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate());}
+
+function artOpening(o){
+  var cal=(window.SCHOOL_CAL&&SCHOOL_CAL.opening2026)||[];
+  var items=cal.slice().sort(function(a,b){var pa=(a.exam||'').match(/(\d+)\/(\d+)/),pb=(b.exam||'').match(/(\d+)\/(\d+)/);if(!pa)return 1;if(!pb)return -1;return (pa[1]-pb[1])||(pa[2]-pb[2]);});
+  var tl=items.map(function(it){return '<li><span class="tl-date">'+(it.exam||'-')+'</span><span class="tl-school">'+esc(it.school)+'</span><span class="tl-note">'+(it.examSubjects||'')+(it.src?(' · '+it.src):'')+'</span></li>';}).join('');
+  var tiers=(window.SCHOOL_CAL&&SCHOOL_CAL.keyClassTiers)||[];
+  var sec3=tiers.map(function(t){return '<h2 class="sec">'+esc(t.school)+'</h2><p class="p">班型梯度：'+esc((t.tiers||[]).join(' &gt; '))+'</p><ul class="kv"><li><span class="k">分班依据</span><span>'+esc(t.rule||'')+'</span></li><li><span class="k">来源</span><span>'+esc(t.src||'')+'</span></li></ul>';}).join('');
+  return '<div class="lead">8月已到，准初一、准高一家长最关心：<b>什么时候分班？有没有分班考试？</b>我们把太原市官方编班节点 + 各校已公布的分班考时间整理成这一篇最全汇总。建议<b>收藏+转发</b>到家庭群。</div>'
+    +'<h2 class="sec">一、初一（初中）：先说结论——没有"分班考"</h2>'
+    +'<p class="p">2026年太原市义务教育已全面推行<b>阳光分班 / 均衡编班</b>，电脑随机派位，<span class="hl">严禁重点班、快慢班</span>。政策层面<b>不存在选拔性质的"分班考试"</b>，只有统一的"均衡编班日"。</p>'
+    +'<div class="tip">⚠️ 部分热门初中会在开学前后自行组织<b>学情摸底测试</b>，用于了解基础、方便教学分层，<b>不影响官方均衡编班结果</b>。以学校官方通知为准。</div>'
+    +'<h2 class="sec">二、高一（高中）：分班考合规，时间集中在8月中旬</h2>'
+    +'<p class="p">高中分班考试由各校自主安排，普遍采用"中考成绩×权重 + 入学摸底考×权重"综合排名分班。目前已汇总到的考试时间如下：</p>'
+    +'<ul class="timeline">'+tl+'</ul>'
+    +'<div class="tip">📌 标"官方"的来自各校新生报到须知，可信度最高；其余来自本地教育机构汇总，<b>建议以学校最新通知复核</b>。</div>'
+    +'<h2 class="sec">三、三所一类校班型梯度</h2>'+sec3
+    +'<h2 class="sec">四、给家长的 3 条提醒</h2>'
+    +'<p class="p">1️⃣ 初一家长：不用焦虑"分班考"，均衡编班电脑随机、结果公平。<br>2️⃣ 高一家长：若目标校有分班考，假期别全放，适度复习初中核心知识（数学、英语、物理）。<br>3️⃣ 所有时间以官方为准，关注孩子录取通知书及学校官方公众号。</p>';
+}
+function artSchool(o){
+  var m=findSchool(o.school);
+  if(!m) return '<p class="p">未找到该校数据，换个关联学校或在情报站补充。</p>';
+  var h='<div class="lead"><b>'+esc(m.short||m.name)+'</b> 位于'+esc(m.district||'')+'，'+esc(m.nature||'')+'，属<b>'+(m.tier||'')+'</b>梯队。下面是家长最想了解的硬信息。</div>';
+  h+='<ul class="kv">';
+  if(m.addr) h+='<li><span class="k">地址</span><span>'+esc(m.addr)+'</span></li>';
+  if(m.official) h+='<li><span class="k">官方</span><span>'+esc(m.official)+'</span></li>';
+  if(m.score2026) h+='<li><span class="k">2026录取线</span><span>'+esc(m.score2026)+' 分</span></li>';
+  if(m.score2nd) h+='<li><span class="k">定向/二批</span><span>'+esc(m.score2nd)+'</span></li>';
+  if(m.mid2025) h+='<li><span class="k">中考均分</span><span>'+esc(m.mid2025)+'</span></li>';
+  if(m.feature) h+='<li><span class="k">特色</span><span>'+esc(m.feature)+'</span></li>';
+  if(m.classes) h+='<li><span class="k">班型</span><span>'+esc(m.classes)+'</span></li>';
+  if(m.tuition) h+='<li><span class="k">学费</span><span>'+esc(m.tuition)+'</span></li>';
+  if(m.rate1) h+='<li><span class="k">一本率</span><span>'+esc(m.rate1)+'</span></li>';
+  h+='</ul>';
+  var kt=(window.SCHOOL_CAL&&SCHOOL_CAL.keyClassTiers||[]).filter(function(t){return (m.short&&t.school.indexOf(m.short)>=0)||t.school===m.name;})[0];
+  if(kt){h+='<h2 class="sec">班型梯度</h2><p class="p">'+(kt.tiers||[]).join(' &gt; ')+'</p><ul class="kv"><li><span class="k">分班依据</span><span>'+esc(kt.rule||'')+'</span></li></ul>';}
+  var ex=(window.EXAM&&EXAM.gaokao2025||[]).filter(function(e){return e.school===m.name||(m.short&&e.school.indexOf(m.short)>=0);})[0];
+  if(ex){h+='<h2 class="sec">近年高考出口</h2><ul class="kv"><li><span class="k">清北</span><span>'+esc(ex.qingbei||'-')+'</span></li><li><span class="k">985率</span><span>'+esc(ex.rate985||'-')+'</span></li><li><span class="k">一本率</span><span>'+esc(ex.rate1||'-')+'</span></li><li><span class="k">600+</span><span>'+esc(ex.top600||'-')+'</span></li></ul>';}
+  h+='<div class="tip">💡 以上数据整理于 2026-08-06，来自各校公开喜报与官方公告，<b>以学校最新发布为准</b>。</div>';
+  return h;
+}
+function artZhongkao(o){
+  var u=(window.EXAM&&EXAM.zhongkao2026&&EXAM.zhongkao2026.unified)||[];
+  var rows=u.map(function(r){return '<tr><td>'+esc(r.school)+'</td><td>'+esc(r.score)+'</td></tr>';}).join('');
+  return '<div class="lead">2026太原中考总分 <b>'+(window.EXAM.zhongkao2026.total||'')+'</b> 分，最低控制线 <b>'+(window.EXAM.zhongkao2026.controlLine||'')+'</b> 分。以下为一类/二类校统招录取线（数据来自太原市招考中心）：</div>'
+    +'<table class="tbl"><thead><tr><th>学校</th><th>2026录取线</th></tr></thead><tbody>'+rows+'</tbody></table>'
+    +'<div class="tip">📌 定向生录取线≤统招线下50分且≥控制线；未用完计划二次定向，再转统招。具体以官方公告为准。</div>';
+}
+function artGaokao(o){
+  var g=(window.EXAM&&EXAM.gaokao2025)||[];
+  var cards=g.map(function(e){return '<h2 class="sec">'+esc(e.school)+'</h2><ul class="kv"><li><span class="k">清北</span><span>'+esc(e.qingbei||'-')+'</span></li><li><span class="k">C9</span><span>'+esc(e.c9||'-')+'</span></li><li><span class="k">985率</span><span>'+esc(e.rate985||'-')+'</span></li><li><span class="k">一本率</span><span>'+esc(e.rate1||'-')+'</span></li><li><span class="k">600+</span><span>'+esc(e.top600||'-')+'</span></li></ul><p class="p">'+esc(e.note||'')+'</p>';}).join('');
+  return '<div class="lead">2025是山西新高考首届，下面是太原一类校公开出口数据（来自各校喜报，以官方为准）：</div>'+cards;
+}
+function artPolicy(o){
+  var p=window.POLICY||{};
+  var h='<div class="lead">太原家长必须搞懂的政策规则，一次讲清（整理自山西省招考中心/太原市教育局）。</div>';
+  if(p.gaokao){h+='<h2 class="sec">高考：3+1+2</h2><p class="p">'+(p.gaokao.desc||'')+'</p><ul class="kv">'+(p.gaokao.keys||[]).map(function(k){return '<li><span class="k">·</span><span>'+esc(k)+'</span></li>';}).join('')+'</ul>';}
+  if(p.zhongkao){h+='<h2 class="sec">中考：总分/录取</h2><ul class="kv">'
+    +'<li><span class="k">总分</span><span>'+esc(p.zhongkao.total2026||'')+' 分（2025为'+esc(p.zhongkao.total2025||'')+'）</span></li>'
+    +'<li><span class="k">构成</span><span>'+esc(p.zhongkao.breakdown2026||'')+'</span></li>'
+    +'<li><span class="k">控制线</span><span>'+esc(p.zhongkao.controlLine2026||'')+'</span></li>'
+    +'<li><span class="k">录取</span><span>'+esc(p.zhongkao.admitMode||'')+'</span></li>'
+    +'<li><span class="k">定向生</span><span>'+esc(p.zhongkao.dxs||'')+'</span></li>'
+    +'<li><span class="k">特长生</span><span>'+esc(p.zhongkao.tcStudent||'')+'</span></li></ul>';}
+  if(p.zhaosheng){h+='<h2 class="sec">招生：公民同招/摇号</h2><ul class="kv"><li><span class="k">原则</span><span>'+esc(p.zhaosheng.citizenSameRecruit||'')+'</span></li><li><span class="k">民办摇号</span><span>'+esc(p.zhaosheng.miniShakeTime||'')+'</span></li><li><span class="k">转公校</span><span>'+esc(p.zhaosheng.transformedPublic||'')+'</span></li></ul>';}
+  h+='<div class="tip">⚠️ 政策年度可能微调，最终以山西省招考中心、太原市教育局官方发布为准。</div>';
+  return h;
+}
+function artCustom(o){
+  var th=o.theme||'太原教育最新动态';
+  var feed=(window.HOT&&HOT.events)||[];
+  var ev=feed.length?feed[0]:null;
+  var h='<div class="lead">'+(ev?esc(ev.hook||th):th)+'——今天用一条视频/一篇推文说清楚。</div>';
+  if(ev){h+='<h2 class="sec">事件速览</h2><ul class="kv"><li><span class="k">事件</span><span>'+esc(ev.title||'')+'</span></li><li><span class="k">角度</span><span>'+esc(ev.angle||'')+'</span></li><li><span class="k">数据</span><span>'+esc(ev.data||'')+'</span></li><li><span class="k">来源</span><span>'+esc(ev.src||'')+'</span></li></ul>';}
+  h+='<p class="p">'+esc(th)+'这件事，家长最容易踩的坑是只看表面、不看规则。下面把关键点拆开讲。</p>';
+  h+='<h2 class="sec">关键提醒</h2><p class="p">① 先弄清政策与时间点；② 结合孩子实际定位；③ 提前准备材料与路径。具体可评论区扣「资料」领取整理好的要点。</p>';
+  return h;
+}
+function defaultTitle(o){
+  if(o.preset==='opening') return '太原初一、高一分班考试时间，最全一版汇总！家长请收好';
+  if(o.preset==='school') return (o.school||'重点校')+' 深度解读：分数线·班型·怎么进好班';
+  if(o.preset==='zhongkao') return '2026太原中考录取线最全汇总（一类/二类校）';
+  if(o.preset==='gaokao') return '2025太原一类校高考出口盘点：清北/985/一本率';
+  if(o.preset==='policy') return '太原家长必懂的升学政策：中考+高考+招生';
+  return o.theme||'太原教育最新动态';
+}
+function buildArticleBody(o){
+  if(o.preset==='opening') return artOpening(o);
+  if(o.preset==='school') return artSchool(o);
+  if(o.preset==='zhongkao') return artZhongkao(o);
+  if(o.preset==='gaokao') return artGaokao(o);
+  if(o.preset==='policy') return artPolicy(o);
+  return artCustom(o);
+}
+function buildArticleDoc(o){
+  var cover=window.COPY?COPY.cover:{};
+  var title=o.title||defaultTitle(o);
+  var sub=(o.preset==='opening'?'82所高中 · 分班考时间最全汇总':o.preset==='school'?'分数线·班型·备考建议':o.preset==='zhongkao'?'附最低控制线':o.preset==='gaokao'?'附各校出口数据':o.preset==='policy'?'中考+高考+招生':(o.theme||'本地教育资讯'));
+  var nm=o.zone==='A'?'老闫':'张姐';
+  var body=buildArticleBody(o);
+  var doc='<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>公众号推文预览 · '+esc(title)+'</title><style>'+ARTICLE_CSS+'</style></head><body><div class="phone">'
+    +mpHeadHTML(cover)+coverHTML(cover,title,sub)
+    +'<div class="article"><div class="title">'+esc(title)+'</div><div class="byline">'+(cover.mpName||'太原升学指南')+'　·　'+dateStr()+'　·　数据来自教育局/学校官方公开信息</div>'+body+endHTML()+'</div></div></body></html>';
+  return doc;
+}
+function renderCopy(){
+  var hs=allSchoolList();
+  var opt='<option value="">（不指定，按主题生成）</option>'+hs.map(function(s){return '<option value="'+esc(s.name)+'">'+esc(s.short||s.name)+'</option>';}).join('');
+  var h='<div class="banner"><b>文案中心 · 双号共用</b><br>一键生成「朋友圈文案」与「公众号推文」，内容直接调用情报底座（学校/政策/考试/开学轴）真实数据，推文可<b>导出成 .html 文件</b>直接进公众号编辑器。</div>';
+  h+='<div class="card" style="margin-top:12px"><div class="card-h">📱 朋友圈文案</div><div class="row form2" style="align-items:end">'
+    +'<label class="fld"><span>账号</span><select id="cpZone"><option value="B">张姐规划 B</option><option value="A">老闫物理 A</option></select></label>'
+    +'<label class="fld"><span>主题</span><input id="cpTheme" placeholder="如：开学分班考 / 物理入门"></label>'
+    +'<label class="fld"><span>关联学校</span><select id="cpSchool">'+opt+'</select></label>'
+    +'<button class="btn" onclick="cpGenMoment()">⚡ 生成文案</button></div>'
+    +'<div id="cpMomentOut" style="margin-top:10px"></div></div>';
+  h+='<div class="card" style="margin-top:14px"><div class="card-h">📰 公众号推文（手机预览版，可导出）</div><div class="row form2" style="align-items:end">'
+    +'<label class="fld"><span>账号</span><select id="cpZone2"><option value="B">张姐规划 B</option><option value="A">老闫物理 A</option></select></label>'
+    +'<label class="fld"><span>推文类型</span><select id="cpPreset"><option value="opening">开学分班考汇总</option><option value="school">重点校深度解读</option><option value="zhongkao">中考分数线</option><option value="gaokao">高考出口成绩</option><option value="policy">政策解读</option><option value="custom">自定义主题</option></select></label>'
+    +'<label class="fld"><span>关联学校</span><select id="cpSchool2">'+opt+'</select></label>'
+    +'<label class="fld"><span>自定义标题(可选)</span><input id="cpTitle" placeholder="留空自动生成"></label>'
+    +'<button class="btn" onclick="cpGenArticle()">⚡ 生成推文</button></div>'
+    +'<div id="cpArticleOut" style="margin-top:12px"></div></div>';
+  $('#copy').innerHTML=h;
+}
+function cpGenMoment(){
+  var z=$('#cpZone').value, th=$('#cpTheme').value.trim(), sc=$('#cpSchool').value;
+  CP_MOMENT=genMoment(z,th,sc);
+  var html=CP_MOMENT.map(function(c,i){return '<div class="box" style="white-space:pre-wrap;line-height:1.7;font-size:14px;margin-bottom:10px">'+esc(c)+'<div style="margin-top:8px"><button class="btn s" onclick="cpCopyMoment('+i+')">复制</button></div></div>';}).join('');
+  $('#cpMomentOut').innerHTML='<div style="font-size:13px;color:#888;margin-bottom:6px">生成 '+CP_MOMENT.length+' 条朋友圈文案：</div>'+html;
+  wbToast('已生成朋友圈文案');
+}
+function cpCopyMoment(i){ if(CP_MOMENT[i]!=null){ copyText(CP_MOMENT[i]); wbToast('已复制'); } }
+function cpGenArticle(){
+  var z=$('#cpZone2').value, p=$('#cpPreset').value, sc=$('#cpSchool2').value, ti=$('#cpTitle').value.trim();
+  CP_ARTICLE=buildArticleDoc({zone:z,preset:p,school:sc,title:ti,theme:ti});
+  var fname='公众号推文_'+(ti||p)+'_'+dateStr()+'.html';
+  var prev='<iframe srcdoc="'+escAttr(CP_ARTICLE)+'" style="width:100%;max-width:430px;height:640px;border:1px solid #eee;border-radius:12px;display:block"></iframe>';
+  prev+='<div class="row" style="margin-top:10px;flex-wrap:wrap">'
+    +'<button class="btn" onclick="cpDownloadArticle()">⬇ 导出 .html</button>'
+    +'<button class="btn o" onclick="cpCopyArticleText()">📋 复制全文</button>'
+    +'<button class="btn s" onclick="cpSaveArticleDraft()">📥 存成稿箱</button></div>';
+  prev+='<div class="muted" style="font-size:12px;margin-top:6px">导出后可双击用浏览器打开预览，或把正文复制到公众号编辑器（排版已按公众号手机版还原）。</div>';
+  $('#cpArticleOut').innerHTML=prev;
+  wbToast('已生成推文，可预览/导出');
+}
+function cpDownloadArticle(){ if(CP_ARTICLE) download(CP_ARTICLE, '公众号推文_'+dateStr()+'.html'); }
+function cpCopyArticleText(){ if(CP_ARTICLE){ var t=CP_ARTICLE.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim(); copyText(t); wbToast('已复制全文'); } }
+function cpSaveArticleDraft(){ if(CP_ARTICLE){ var t=CP_ARTICLE.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim(); pushDraft('公众号推文 '+dateStr(), t, '公众号'); wbToast('已存成稿箱'); } }
+
 /* ===== 初始化 ===== */
 function init(){
   $('#today').innerHTML = '📅 '+esc(TODAY.date)+' · 今日：'+(TODAY.recs[0]?esc(TODAY.recs[0].title):'');
@@ -716,6 +946,7 @@ function init(){
   renderFactory();
   renderLive();
   renderSchool();
+  renderCopy();
   renderHub();
   switchTab('home');
   bindAddHot();
@@ -737,6 +968,7 @@ window.refreshMy=refreshMy; window.openAddHot=openAddHot; window.closeAddHot=clo
 window.renderSchool=renderSchool; window.schoolZoneHTML=schoolZoneHTML; window.openAddSchool=openAddSchool; window.closeAddSchool=closeAddSchool; window.delSchoolEvent=delSchoolEvent; window.syncSchoolHot=syncSchoolHot; window.addSchoolEvent=addSchoolEvent; window.genShortFromSchool=genShortFromSchool; window.genLiveFromSchool=genLiveFromSchool; window.refreshSchool=refreshSchool;
 window.schoolSub=schoolSub; window.renderSchoolOverview=renderSchoolOverview; window.renderKeySchools=renderKeySchools; window.renderOpeningCalendar=renderOpeningCalendar; window.renderSchoolMap=renderSchoolMap; window.schoolDetail=schoolDetail; window.schoolDetailByName=schoolDetailByName; window.schoolDetailToTopic=schoolDetailToTopic; window.soFilter=soFilter; window.closeSchoolDetail=closeSchoolDetail; window.showOverlay=showOverlay;
 window.reviewLiveNew=reviewLiveNew; window.liveFilterQA=liveFilterQA;
+window.renderCopy=renderCopy; window.cpGenMoment=cpGenMoment; window.cpCopyMoment=cpCopyMoment; window.cpGenArticle=cpGenArticle; window.cpDownloadArticle=cpDownloadArticle; window.cpCopyArticleText=cpCopyArticleText; window.cpSaveArticleDraft=cpSaveArticleDraft; window.genMoment=genMoment; window.buildArticleDoc=buildArticleDoc;
 
 /* ===== 密码锁 ===== */
 var APP_PASSCODE='324'; // 访问密码：改这一个数字即可（2026-08-06 起用 324）
