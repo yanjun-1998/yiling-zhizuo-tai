@@ -1886,24 +1886,19 @@ function renderSchoolMap(){
   if(window._mapDist==null) window._mapDist='all';
   if(window._mapTier==null) window._mapTier='all';
   const schools=allSchools();
-  const DIST=['小店区','迎泽区','杏花岭区','尖草坪区','万柏林区','晋源区','古交市','清徐县','阳曲县','娄烦县'];
-  // 太原市域相对方位（市辖区居中、县市在外围），仅示意
-  const POS={'尖草坪区':[430,75],'阳曲县':[775,70],'杏花岭区':[545,180],'迎泽区':[480,310],
-             '万柏林区':[300,330],'小店区':[585,480],'晋源区':[330,510],'古交市':[175,210],
-             '清徐县':[445,705],'娄烦县':[280,585]};
-  const BW=182,BH=120;
-  const counts={}; DIST.forEach(d=>counts[d]=0);
-  schools.forEach(s=>{ if(counts[s.district]!=null) counts[s.district]++; });
-  const maxN=Math.max.apply(null,DIST.map(d=>counts[d]))||1;
-  const heat=function(n){ const r=n/maxN; return r>0.7?'#c0392b':r>0.5?'#e67e22':r>0.3?'#f1c40f':'#27ae60'; };
-  let svg='<svg viewBox="0 0 1000 820" class="mapsvg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="太原市学校分布示意图">';
-  svg+='<circle cx="480" cy="320" r="5" fill="#9aa3ad"/><text x="480" y="342" text-anchor="middle" font-size="12" fill="#9aa3ad">太原市区</text>';
-  DIST.forEach(function(d){
-    const p=POS[d],x=p[0]-BW/2,y=p[1]-BH/2,n=counts[d];
-    svg+='<g class="distg'+(window._mapDist===d?' on':'')+'" data-d="'+d+'" onclick="mapSelectDist(\''+d+'\')" style="cursor:pointer">'
-      +'<rect x="'+x+'" y="'+y+'" width="'+BW+'" height="'+BH+'" rx="16" fill="'+heat(n)+'" fill-opacity="0.88" stroke="#fff" stroke-width="2"/>'
-      +'<text x="'+p[0]+'" y="'+(p[1]-6)+'" text-anchor="middle" font-size="21" font-weight="800" fill="#fff">'+d+'</text>'
-      +'<text x="'+p[0]+'" y="'+(p[1]+22)+'" text-anchor="middle" font-size="15" fill="#fff">'+n+' 所</text>'
+  const G=window.TAIYUAN_GEO;
+  if(!G){ return '<p class="muted">地图数据缺失（TAIYUAN_GEO 未加载）。</p>'; }
+  const counts={}; G.districts.forEach(function(d){ counts[d.name]=0; });
+  schools.forEach(function(s){ if(counts[s.district]!=null) counts[s.district]++; });
+  const maxN=Math.max.apply(null, G.districts.map(function(d){ return counts[d.name]; }))||1;
+  const heat=function(n){ const r=n/maxN; return r>0.66?'#c0392b':r>0.45?'#e67e22':r>0.28?'#f1c40f':'#27ae60'; };
+  let svg='<svg viewBox="0 0 '+G.viewW+' '+G.viewH+'" class="mapsvg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="太原市学校分布图（基于标准行政区划，示意）">';
+  G.districts.forEach(function(d){
+    const n=counts[d.name]||0, on=(window._mapDist===d.name);
+    svg+='<g class="distg'+(on?' on':'')+'" data-d="'+escAttr(d.name)+'" onclick="mapSelectDist(\''+escAttr(d.name)+'\')" style="cursor:pointer">'
+      +'<path d="'+d.path+'" fill="'+heat(n)+'" fill-opacity="'+(on?'1':'0.82')+'" stroke="#fff" stroke-width="'+(on?'3.5':'1.5')+'" stroke-linejoin="round"/>'
+      +'<text x="'+d.lx+'" y="'+d.ly+'" text-anchor="middle" font-size="13" font-weight="800" fill="#fff" stroke="#1c2733" stroke-width="0.7" style="paint-order:stroke">'+esc(d.name)+'</text>'
+      +'<text x="'+d.lx+'" y="'+(d.ly+15)+'" text-anchor="middle" font-size="11" fill="#fff" stroke="#1c2733" stroke-width="0.6" style="paint-order:stroke">'+n+' 所</text>'
       +'</g>';
   });
   svg+='</svg>';
@@ -1914,18 +1909,20 @@ function renderSchoolMap(){
     +'<button class="mbtn" data-f="公办一般" onclick="mapSetFilter(\'公办一般\')"><span class="dot t2"></span>公办一般</button>'
     +'<button class="mbtn" data-f="民办普通" onclick="mapSetFilter(\'民办普通\')"><span class="dot tpin"></span>民办普通</button>'
     +'</div>';
-  let h='<p class="muted" style="margin:4px 0 8px">太原学校分布<b>示意图</b>（市域相对方位，非精确测绘，合规示意）。色块越红=学校越多。<b>点色块→只看该区</b>，选层级→只看该类，<b>点校名看明细</b>。';
+  let h='<p class="muted" style="margin:4px 0 8px">太原学校分布<b>真实行政区划轮廓图</b>（基于标准行政区划数据，示意非精确测绘）。色块越红=学校越多。<b>点区县→只看该区</b>，选层级→只看该类，<b>点校名看明细</b>。';
   if(window.TENCENT_MAP_KEY){ h+=' <span class="mapreal">✓ 已接入腾讯地图真实底图</span>'; }
-  else { h+=' 想换真实街道底图？去腾讯位置服务申请免费 key 填进 data-schools.js 顶部即可自动切换（无需改代码）。'; }
+  else { h+=' 想换真实街道底图？去腾讯位置服务申请免费 key 填进 app.js 顶部 TENCENT_MAP_KEY 即可自动切换。'; }
   h+='</p>'+filter+'<div class="mapwrap">'+svg+'</div><div id="mapList" class="maplist"></div>';
   return h;
 }
 function mapSelectDist(d){
   window._mapDist = (window._mapDist===d)?'all':d;
   document.querySelectorAll('.distg').forEach(function(g){
-    const r=g.querySelector('rect'); if(!r) return;
-    if(g.dataset.d===window._mapDist){ r.setAttribute('stroke','#2c3e50'); r.setAttribute('stroke-width','5'); }
-    else { r.setAttribute('stroke','#fff'); r.setAttribute('stroke-width','2'); }
+    const p=g.querySelector('path'); if(!p) return;
+    const on=(g.dataset.d===window._mapDist);
+    p.setAttribute('stroke', on?'#2c3e50':'#fff');
+    p.setAttribute('stroke-width', on?'4':'1.5');
+    p.setAttribute('fill-opacity', on?'1':'0.82');
   });
   mapRenderList(window._mapDist, window._mapTier);
 }
