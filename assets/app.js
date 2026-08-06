@@ -1539,10 +1539,20 @@ function schoolSub(v){
 
 /* ===== 所有学校动态（逐校追踪太原各校动向） ===== */
 function renderAllDynamics(){
+  rebuildSchool();
   const schools=allSchools();
   const districts=[...new Set(schools.map(s=>s.district))].sort();
   const tiers=['一类重点','民办优质','公办一般','民办普通'];
-  let h='<p class="muted" style="margin:4px 0 10px">太原 <b>'+schools.length+'</b> 所学校动态逐校追踪。选「区县 / 层级」筛选，点校名展开看该校全部动态，可手动补。机构动态（教育局 / 招考中心等）在顶部「全市性动态」。</p>';
+  const cov=(window.SCHOOL&&SCHOOL.coverage)?SCHOOL.coverage:null;
+  const have=new Set();
+  SCLALL.forEach(function(it){ for(let i=0;i<schools.length;i++){ if(schoolDynMatch(it.school, schools[i])){ have.add(schools[i].name); break; } } });
+  let stat='';
+  if(cov){
+    stat='<div class="alldyn-stat">📡 每日早8/晚8自动「逐校扫描」太原 <b>'+schools.length+'</b> 所 · 本班已查 <b>'+(cov.scanned?cov.scanned.length:0)+'</b> 所 / 全量 <b>'+(cov.total||schools.length)+'</b> 所 · 当前共 <b>'+have.size+'</b> 所命中动态</div>';
+  } else {
+    stat='<div class="alldyn-stat muted">📡 本页由每日早8/晚8自动逐校扫描驱动；点校名展开各校动态，无动态的校可手动补。</div>';
+  }
+  let h=stat+'<p class="muted" style="margin:4px 0 10px">太原 <b>'+schools.length+'</b> 所学校动态逐校追踪。选「区县 / 层级」筛选，点校名展开看该校全部动态，可手动补。机构动态（教育局 / 招考中心等）在顶部「全市性动态」。</p>';
   h+='<div class="alldyn-filter"><select id="adDist" onchange="allDynRender()"><option value="">全部区县</option>'+districts.map(d=>'<option>'+esc(d)+'</option>').join('')+'</select>'
     +'<select id="adTier" onchange="allDynRender()"><option value="">全部层级</option>'+tiers.map(t=>'<option>'+esc(t)+'</option>').join('')+'</select>'
     +'<label class="ad-chk"><input type="checkbox" id="adOnly" onchange="allDynRender()"> 只看有动态的</label>'

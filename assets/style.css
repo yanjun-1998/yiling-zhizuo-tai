@@ -341,3 +341,8 @@ th{background:var(--blue-l);color:var(--blue-d);font-weight:600;white-space:nowr
 .sdc-head .btn{margin-left:8px}
 .sdc-latest{margin:0;padding:6px 12px 0;font-size:13px;color:var(--ink3)}
 .sdc-body{padding:8px 12px 12px}
+
+/* 所有学校动态·逐校扫描覆盖条 */
+.alldyn-stat{background:linear-gradient(90deg,#eef4ff,#f7fbff);border:1px solid #d4e3ff;border-radius:10px;padding:8px 12px;margin:2px 0 10px;font-size:13px;color:#234}
+.alldyn-stat b{color:#1a5bd8}
+.alldyn-stat.muted{background:#f4f6f8;border-color:#e2e6ea;color:#667}
