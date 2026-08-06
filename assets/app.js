@@ -1257,7 +1257,7 @@ window.genLiveScript=genLiveScript; window.genLiveFromTopic=genLiveFromTopic; wi
 window.showLive=showLive; window.pushDraft=pushDraft; window.delDraft=delDraft; window.clearDrafts=clearDrafts; window.mergeDrafts=mergeDrafts; window.openDraftPanel=openDraftPanel; window.closeDraftPanel=closeDraftPanel; window.loadDrafts=loadDrafts; window.renderDraftList=renderDraftList; window.updateDraftBadge=updateDraftBadge;
 window.genShortFromHot=genShortFromHot; window.genLiveFromHot=genLiveFromHot; window.genLiveMaterial=genLiveMaterial; window.refreshHot=refreshHot;
 window.refreshMy=refreshMy; window.openAddHot=openAddHot; window.closeAddHot=closeAddHot; window.delMyEvent=delMyEvent; window.syncMyHot=syncMyHot; window.addMyEvent=addMyEvent; window.aiEnrichOne=aiEnrichOne; window.aiEnrichAll=aiEnrichAll;
-window.renderSchool=renderSchool; window.schoolZoneHTML=schoolZoneHTML; window.openAddSchool=openAddSchool; window.closeAddSchool=closeAddSchool; window.delSchoolEvent=delSchoolEvent; window.syncSchoolHot=syncSchoolHot; window.addSchoolEvent=addSchoolEvent; window.genShortFromSchool=genShortFromSchool; window.genLiveFromSchool=genLiveFromSchool; window.refreshSchool=refreshSchool;
+window.renderSchool=renderSchool; window.schoolSub=schoolSub; window.renderSchoolMap=renderSchoolMap; window.schoolZoneHTML=schoolZoneHTML; window.openAddSchool=openAddSchool; window.closeAddSchool=closeAddSchool; window.delSchoolEvent=delSchoolEvent; window.syncSchoolHot=syncSchoolHot; window.addSchoolEvent=addSchoolEvent; window.genShortFromSchool=genShortFromSchool; window.genLiveFromSchool=genLiveFromSchool; window.refreshSchool=refreshSchool;
 window.renderCollect=renderCollect; window.schoolCompleteness=schoolCompleteness; window.collectListHTML=collectListHTML; window.renderCollectList=renderCollectList; window.genSchoolBrief=genSchoolBrief; window.aiCollectOne=aiCollectOne; window.aiCollectBatch=aiCollectBatch; window.openSchoolFill=openSchoolFill; window.closeSchoolFill=closeSchoolFill; window.renderEduplan=renderEduplan; window.renderLive=renderLive;
 window.schoolSub=schoolSub; window.renderSchoolOverview=renderSchoolOverview; window.renderKeySchools=renderKeySchools; window.renderOpeningCalendar=renderOpeningCalendar; window.renderSchoolMap=renderSchoolMap; window.schoolDetail=schoolDetail; window.schoolDetailByName=schoolDetailByName; window.schoolDetailToTopic=schoolDetailToTopic; window.soView=soView; window.soRender=soRender; window.soRenderBody=soRenderBody; window.schoolCard=schoolCard; window.groupCards=groupCards; window.allSchools=allSchools; window.segOf=segOf; window.uniq=uniq; window.findSchool=findSchool; window.artSchool=artSchool; window.closeSchoolDetail=closeSchoolDetail; window.showOverlay=showOverlay; window.schoolScoreHTML=schoolScoreHTML; window.schoolClassHTML=schoolClassHTML; window.schoolPlacementHTML=schoolPlacementHTML; window.schoolCalendarHTML=schoolCalendarHTML; window.schoolCampusHTML=schoolCampusHTML; window.renderRival=renderRival; window.renderParent=renderParent;
 window.reviewLiveNew=reviewLiveNew; window.liveFilterQA=liveFilterQA;
@@ -1530,7 +1530,7 @@ function schoolSub(v){
   if(v==='overview') box.innerHTML=renderSchoolOverview();
   else if(v==='key') box.innerHTML=renderKeySchools();
   else if(v==='calendar') box.innerHTML=renderOpeningCalendar();
-  else if(v==='map') box.innerHTML=renderSchoolMap();
+  else if(v==='map'){ box.innerHTML=renderSchoolMap(); mapRenderList('all','all'); }
   else if(v==='feed') box.innerHTML=schoolZoneHTML('AB',false);
   else if(v==='rival') box.innerHTML=renderRival();
   else if(v==='parent') box.innerHTML=renderParent();
@@ -1883,25 +1883,70 @@ function renderOpeningCalendar(){
   return h;
 }
 function renderSchoolMap(){
-  const LAYOUT={
-    '小店区':{x:64,y:80}, '迎泽区':{x:60,y:52}, '杏花岭区':{x:62,y:24},
-    '万柏林区':{x:34,y:54}, '尖草坪区':{x:42,y:18}, '晋源区':{x:28,y:84},
-    '古交市':{x:14,y:30}, '清徐县':{x:20,y:94}, '阳曲县':{x:62,y:8}, '娄烦县':{x:40,y:96}
-  };
-  const all=allSchools().map(function(s){ return {n:s.short||s.name,d:s.district,t:s.tier}; });
-  let h='<p class="muted" style="margin:4px 0 10px">太原学校分布<b>示意图</b>（非精确测绘，仅示意方位）。图钉颜色：<span class="dot t1"></span>一类重点 <span class="dot t2"></span>其他 <span class="dot tpri"></span>民办优质。点图钉看明细。</p>';
-  h+='<div class="map">';
-  Object.keys(LAYOUT).forEach(function(d){ var p=LAYOUT[d]; h+='<div class="dist" style="left:'+p.x+'%;top:'+p.y+'%">'+d+'</div>'; });
-  all.forEach(function(s){
-    const p=LAYOUT[s.d]; if(!p) return;
-    const c = s.t==='一类重点'?'t1':(s.t&&s.t.indexOf('民办优质')>=0?'tpri':'t2');
-    const jx=(Math.random()*6-3).toFixed(1), jy=(Math.random()*6-3).toFixed(1);
-    h+='<button class="pin '+c+'" style="left:'+(p.x*1+ +jx)+'%;top:'+(p.y*1+ +jy)+'%" title="'+esc(s.n)+'" onclick="schoolDetailByName(\''+esc(s.n)+'\')">●</button>';
+  if(window._mapDist==null) window._mapDist='all';
+  if(window._mapTier==null) window._mapTier='all';
+  const schools=allSchools();
+  const DIST=['小店区','迎泽区','杏花岭区','尖草坪区','万柏林区','晋源区','古交市','清徐县','阳曲县','娄烦县'];
+  // 太原市域相对方位（市辖区居中、县市在外围），仅示意
+  const POS={'尖草坪区':[430,75],'阳曲县':[775,70],'杏花岭区':[545,180],'迎泽区':[480,310],
+             '万柏林区':[300,330],'小店区':[585,480],'晋源区':[330,510],'古交市':[175,210],
+             '清徐县':[445,705],'娄烦县':[280,585]};
+  const BW=182,BH=120;
+  const counts={}; DIST.forEach(d=>counts[d]=0);
+  schools.forEach(s=>{ if(counts[s.district]!=null) counts[s.district]++; });
+  const maxN=Math.max.apply(null,DIST.map(d=>counts[d]))||1;
+  const heat=function(n){ const r=n/maxN; return r>0.7?'#c0392b':r>0.5?'#e67e22':r>0.3?'#f1c40f':'#27ae60'; };
+  let svg='<svg viewBox="0 0 1000 820" class="mapsvg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="太原市学校分布示意图">';
+  svg+='<circle cx="480" cy="320" r="5" fill="#9aa3ad"/><text x="480" y="342" text-anchor="middle" font-size="12" fill="#9aa3ad">太原市区</text>';
+  DIST.forEach(function(d){
+    const p=POS[d],x=p[0]-BW/2,y=p[1]-BH/2,n=counts[d];
+    svg+='<g class="distg'+(window._mapDist===d?' on':'')+'" data-d="'+d+'" onclick="mapSelectDist(\''+d+'\')" style="cursor:pointer">'
+      +'<rect x="'+x+'" y="'+y+'" width="'+BW+'" height="'+BH+'" rx="16" fill="'+heat(n)+'" fill-opacity="0.88" stroke="#fff" stroke-width="2"/>'
+      +'<text x="'+p[0]+'" y="'+(p[1]-6)+'" text-anchor="middle" font-size="21" font-weight="800" fill="#fff">'+d+'</text>'
+      +'<text x="'+p[0]+'" y="'+(p[1]+22)+'" text-anchor="middle" font-size="15" fill="#fff">'+n+' 所</text>'
+      +'</g>';
   });
-  h+='</div>';
-  h+='<p class="muted" style="font-size:11px;margin-top:8px">注：各区学校密集，图钉位置为示意；精确信息见「学校总览 / 明细」。</p>';
+  svg+='</svg>';
+  let filter='<div class="mapfilter"><span class="mf-label">层级筛选：</span>'
+    +'<button class="mbtn'+(window._mapTier==='all'?' on':'')+'" data-f="all" onclick="mapSetFilter(\'all\')">全部</button>'
+    +'<button class="mbtn" data-f="一类重点" onclick="mapSetFilter(\'一类重点\')"><span class="dot t1"></span>一类重点</button>'
+    +'<button class="mbtn" data-f="民办优质" onclick="mapSetFilter(\'民办优质\')"><span class="dot tpri"></span>民办优质</button>'
+    +'<button class="mbtn" data-f="公办一般" onclick="mapSetFilter(\'公办一般\')"><span class="dot t2"></span>公办一般</button>'
+    +'<button class="mbtn" data-f="民办普通" onclick="mapSetFilter(\'民办普通\')"><span class="dot tpin"></span>民办普通</button>'
+    +'</div>';
+  let h='<p class="muted" style="margin:4px 0 8px">太原学校分布<b>示意图</b>（市域相对方位，非精确测绘，合规示意）。色块越红=学校越多。<b>点色块→只看该区</b>，选层级→只看该类，<b>点校名看明细</b>。';
+  if(window.TENCENT_MAP_KEY){ h+=' <span class="mapreal">✓ 已接入腾讯地图真实底图</span>'; }
+  else { h+=' 想换真实街道底图？去腾讯位置服务申请免费 key 填进 data-schools.js 顶部即可自动切换（无需改代码）。'; }
+  h+='</p>'+filter+'<div class="mapwrap">'+svg+'</div><div id="mapList" class="maplist"></div>';
   return h;
 }
+function mapSelectDist(d){
+  window._mapDist = (window._mapDist===d)?'all':d;
+  document.querySelectorAll('.distg').forEach(function(g){
+    const r=g.querySelector('rect'); if(!r) return;
+    if(g.dataset.d===window._mapDist){ r.setAttribute('stroke','#2c3e50'); r.setAttribute('stroke-width','5'); }
+    else { r.setAttribute('stroke','#fff'); r.setAttribute('stroke-width','2'); }
+  });
+  mapRenderList(window._mapDist, window._mapTier);
+}
+function mapSetFilter(t){
+  window._mapTier = (window._mapTier===t)?'all':t;
+  document.querySelectorAll('.mbtn').forEach(function(b){ b.classList.toggle('on', b.dataset.f===window._mapTier); });
+  mapRenderList(window._mapDist, window._mapTier);
+}
+function mapRenderList(dist,tier){
+  const box=document.getElementById('mapList'); if(!box) return;
+  const list=allSchools().filter(function(s){ return (dist==='all'||s.district===dist)&&(tier==='all'||s.tier===tier); });
+  if(!list.length){ box.innerHTML='<p class="muted" style="padding:10px">该筛选下暂无学校。</p>'; return; }
+  const tc=function(s){ return s.tier==='一类重点'?'t1':(s.tier==='民办优质'?'tpri':(s.tier==='民办普通'?'tpin':'t2')); };
+  let h='<div class="mlhead">'+(dist==='all'?'全市':dist)+(tier==='all'?'':' · '+tier)+' · 共 <b>'+list.length+'</b> 所</div><div class="mlgrid">';
+  list.forEach(function(s){
+    h+='<button class="mltag" onclick="schoolDetailByName(\''+esc(s.short)+'\')"><span class="dot '+tc(s)+'"></span>'+esc(s.short)+'</button>';
+  });
+  h+='</div>';
+  box.innerHTML=h;
+}
+window.mapSelectDist=mapSelectDist; window.mapSetFilter=mapSetFilter; window.mapRenderList=mapRenderList;
 function schoolDetailByName(name){ schoolDetail(name); }
 function showOverlay(id, html){
   let ov=document.getElementById(id);
@@ -1910,24 +1955,45 @@ function showOverlay(id, html){
   ov.onclick=function(e){ if(e.target===ov) ov.classList.add('hide'); };
 }
 function renderRival(){
-  const R=window.RIVAL||{};
-  let h='<p class="muted" style="margin:4px 0 12px">太原本地对标账号 / 机构动作 / 空白市场。直播与选题的差异化，靠这张表找「别人没说的」。</p>';
+  const R=window.RIVAL||{}; const meta=R.meta||{};
+  let h='<div class="rivalmeta"><b>🥊 竞品情报</b> · 入库标准：<b>粉丝 2万+ 且 近30天活跃</b> · 数据截至 '+esc(meta.asOf||'')+' · <span class="badge ok">每周日自动侦察更新</span> · 当前对标账号 <b>'+(R.accounts?R.accounts.length:0)+'</b> 个 / 机构 <b>'+(R.institutions?R.institutions.length:0)+'</b> 家</div>';
   const Z=R.zhaosheng2026||{};
   if(Z.total){
-    h+='<div class="kv" style="margin-bottom:12px"><b>📊 2026太原中招变化（来源：'+esc(Z.src||'')+'）：</b> 总计划 <b>'+esc(Z.total)+'</b> 人，普高率 <b>'+esc(Z.rate)+'</b>；扩招 <b>'+esc(Z.expandTotal)+'</b> 人（'+esc(Z.expandBreak||'')+'）。特色班：'+esc(Z.specialClass||'')+'。新增校：'+esc((Z.newSchools||[]).join('、'))+'。缩招：'+esc((Z.shrinkSchools||[]).join('、'))+'。</div>';
+    h+='<div class="kv" style="margin:8px 0 12px"><b>📊 2026太原中招变化（来源：'+esc(Z.src||'')+'）：</b> 总计划 <b>'+esc(Z.total)+'</b> 人，普高率 <b>'+esc(Z.rate)+'</b>；扩招 <b>'+esc(Z.expandTotal)+'</b> 人（'+esc(Z.expandBreak||'')+'）。特色班：'+esc(Z.specialClass||'')+'。新增校：'+esc((Z.newSchools||[]).join('、'))+'。缩招：'+esc((Z.shrinkSchools||[]).join('、'))+'。</div>';
   }
   const ac=(R.accounts||[]);
   if(ac.length){
-    h+='<h3 class="sub">🥊 对标账号（抖音/快手/小红书）</h3><div class="tablewrap"><table class="tbl"><thead><tr><th>账号</th><th>平台</th><th>定位</th><th>粉丝</th><th>强项</th><th>短板（我方机会）</th></tr></thead><tbody>';
+    h+='<h3 class="sub">🥊 对标账号（抖音/快手/小红书 · 太原为主 + 山西全省）</h3><div class="tablewrap"><table class="tbl"><thead><tr><th>账号</th><th>平台</th><th>赛道</th><th>粉丝</th><th>定位</th><th>强项</th><th>短板（我方机会）</th><th>威胁</th></tr></thead><tbody>';
     ac.forEach(function(a){
-      h+='<tr><td><b>'+esc(a.name)+'</b></td><td>'+esc(a.platform||'')+'</td><td><span class="badge '+(a.zone&&a.zone.indexOf('A')>=0?'zoneA':'zoneB')+'">'+esc(a.zone||'')+'</span></td><td>'+esc(a.fans||'')+'</td><td>'+esc(a.strengths||'')+'</td><td>'+esc(a.gaps||'')+'</td></tr>';
+      const th=a.threat||'';
+      const tcls=th.indexOf('高')>=0?'t1':(th.indexOf('中')>=0?'tpri':'t2');
+      h+='<tr><td><b>'+esc(a.name)+'</b></td><td>'+esc(a.platform||'')+'</td><td>'+esc(a.track||'')+'</td><td>'+esc(a.fans||'')+'</td><td><span class="badge '+(a.zone&&a.zone.indexOf('A')>=0?'zoneA':'zoneB')+'">'+esc(a.zone||'')+'</span></td><td>'+esc(a.strengths||'')+'</td><td>'+esc(a.gaps||'')+'</td><td><span class="dot '+tcls+'"></span>'+esc(th)+'</td></tr>';
     });
     h+='</tbody></table></div>';
+  } else {
+    h+='<p class="muted" style="margin:6px 0">对标账号库采集中（每周日自动更新）…</p>';
   }
   const ins=(R.institutions||[]);
   if(ins.length){
     h+='<h3 class="sub" style="margin-top:16px">🏢 机构动作（抢流量）</h3><div class="grid g2">';
     ins.forEach(function(x){ h+='<div class="card"><div class="sch-name">'+esc(x.name)+'</div><div class="muted">'+esc(x.type||'')+'</div><p>'+esc(x.action2026||'')+'</p><div class="muted" style="font-size:11px">'+esc(x.note||'')+'</div></div>'; });
+    h+='</div>';
+  }
+  // 民办校招生动作（自动从学校库联动，不重复录入）
+  const pri=allSchools().filter(function(s){return s.nature==='民办';});
+  if(pri.length){
+    const tagOf=function(name){ const n=name.replace('太原市','').replace('太原',''); const core=n.substring(0,2);
+      const hit=(Z.newSchools||[]).find(function(x){return x.indexOf(core)>=0;});
+      if(hit) return '<span class="badge ok">2026新增·'+esc(hit)+'</span>';
+      const ex=(Z.expandSchools||[]).find(function(x){return x.indexOf(core)>=0;});
+      if(ex) return '<span class="badge warn">2026扩招·'+esc(ex)+'</span>';
+      return ''; };
+    h+='<h3 class="sub" style="margin-top:16px">🏫 民办校招生动作（自动联动学校库）</h3>';
+    h+='<div class="muted" style="font-size:12px;margin-bottom:6px">民办校统一归「学校情报站」管理，此处只看其作为生源竞争者的招生动作，不重复录入。</div><div class="grid g3">';
+    pri.forEach(function(s){
+      const ev=(s.events||[]).slice(0,2).map(function(e){return esc(typeof e==='string'?e:(e.title||e.text||''));}).join('；');
+      h+='<div class="card"><div class="sch-name">'+esc(s.short)+'</div><div class="muted">'+esc(s.district||'')+(s.tier?' · '+esc(s.tier):'')+'</div>'+tagOf(s.short)+(ev?'<p style="font-size:12px;margin-top:4px">'+ev+'</p>':'')+'</div>';
+    });
     h+='</div>';
   }
   const mg=(R.marketGaps||[]);
