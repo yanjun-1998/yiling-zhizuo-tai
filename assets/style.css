@@ -276,3 +276,23 @@ th{background:var(--blue-l);color:var(--blue-d);font-weight:600;white-space:nowr
 .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin:0 2px 0 8px;vertical-align:middle}
 .dot.t1{background:var(--blue)} .dot.t2{background:var(--ink3)} .dot.tpri{background:#8e44ad}
 @media(max-width:560px){ .map{height:440px} .subtab{padding:7px 11px;font-size:12px} .card.key{padding:12px} }
+
+/* ===== 情报站·全年时间轴 / 芯片变体 ===== */
+.timeline{position:relative;margin:6px 0 4px;padding-left:18px}
+.timeline:before{content:"";position:absolute;left:5px;top:4px;bottom:4px;width:2px;background:var(--line)}
+.tl{position:relative;display:flex;align-items:flex-start;gap:10px;padding:7px 0}
+.tl-dot{position:relative;flex:0 0 auto;width:11px;height:11px;border-radius:50%;margin-top:3px;background:var(--ink3)}
+.tl-dot.t1{background:var(--blue)}
+.tl-dot.tpri{background:#8e44ad}
+.tl-dot.ok{background:var(--ok)}
+.tl-dot.t2{background:var(--silver)}
+.tl-b{font-size:13.5px;color:var(--ink);line-height:1.5}
+.tl-b b{color:var(--ink)}
+.chip.alt{background:var(--ok-l);color:var(--ok)}
+.chip.ok{background:#eafaf1;color:#1e8e4e;border:1px solid #bfe9cf}
+
+/* 收藏按钮 + 收藏数徽标 */
+.favbtn{cursor:pointer;border:1px solid var(--line);background:#fff;color:#b8860b;font-size:12px;padding:5px 11px;border-radius:14px;margin-left:6px;white-space:nowrap;font-family:inherit}
+.favbtn:hover{background:#fff8e6}
+.favbtn.on{background:#fff3cd;border-color:#e6c200;color:#9a6b00;font-weight:600}
+.badge.fav-c{background:var(--ok-l);color:var(--ok);border-radius:10px;padding:1px 7px;font-size:11px;margin-left:4px}

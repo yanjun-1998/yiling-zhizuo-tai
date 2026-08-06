@@ -31,7 +31,10 @@
     <button class="tab" data-v="factory">脚本工厂</button>
     <button class="tab" data-v="live">直播工作台</button>
     <button class="tab" data-v="school">太原教育情报站</button>
+    <button class="tab" data-v="collect">学校情报采集</button>
     <button class="tab" data-v="copy">文案中心</button>
+    <button class="tab" data-v="moment">朋友圈</button>
+    <button class="tab" data-v="fav">★收藏 <span id="favCount" class="badge fav-c"></span></button>
     <button class="tab" data-v="hub">公共中台</button>
   </div>
 </nav>
@@ -44,7 +47,10 @@
   <section id="factory" class="view"></section>
   <section id="live" class="view"></section>
   <section id="school" class="view"></section>
+  <section id="collect" class="view"></section>
   <section id="copy" class="view"></section>
+  <section id="moment" class="view"></section>
+  <section id="fav" class="view"></section>
   <section id="hub" class="view"></section>
 </main>
 
@@ -94,6 +100,8 @@
           <label class="fld"><span>开场钩子</span><input data-k="ah-hook" placeholder="前3秒说的话，≤30字"></label>
           <label class="fld"><span>短视频选题</span><input data-k="ah-topic" placeholder="标题式"></label>
           <label class="fld"><span>直播主题</span><input data-k="ah-live" placeholder="直播讲什么"></label>
+          <label class="fld" style="grid-column:1/3"><span>具体方案（可选·有就填，出稿直接带）</span><textarea data-k="ah-solution" rows="2" placeholder="①…②…③… 可落地的具体动作"></textarea></label>
+          <label class="fld" style="grid-column:1/3"><span>底层逻辑/深度（可选）</span><input data-k="ah-depth" placeholder="为什么是这样的规律"></label>
         </div>
       </details>
     </div>
@@ -120,12 +128,26 @@
       <label class="fld"><span>开场钩子</span><input data-k="as-hook" placeholder="前3秒说的话，≤30字"></label>
       <label class="fld"><span>短视频选题</span><input data-k="as-topic" placeholder="标题式"></label>
       <label class="fld"><span>直播主题</span><input data-k="as-live" placeholder="直播讲什么"></label>
+      <label class="fld" style="grid-column:1/3"><span>具体方案（可选·有就填，出稿直接带）</span><textarea data-k="as-solution" rows="2" placeholder="①…②…③… 可落地的具体动作"></textarea></label>
+      <label class="fld" style="grid-column:1/3"><span>底层逻辑/深度（可选）</span><input data-k="as-depth" placeholder="为什么是这样的规律"></label>
       <label class="fld"><span>来源</span><input data-k="as-src" placeholder="我刷到的/公众号/官网"></label>
     </div>
     <div class="row" style="margin-top:14px">
       <button class="btn" id="addSchoolSave">存本机</button>
       <button class="btn o" id="addSchoolSync">☁ 同步云端</button>
       <button class="btn x" id="addSchoolCancel">取消</button>
+    </div>
+  </div>
+</div>
+
+<div class="lock-overlay hide" id="schoolFillOverlay">
+  <div class="lock-box" style="max-width:560px;text-align:left">
+    <h3>📝 手动补全学校信息</h3>
+    <p class="muted" style="margin:2px 0 12px">把你了解的信息填进去（或先点「🤖AI补全」生成模板再改），复制后发到对话里给我即可写入学校库。</p>
+    <textarea id="schoolFillText" style="width:100%;height:260px;font-size:13px;font-family:monospace;padding:8px;border:1px solid #ccc;border-radius:8px"></textarea>
+    <div class="row" style="margin-top:14px">
+      <button class="btn o" onclick="copyText(document.getElementById('schoolFillText').value)">复制发我</button>
+      <button class="btn x" onclick="closeSchoolFill()">关闭</button>
     </div>
   </div>
 </div>
@@ -145,11 +167,18 @@
 <script src="assets/school-news.js"></script>
 <script src="assets/school-shared.js"></script>
 <script src="assets/data-schools.js"></script>
+<script src="assets/data-tier1.js"></script>
 <script src="assets/data-calendar.js"></script>
+<script src="assets/data-rival.js"></script>
+<script src="assets/data-parent.js"></script>
 <script src="assets/data-policy.js"></script>
 <script src="assets/data-exam.js"></script>
 <script src="assets/data-copy.js"></script>
+<script src="assets/data-moment.js"></script>
+<script src="assets/moments.js"></script>
+<script src="assets/iterate-latest.js"></script>
 <script src="assets/data-live.js"></script>
+<script src="assets/data-iterate-override.js"></script>
 <script src="assets/app.js"></script>
 </body>
 </html>
