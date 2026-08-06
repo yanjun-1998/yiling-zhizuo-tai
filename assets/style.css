@@ -291,6 +291,15 @@ th{background:var(--blue-l);color:var(--blue-d);font-weight:600;white-space:nowr
 .mltag{border:1px solid var(--line);background:#fff;color:var(--ink2);font-size:12px;padding:5px 11px;border-radius:13px;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:5px}
 .mltag:hover{background:#f3f7fc;border-color:var(--blue)}
 .mapreal{color:#16a085;font-weight:600}
+/* 家长需求周焦点 */
+.pfocus{background:linear-gradient(135deg,#fff7e6,#fff3d6);border:1px solid #f0d693;border-radius:12px;padding:10px 14px;margin-bottom:10px}
+.pf-head{font-size:14px;margin-bottom:6px;color:#8a5a00}
+.pf-date{font-size:11px;color:#a07a2a;margin-left:4px}
+.pf-auto{font-size:10px;background:#16a085;color:#fff;border-radius:8px;padding:1px 7px;margin-left:6px;vertical-align:middle}
+.pf-list{display:flex;flex-wrap:wrap;gap:6px}
+.pseason{background:#f3f7fc;border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin-bottom:10px;font-size:13px}
+.card.hot{border-color:#e67e22;box-shadow:0 0 0 2px rgba(230,126,34,.15)}
+.hot-badge{font-size:11px;background:#e67e22;color:#fff;border-radius:8px;padding:1px 7px;margin-left:6px}
 .rivalmeta{background:#f3f7fc;border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:13px;color:var(--ink2);margin:4px 0 10px}
 .grid.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 @media(max-width:680px){ .grid.g3{grid-template-columns:repeat(2,1fr)} }

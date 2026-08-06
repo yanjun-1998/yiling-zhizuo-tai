@@ -2003,10 +2003,25 @@ function renderRival(){
 }
 function renderParent(){
   const P=window.PARENT||{};
-  let h='<p class="muted" style="margin:4px 0 12px">分学段家长焦虑点 / 高频问题 / 内容钩子。选题和文案的「钩子」从这里来。</p>';
+  const W=window.PARENT_WEEKLY||{};
+  const now=new Date(); const m=now.getMonth()+1;
+  const seasons=(P.seasons||[]);
+  let cur=seasons.find(function(s){ return (s.months||[]).indexOf(m)>=0; }) || (W.seasonKey?seasons.find(function(s){return s.key===W.seasonKey;})||null:null);
+  let h='<p class="muted" style="margin:4px 0 10px">分学段家长焦虑点 / 高频问题 / 内容钩子；并随当前月份自动高亮当季关注点（前端）+ 每周焦点刷新（覆盖层）。选题和文案的「钩子」从这里来。</p>';
+
+  const focusList = (W.focus&&W.focus.length)? W.focus : (cur? cur.hooksNow:[]);
+  const fk = W.weekKey || (cur? cur.label:'常青');
+  h+='<div class="pfocus"><div class="pf-head">📅 本周家长焦点 · <b>'+esc(fk)+'</b>'+(W.asOf?' <span class="pf-date">'+esc(W.asOf)+'</span>':'')+' <span class="pf-auto">每周自动更新</span></div><div class="pf-list">'
+    + focusList.map(function(x){return '<span class="chip ok">'+esc(x)+'</span>';}).join('') + '</div></div>';
+
+  if(cur){
+    h+='<div class="pseason">🗓 当前阶段：<b>'+esc(cur.label)+'</b> · 重点学段：'+ (cur.stageFocus||[]).map(function(x){return '<span class="chip alt">'+esc(x)+'</span>';}).join('') +'</div>';
+  }
+  const hotStages = cur? (cur.stageFocus||[]) : [];
   const segs=(P.segments||[]);
   segs.forEach(function(s){
-    h+='<div class="card" style="margin-bottom:10px"><div class="sch-top"><span class="sch-name">'+esc(s.stage)+'</span></div>';
+    const hot = hotStages.indexOf(s.stage)>=0;
+    h+='<div class="card'+(hot?' hot':'')+'" style="margin-bottom:10px"><div class="sch-top"><span class="sch-name">'+esc(s.stage)+'</span>'+(hot?' <span class="hot-badge">🔥当季</span>':'')+'</div>';
     h+='<div class="kv"><b>😣 焦虑点：</b>'+ (s.pains||[]).map(function(p){return '<span class="chip">'+esc(p)+'</span>';}).join('')+'</div>';
     h+='<div class="kv"><b>❓ 高频问：</b>'+ (s.faq||[]).map(function(p){return '<span class="chip alt">'+esc(p)+'</span>';}).join('')+'</div>';
     h+='<div class="kv"><b>🪝 内容钩子：</b>'+ (s.hooks||[]).map(function(p){return '<span class="chip ok">'+esc(p)+'</span>';}).join('')+'</div></div>';
