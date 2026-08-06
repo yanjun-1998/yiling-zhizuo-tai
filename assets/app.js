@@ -735,6 +735,7 @@ window.showLive=showLive; window.pushDraft=pushDraft; window.delDraft=delDraft; 
 window.genShortFromHot=genShortFromHot; window.genLiveFromHot=genLiveFromHot; window.genLiveMaterial=genLiveMaterial; window.refreshHot=refreshHot;
 window.refreshMy=refreshMy; window.openAddHot=openAddHot; window.closeAddHot=closeAddHot; window.delMyEvent=delMyEvent; window.syncMyHot=syncMyHot; window.addMyEvent=addMyEvent; window.aiEnrichOne=aiEnrichOne; window.aiEnrichAll=aiEnrichAll;
 window.renderSchool=renderSchool; window.schoolZoneHTML=schoolZoneHTML; window.openAddSchool=openAddSchool; window.closeAddSchool=closeAddSchool; window.delSchoolEvent=delSchoolEvent; window.syncSchoolHot=syncSchoolHot; window.addSchoolEvent=addSchoolEvent; window.genShortFromSchool=genShortFromSchool; window.genLiveFromSchool=genLiveFromSchool; window.refreshSchool=refreshSchool;
+window.schoolSub=schoolSub; window.renderSchoolOverview=renderSchoolOverview; window.renderKeySchools=renderKeySchools; window.renderOpeningCalendar=renderOpeningCalendar; window.renderSchoolMap=renderSchoolMap; window.schoolDetail=schoolDetail; window.schoolDetailByName=schoolDetailByName; window.schoolDetailToTopic=schoolDetailToTopic; window.soFilter=soFilter; window.closeSchoolDetail=closeSchoolDetail; window.showOverlay=showOverlay;
 window.reviewLiveNew=reviewLiveNew; window.liveFilterQA=liveFilterQA;
 
 /* ===== 密码锁 ===== */
@@ -766,6 +767,7 @@ function setupLock(){
 }
 /* 云端/本地实时拉取最新今日Feed，覆盖部署快照（绕过浏览器缓存） */
 function loadLiveFeed(cb){
+  if(window.TODAY_FEED && window.TODAY_FEED.recs && window.TODAY_FEED.recs.length){ cb&&cb(window.TODAY_FEED); return; }
   try{
     fetch('assets/today-feed.js',{cache:'no-store'}).then(function(r){return r.text();}).then(function(txt){
       try{ var obj=new Function(txt+'\nreturn window.TODAY_FEED;')(); if(obj&&obj.recs&&obj.recs.length){ window.TODAY_FEED=obj; cb&&cb(obj); } else cb&&cb(null); }
@@ -783,6 +785,7 @@ function refreshFeed(){
 }
 /* ===== 实时时事联动（window.HOT，每日自动化更新） ===== */
 function loadHotEvents(cb){
+  if(window.HOT && window.HOT.events && window.HOT.events.length){ cb&&cb(window.HOT); return; }
   try{
     fetch('assets/hot-events.js',{cache:'no-store'}).then(function(r){return r.text();}).then(function(txt){
       try{ var obj=new Function(txt+'\nreturn window.HOT;')(); if(obj&&obj.events&&obj.events.length){ window.HOT=obj; cb&&cb(obj); } else cb&&cb(null); }
@@ -803,6 +806,7 @@ function refreshHot(){
   });
 }
 function loadMyEvents(cb){
+  if(window.MY_HOT && window.MY_HOT.events){ cb&&cb(window.MY_HOT); return; }
   try{
     fetch('assets/my-events.js',{cache:'no-store'}).then(function(r){return r.text();}).then(function(txt){
       try{ var obj=new Function(txt+'\nreturn window.MY_HOT;')(); if(obj&&obj.events){ window.MY_HOT=obj; MY=obj; cb&&cb(obj); } else cb&&cb(null); }
@@ -944,6 +948,7 @@ function aiEnrichAll(){
 
 /* ===== 太原/山西 教育情报站（学校 + 教研中心动态） ===== */
 function loadSchoolShare(cb){
+  if(window.SCHOOL_SHARE && window.SCHOOL_SHARE.items){ cb&&cb(window.SCHOOL_SHARE); return; }
   try{
     fetch('assets/school-shared.js',{cache:'no-store'}).then(function(r){return r.text();}).then(function(txt){
       try{ var obj=new Function(txt+'\nreturn window.SCHOOL_SHARE;')(); if(obj&&obj.items){ window.SCHOOL_SHARE=obj; SCL_SHARE=obj; cb&&cb(obj); } else cb&&cb(null); }
@@ -991,9 +996,186 @@ function schoolZoneHTML(zoneFilter, compact){
   if(!any) h+='<p class="muted">暂无学校动态。点上面按钮，把刷到的学校/教研新闻加进来。</p>';
   return h;
 }
+function schoolSub(v){
+  const box=document.getElementById('schoolSub'); if(!box) return;
+  if(v==='overview') box.innerHTML=renderSchoolOverview();
+  else if(v==='key') box.innerHTML=renderKeySchools();
+  else if(v==='calendar') box.innerHTML=renderOpeningCalendar();
+  else if(v==='map') box.innerHTML=renderSchoolMap();
+  else if(v==='feed') box.innerHTML=schoolZoneHTML('AB',false);
+  document.querySelectorAll('#school .subtab').forEach(b=>b.classList.toggle('on', b.dataset.sv===v));
+}
+function renderSchoolOverview(){
+  const S=window.SCHOOLS||{highSchools:[],juniorSchools:[]};
+  let h='<div class="row" style="margin:8px 0 12px;flex-wrap:wrap;gap:6px">'
+    +'<select id="soSeg" onchange="soFilter()" class="mini"><option value="all">全部学段</option><option value="high">高中</option><option value="junior">初中</option></select>'
+    +'<select id="soTier" onchange="soFilter()" class="mini"><option value="all">全部梯队</option><option value="一类">一类重点</option><option value="二类">二类</option><option value="民办优质">民办优质</option><option value="民办">民办</option></select>'
+    +'<select id="soDist" onchange="soFilter()" class="mini"><option value="all">全部区</option>'
+    + (S.districts?S.districts.map(function(d){return '<option value="'+d+'">'+d+'</option>';}).join(''):'')
+    +'</select></div>';
+  h+='<div class="grid g3" id="soGrid">'+schoolCards(S)+'</div>';
+  return h;
+}
+function schoolCards(S){
+  let arr=[];
+  (S.highSchools||[]).forEach(function(s){ arr.push(Object.assign({_seg:'high'},s)); });
+  (S.juniorSchools||[]).forEach(function(s){ arr.push(Object.assign({_seg:'junior'},s)); });
+  if(!arr.length) return '<p class="muted">学校库加载中…</p>';
+  return arr.map(function(s){
+    const tierC = s.tier==='一类'?'t1':(s.tier&&s.tier.indexOf('民办')>=0?'tpri':'t2');
+    return '<div class="card sch" data-seg="'+s._seg+'" data-tier="'+esc(s.tier||'')+'" data-dist="'+esc(s.district||'')+'">'
+      +'<div class="sch-top"><span class="sch-name">'+esc(s.short||s.name)+'</span><span class="badge '+(s._seg==='high'?'zoneA':'zoneB')+'">'+(s._seg==='high'?'高中':'初中')+'</span></div>'
+      +'<div class="sch-meta">'+esc(s.district||'')+' · '+esc(s.nature||'')+' · <span class="'+tierC+'">'+esc(s.tier||'')+'</span></div>'
+      + (s.score2026?('<div class="sch-score">2026线 <b>'+s.score2026+'</b></div>'):'')
+      + (s.feature?('<div class="sch-feat">'+esc(s.feature)+'</div>'):'')
+      +'<div class="row" style="margin-top:6px"><button class="btn s" onclick="schoolDetail(\''+esc(s.name)+'\')">明细</button>'
+      + (s.official&&s.official!=='-'?'<span class="muted" style="font-size:11px">'+esc(s.official)+'</span>':'')+'</div>'
+      +'</div>';
+  }).join('');
+}
+function soFilter(){
+  const seg=document.getElementById('soSeg').value, tier=document.getElementById('soTier').value, dist=document.getElementById('soDist').value;
+  document.querySelectorAll('#soGrid .sch').forEach(function(c){
+    const ok1 = seg==='all'||c.dataset.seg===seg;
+    const ok2 = tier==='all'||c.dataset.tier===tier;
+    const ok3 = dist==='all'||(c.dataset.dist||'').indexOf(dist)>=0;
+    c.style.display = (ok1&&ok2&&ok3)?'':'none';
+  });
+}
+function findSchool(name){
+  const S=window.SCHOOLS||{}; let s=null;
+  (S.highSchools||[]).concat(S.juniorSchools||[]).forEach(function(x){ if(x.name===name||x.short===name) s=x; });
+  return s;
+}
+function schoolDetail(name){
+  const s=findSchool(name); if(!s) return;
+  let h='<div class="lock-box" style="max-width:540px;text-align:left"><h3>'+esc(s.name)+'</h3>'
+    +'<div class="muted">'+esc(s.district||'')+' · '+esc(s.nature||'')+' · '+esc(s.tier||'')+(s._seg?'':'')+'</div>'
+    + (s.addr&&s.addr!=='-'?'<p><b>地址：</b>'+esc(s.addr)+'</p>':'')
+    + (s.official&&s.official!=='-'?'<p><b>官方：</b>'+esc(s.official)+'</p>':'')
+    + (s.score2026?'<p><b>2026录取线：</b>'+s.score2026+(s.score2nd?'（'+esc(s.score2nd)+'）':''):'')
+    + (s.qingbei2025&&s.qingbei2025!=='-'?'<p><b>2025清北：</b>'+esc(s.qingbei2025)+'</p>':'')
+    + (s.rate985&&s.rate985!=='-'?'<p><b>985率：</b>'+esc(s.rate985)+'</p>':'')
+    + (s.rate1&&s.rate1!=='-'?'<p><b>一本率：</b>'+esc(s.rate1)+'</p>':'')
+    + (s.classes&&s.classes!=='-'?'<p><b>班型：</b>'+esc(s.classes)+'</p>':'')
+    + (s.tuition&&s.tuition!=='-'?'<p><b>学费：</b>'+esc(s.tuition)+'</p>':'')
+    + (s.feature?'<p><b>特色：</b>'+esc(s.feature)+'</p>':'')
+    + (s.mid2025?'<p><b>2025中考：</b>'+esc(s.mid2025)+'</p>':'')
+    + (s.note?'<p class="muted">'+esc(s.note)+'</p>':'')
+    +'<div class="row" style="margin-top:10px"><button class="btn" onclick="closeSchoolDetail()">关闭</button>'
+    +'<button class="btn s o" onclick="schoolDetailToTopic(\''+esc(s.name)+'\')">⚡ 出短视频稿</button></div></div>';
+  showOverlay('schoolDetailOverlay', h);
+}
+function schoolDetailToTopic(name){
+  const s=findSchool(name); if(!s) return;
+  const isHigh = (window.SCHOOLS.highSchools||[]).indexOf(s)>=0;
+  const zone = isHigh ? 'A' : 'B';
+  const ev={ school:s.short||s.name, title:s.short||s.name+' 2026 最新动态解读', angle:'学校解读', data:(s.score2026?('2026线'+s.score2026):'')+(s.feature?('；'+s.feature):''), hook:(s.short||s.name)+'到底什么来头？', topic:(s.short||s.name)+' 真面目', liveTheme:(s.short||s.name)+' 择校怎么选', src:'学校库', zone:zone, pri:'P1' };
+  showOut(genTopicFromHot(ev, zone));
+  closeSchoolDetail();
+}
+function closeSchoolDetail(){ var o=document.getElementById('schoolDetailOverlay'); if(o) o.classList.add('hide'); }
+function renderKeySchools(){
+  const S=window.SCHOOLS||{}; const CAL=window.SCHOOL_CAL||{};
+  const key=(S.highSchools||[]).filter(function(s){ return s.tier==='一类'||s.tier==='民办优质'; });
+  let h='<p class="muted" style="margin:4px 0 12px">太原一类重点 / 优质民办高中深度卡（分数·出口·班型·学费）。来源公开报道，填报以官方为准。</p>';
+  h+='<div class="grid g2">';
+  key.forEach(function(s){
+    let t=null;
+    (CAL.keyClassTiers||[]).forEach(function(x){ var c=x.school.replace(/\(.*?\)/g,''); if(c.indexOf(s.short)>=0||s.name.indexOf(c)>=0) t=x; });
+    h+='<div class="card key">'
+      +'<div class="sch-top"><span class="sch-name">'+esc(s.short||s.name)+'</span><span class="badge zoneA">高中·'+esc(s.tier)+'</span></div>'
+      +'<div class="muted">'+esc(s.district)+' · '+esc(s.nature)+'</div>'
+      + (s.score2026?('<p><b>2026录取线：</b>'+s.score2026+(s.score2nd?'（'+esc(s.score2nd)+'）':''))+'</p>':'')
+      + (s.qingbei2025&&s.qingbei2025!=='-'?'<p><b>2025清北：</b>'+esc(s.qingbei2025)+'</p>':'')
+      + (s.rate985&&s.rate985!=='-'?'<p><b>985率：</b>'+esc(s.rate985)+'</p>':'')
+      + (s.rate1&&s.rate1!=='-'?'<p><b>一本率：</b>'+esc(s.rate1)+'</p>':'')
+      + (s.feature?'<p><b>特色：</b>'+esc(s.feature)+'</p>':'')
+      + (s.tuition?'<p><b>学费：</b>'+esc(s.tuition)+'</p>':'')
+      + (t?('<div class="kv"><b>班型分层：</b>'+t.tiers.map(function(x){return '<span class="chip">'+esc(x)+'</span>';}).join('')+'<div class="muted" style="margin-top:4px">'+esc(t.rule)+'</div></div>'):'')
+      +'</div>';
+  });
+  h+='</div>';
+  const jkey=(S.juniorSchools||[]).filter(function(s){ return s.tier==='一类'; });
+  if(jkey.length){
+    h+='<h3 class="sub" style="margin-top:18px">⭐ 一类重点初中（含热门民办 / 转公）</h3><div class="grid g2">';
+    jkey.forEach(function(s){
+      h+='<div class="card key"><div class="sch-top"><span class="sch-name">'+esc(s.short||s.name)+'</span><span class="badge zoneB">初中·'+esc(s.tier)+'</span></div>'
+        +'<div class="muted">'+esc(s.district)+' · '+esc(s.nature)+'</div>'
+        + (s.mid2025?'<p><b>2025中考：</b>'+esc(s.mid2025)+'</p>':'')
+        + (s.tuition?'<p><b>学费：</b>'+esc(s.tuition)+'</p>':'')
+        + (s.note?'<p class="muted">'+esc(s.note)+'</p>':'')
+        +'</div>';
+    });
+    h+='</div>';
+  }
+  return h;
+}
+function renderOpeningCalendar(){
+  const C=window.SCHOOL_CAL||{};
+  let h='<p class="muted" style="margin:4px 0 12px">2026 秋季开学季各校真实日程（报到 / 分班摸底考 / 军训 / 9·1开学）。来源：各校官方公众号通知，以当年通知为准。</p>';
+  if(C.officialCalendar){
+    const oc=C.officialCalendar;
+    h+='<div class="kv" style="margin-bottom:12px"><b>📅 太原市校历：</b> 高中 '+esc(oc.senior.summerStart)+'~'+esc(oc.senior.summerEnd)+' 暑假，<b>'+esc(oc.senior.firstDay)+'</b> 开学（高一军训）；义务段 '+esc(oc.compulsory.firstDay)+' 开学。</div>';
+  }
+  const rows=(C.opening2026||[]);
+  if(rows.length){
+    h+='<div class="tablewrap"><table class="tbl"><thead><tr><th>学校</th><th>报到/领通知</th><th>分班摸底考</th><th>科目</th><th>军训</th><th>开学</th></tr></thead><tbody>';
+    rows.forEach(function(r){
+      h+='<tr><td><b>'+esc(r.school)+'</b><br><span class="muted" style="font-size:11px">'+esc(r.district||'')+'</span></td>'
+        +'<td>'+esc(r.report||'-')+'</td><td>'+esc(r.exam||'-')+'</td><td>'+esc(r.examSubjects||'-')+'</td><td>'+esc(r.military||'-')+'</td><td>'+esc(r.opening||'-')+'</td></tr>';
+    });
+    h+='</tbody></table></div>';
+  }
+  if(C.keyClassTiers && C.keyClassTiers.length){
+    h+='<h3 class="sub" style="margin-top:18px">⭐ 头部校班型分层（2026）</h3><div class="grid g2">';
+    C.keyClassTiers.forEach(function(t){
+      h+='<div class="card"><div class="sch-name">'+esc(t.school)+'</div>'+t.tiers.map(function(x){return '<span class="chip">'+esc(x)+'</span>';}).join('')+'<div class="muted" style="margin-top:6px">'+esc(t.rule)+'</div></div>';
+    });
+    h+='</div>';
+  }
+  return h;
+}
+function renderSchoolMap(){
+  const S=window.SCHOOLS||{};
+  const LAYOUT={
+    '小店区':{x:64,y:80}, '迎泽区':{x:60,y:52}, '杏花岭区':{x:62,y:24},
+    '万柏林区':{x:34,y:54}, '尖草坪区':{x:42,y:18}, '晋源区':{x:28,y:84},
+    '古交市':{x:14,y:30}, '清徐县':{x:20,y:94}, '阳曲县':{x:62,y:8}
+  };
+  let all=[];
+  (S.highSchools||[]).forEach(function(s){ all.push({n:s.short||s.name,d:s.district,t:s.tier}); });
+  (S.juniorSchools||[]).forEach(function(s){ all.push({n:s.short||s.name,d:s.district,t:s.tier}); });
+  let h='<p class="muted" style="margin:4px 0 10px">太原六区学校分布<b>示意图</b>（非精确测绘，仅示意方位）。图钉：<span class="dot t1"></span>一类重点 <span class="dot t2"></span>其他 <span class="dot tpri"></span>民办优质。点图钉看明细。</p>';
+  h+='<div class="map">';
+  Object.keys(LAYOUT).forEach(function(d){ var p=LAYOUT[d]; h+='<div class="dist" style="left:'+p.x+'%;top:'+p.y+'%">'+d+'</div>'; });
+  all.forEach(function(s){
+    const p=LAYOUT[s.d]; if(!p) return;
+    const c = s.t==='一类'?'t1':(s.t&&s.t.indexOf('民办')>=0?'tpri':'t2');
+    const jx=(Math.random()*6-3).toFixed(1), jy=(Math.random()*6-3).toFixed(1);
+    h+='<button class="pin '+c+'" style="left:'+(p.x*1+ +jx)+'%;top:'+(p.y*1+ +jy)+'%" title="'+esc(s.n)+'" onclick="schoolDetailByName(\''+esc(s.n)+'\')">●</button>';
+  });
+  h+='</div>';
+  h+='<p class="muted" style="font-size:11px;margin-top:8px">注：各区学校密集，图钉位置为示意；精确地址见「学校总览 / 明细」。</p>';
+  return h;
+}
+function schoolDetailByName(name){ schoolDetail(name); }
+function showOverlay(id, html){
+  let ov=document.getElementById(id);
+  if(!ov){ ov=document.createElement('div'); ov.className='lock-overlay'; ov.id=id; document.body.appendChild(ov); }
+  ov.innerHTML=html; ov.classList.remove('hide');
+  ov.onclick=function(e){ if(e.target===ov) ov.classList.add('hide'); };
+}
 function renderSchool(){
-  let h='<div class="banner"><b>太原教育情报站 · 双号共用</b><br>山西省（重点太原）学校与教研中心最新动态，点动态即出短视频 / 直播稿。每日早8/晚8 自动更新，也支持「我刷到的」手动添加。</div>';
-  h += schoolZoneHTML('AB', false);
+  let h='<div class="banner"><b>太原教育情报站 · 双号共用</b><br>太原所有初高中底数 + 开学季时间轴 + 地标图 + 每日动态。看完你就知道「谁在干嘛」。</div>';
+  h+='<div class="subtabs">'
+    +'<button class="subtab on" data-sv="overview" onclick="schoolSub(\'overview\')">📋 学校总览</button>'
+    +'<button class="subtab" data-sv="key" onclick="schoolSub(\'key\')">⭐ 重点校详情</button>'
+    +'<button class="subtab" data-sv="calendar" onclick="schoolSub(\'calendar\')">🗓 开学季时间轴</button>'
+    +'<button class="subtab" data-sv="map" onclick="schoolSub(\'map\')">📍 地标图</button>'
+    +'<button class="subtab" data-sv="feed" onclick="schoolSub(\'feed\')">📰 实时动态</button>'
+    +'</div>';
+  h+='<div id="schoolSub">'+renderSchoolOverview()+'</div>';
   $('#school').innerHTML=h;
 }
 function genShortFromSchool(i){

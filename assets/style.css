@@ -241,3 +241,38 @@ th{background:var(--blue-l);color:var(--blue-d);font-weight:600;white-space:nowr
   .draft-text{font-size:16px}
   .fld input,.fld textarea,.fld select{font-size:16px}
 }
+/* ===== 太原教育情报站 ===== */
+.subtabs{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 14px}
+.subtab{font-family:inherit;font-size:13px;padding:8px 14px;border:1px solid var(--line);background:var(--card);color:var(--ink3);border-radius:20px;cursor:pointer;white-space:nowrap}
+.subtab.on{background:var(--blue);color:#fff;border-color:var(--blue);font-weight:700}
+.card.sch{padding:12px 13px}
+.sch-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:5px}
+.sch-name{font-weight:800;font-size:15px;color:var(--ink)}
+.sch-meta{font-size:12.5px;color:var(--ink3);margin-bottom:4px}
+.sch-score{font-size:13px;color:var(--ink2);margin:3px 0}
+.sch-score b{color:var(--blue);font-size:15px}
+.sch-feat{font-size:12.5px;color:var(--ink3);margin-top:4px;line-height:1.5}
+.card.key{padding:14px}
+.t1{color:var(--blue);font-weight:700}
+.t2{color:var(--ink3)}
+.tpri{color:#8e44ad;font-weight:700}
+.chip{display:inline-block;background:var(--blue-l);color:var(--blue);font-size:11.5px;padding:3px 8px;border-radius:10px;margin:3px 4px 0 0}
+.kv{background:var(--blue-l);border-radius:10px;padding:10px 12px;font-size:13px;color:var(--ink2);margin:8px 0}
+.kv b{color:var(--ink)}
+.mini{font-family:inherit;font-size:13px;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink)}
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tbl{border-collapse:collapse;width:100%;font-size:13px;min-width:520px}
+.tbl th,.tbl td{border:1px solid var(--line);padding:8px 9px;text-align:left;vertical-align:top}
+.tbl th{background:var(--blue-l);color:var(--ink);font-weight:700;white-space:nowrap}
+.tbl tbody tr:nth-child(odd){background:#fafbff}
+/* ===== 地标图 ===== */
+.map{position:relative;width:100%;height:520px;background:linear-gradient(135deg,#eef3fb,#e7eef9);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:6px 0 4px}
+.map .dist{position:absolute;transform:translate(-50%,-50%);background:#fff;border:1.5px solid var(--silver);border-radius:9px;padding:4px 9px;font-size:12px;font-weight:700;color:var(--ink2);box-shadow:0 2px 6px rgba(0,0,0,.08);white-space:nowrap}
+.map .pin{position:absolute;transform:translate(-50%,-50%);border:none;background:none;font-size:16px;line-height:1;cursor:pointer;padding:0;color:var(--blue)}
+.map .pin.t1{color:var(--blue)}
+.map .pin.t2{color:var(--ink3)}
+.map .pin.tpri{color:#8e44ad}
+.map .pin:hover{font-size:20px}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin:0 2px 0 8px;vertical-align:middle}
+.dot.t1{background:var(--blue)} .dot.t2{background:var(--ink3)} .dot.tpri{background:#8e44ad}
+@media(max-width:560px){ .map{height:440px} .subtab{padding:7px 11px;font-size:12px} .card.key{padding:12px} }
