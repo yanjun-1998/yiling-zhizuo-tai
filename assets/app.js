@@ -1960,11 +1960,11 @@ function renderRival(){
   }
   const ac=(R.accounts||[]);
   if(ac.length){
-    h+='<h3 class="sub">🥊 对标账号（抖音/快手/小红书 · 太原为主 + 山西全省）</h3><div class="tablewrap"><table class="tbl"><thead><tr><th>账号</th><th>平台</th><th>赛道</th><th>粉丝</th><th>定位</th><th>强项</th><th>短板（我方机会）</th><th>威胁</th></tr></thead><tbody>';
+    h+='<h3 class="sub">🥊 对标账号（抖音/快手/小红书 · 太原为主 + 山西全省）</h3><div class="tablewrap"><table class="tbl"><thead><tr><th>账号</th><th>平台</th><th>城市</th><th>赛道</th><th>粉丝</th><th>定位</th><th>强项</th><th>短板（我方机会）</th><th>威胁</th></tr></thead><tbody>';
     ac.forEach(function(a){
       const th=a.threat||'';
       const tcls=th.indexOf('高')>=0?'t1':(th.indexOf('中')>=0?'tpri':'t2');
-      h+='<tr><td><b>'+esc(a.name)+'</b></td><td>'+esc(a.platform||'')+'</td><td>'+esc(a.track||'')+'</td><td>'+esc(a.fans||'')+'</td><td><span class="badge '+(a.zone&&a.zone.indexOf('A')>=0?'zoneA':'zoneB')+'">'+esc(a.zone||'')+'</span></td><td>'+esc(a.strengths||'')+'</td><td>'+esc(a.gaps||'')+'</td><td><span class="dot '+tcls+'"></span>'+esc(th)+'</td></tr>';
+      h+='<tr><td><b>'+esc(a.name)+'</b></td><td>'+esc(a.platform||'')+'</td><td>'+esc(a.city||'')+'</td><td>'+esc(a.track||'')+'</td><td>'+esc(a.fans||'')+'</td><td><span class="badge '+(a.zone&&(a.zone.indexOf('A')>=0||a.zone.indexOf('我方')>=0)?'zoneA':'zoneB')+'">'+esc(a.zone||'')+'</span></td><td>'+esc(a.strengths||'')+'</td><td>'+esc(a.gaps||'')+'</td><td><span class="dot '+tcls+'"></span>'+esc(th)+'</td></tr>';
     });
     h+='</tbody></table></div>';
   } else {
@@ -1972,9 +1972,17 @@ function renderRival(){
   }
   const ins=(R.institutions||[]);
   if(ins.length){
-    h+='<h3 class="sub" style="margin-top:16px">🏢 机构动作（抢流量）</h3><div class="grid g2">';
-    ins.forEach(function(x){ h+='<div class="card"><div class="sch-name">'+esc(x.name)+'</div><div class="muted">'+esc(x.type||'')+'</div><p>'+esc(x.action2026||'')+'</p><div class="muted" style="font-size:11px">'+esc(x.note||'')+'</div></div>'; });
-    h+='</div>';
+    h+='<h3 class="sub" style="margin-top:16px">🏢 太原机构/工作室库（全口径 · '+ins.length+' 家）</h3>';
+    h+='<div class="muted" style="font-size:12px;margin-bottom:6px">含连锁机构 / 一对一 / 全日制复读 / 艺考文化课 / 高中托管；民办普通高中归「学校情报站」。这是你的竞争对手全景。</div>';
+    h+='<div class="tablewrap"><table class="tbl"><thead><tr><th>机构</th><th>类型</th><th>校区</th><th>分布</th><th>学段</th><th>业务</th><th>近期动作</th><th>威胁</th></tr></thead><tbody>';
+    ins.forEach(function(x){
+      const th=x.threat||''; const tcls=th.indexOf('高')>=0?'t1':(th.indexOf('中')>=0?'tpri':'t2');
+      h+='<tr><td><b>'+esc(x.name)+'</b>'+(x.online?'<br><span class="muted" style="font-size:11px">'+esc(x.online)+'</span>':'')+'</td>'
+        +'<td>'+esc(x.type||'')+'</td><td>'+esc(x.campus||'')+'</td><td>'+esc(x.addr||'')+'</td>'
+        +'<td>'+esc(x.stage||'')+'</td><td>'+esc(x.subject||'')+'</td><td>'+esc(x.move||'')+'</td>'
+        +'<td><span class="dot '+tcls+'"></span>'+esc(th)+'</td></tr>';
+    });
+    h+='</tbody></table></div>';
   }
   // 民办校招生动作（自动从学校库联动，不重复录入）
   const pri=allSchools().filter(function(s){return s.nature==='民办';});
