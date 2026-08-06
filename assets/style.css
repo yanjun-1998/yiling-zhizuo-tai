@@ -346,3 +346,11 @@ th{background:var(--blue-l);color:var(--blue-d);font-weight:600;white-space:nowr
 .alldyn-stat{background:linear-gradient(90deg,#eef4ff,#f7fbff);border:1px solid #d4e3ff;border-radius:10px;padding:8px 12px;margin:2px 0 10px;font-size:13px;color:#234}
 .alldyn-stat b{color:#1a5bd8}
 .alldyn-stat.muted{background:#f4f6f8;border-color:#e2e6ea;color:#667}
+
+/* 内容质量哨兵 */
+.qcbar{background:linear-gradient(90deg,#eafaf0,#f5fffa);border:1px solid #b9e6cd;border-radius:10px;padding:9px 13px;margin:8px 0 4px;font-size:13px;color:#1b4d33}
+.qcbar.warn{background:linear-gradient(90deg,#fff6e8,#fffdf7);border-color:#f0d4a0;color:#7a4d10}
+.qcbar b{font-weight:600}
+.qcbad{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:9px;background:#ffe9e9;color:#c0392b;border:1px solid #f5c2c2;font-size:11px}
+.asol{margin-top:6px;padding:8px 10px;background:#f6f9ff;border-left:3px solid #4a86ff;border-radius:0 6px 6px 0;font-size:13px;line-height:1.75;color:#243}
+.asol b{color:#1a5bd8}

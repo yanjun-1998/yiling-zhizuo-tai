@@ -232,10 +232,54 @@ function showLive(text, title, tag){
 }
 
 /* ===== 首页 · 今日行动台 ===== */
+/* ===== 内容质量哨兵：每条必须「有深度(depth) + 3条可落地方案(solution)」 ===== */
+var QC_QUANT=/\d|[一二三四五六七八九十两半]\s*[条组次道年周天张份套步类本科门轮遍]|每天|每周|每月|每学期|当周|当天|分钟|小时|考前|开学|截止|高一|高二|高三|初一|初二|初三|上学期|下学期|暑假|寒假|官网|官微|招生办|教体局|招考中心|考试网|统计局|模板|清单|对照表|索引|台账|证明|档案|分度值|口诀|框架|流程|%|％/;
+var QC_BLACK=['重点抓','好好复习','多做题','提高效率','加强练习','认真对待','培养兴趣','打好基础','注意方法','合理安排'];
+function qcBad(o){
+  if(!o) return ['无数据'];
+  var bad=[], d=(o.depth||'').trim(), s=(o.solution||'').trim();
+  if(!d) bad.push('缺深度'); else if(d.length<15) bad.push('深度过短');
+  if(!s) bad.push('缺方案');
+  else{
+    var marks=['①','②','③'].filter(function(m){return s.indexOf(m)>=0;}).length;
+    if(marks<3) bad.push('方案不足3条');
+    if(!QC_QUANT.test(s)) bad.push('方案无量化');
+    if(QC_BLACK.some(function(b){return s.indexOf(b)>=0;})) bad.push('方案含套话');
+  }
+  return bad;
+}
+function qcFlag(o){
+  var bad=qcBad(o);
+  return bad.length? '<span class="qcbad" title="'+esc(bad.join('、'))+'">⚠ '+esc(bad[0])+'</span>' : '';
+}
+function qcBarHTML(){
+  var groups=[
+    ['今日行动',(TODAY&&TODAY.recs)||[]],
+    ['实时热点',(window.HOT&&window.HOT.events)||[]],
+    ['学校动态',(window.SCHOOL&&window.SCHOOL.items)||[]]
+  ];
+  var tot=0, ok=0, parts=[];
+  groups.forEach(function(g){
+    var n=g[1].length; if(!n) return;
+    var good=g[1].filter(function(o){return qcBad(o).length===0;}).length;
+    tot+=n; ok+=good;
+    parts.push(g[0]+' '+good+'/'+n);
+  });
+  if(!tot) return '';
+  var pass = ok===tot;
+  return '<div class="qcbar'+(pass?'':' warn')+'">'
+    + (pass?'✅':'⚠️')+' <b>内容质量哨兵</b>：'+ok+'/'+tot+' 条同时具备「底层逻辑 + 3条可落地动作」　'
+    + '<span class="muted">'+esc(parts.join('　·　'))+'</span>'
+    + (pass?'　<span class="muted">（出稿会自动带上「为什么是这样」和「怎么做」两段）</span>'
+           :'　<span class="muted">（带 ⚠ 的条目出稿会变干瘪，需补深度/方案）</span>')
+    + '</div>';
+}
+
 function renderHome(){
   const PRI={P0:3,P1:2,P2:1};
   const recs=(TODAY.recs||[]).slice().sort((a,b)=>PRI[b.pri]-PRI[a.pri]);
   let h='<div class="banner"><b>今日策略（'+esc(TODAY.date)+'）</b><br>'+esc(TODAY.strategy)+'</div>';
+  h += qcBarHTML();
   h += hotZoneHTML('AB');
   h += renderTier1();
   h += schoolZoneHTML('AB', true);
@@ -245,9 +289,11 @@ function renderHome(){
     const zc = r.zone==='A'?'badge a':'badge b';
     const pc = r.pri==='P0'?'p0':(r.pri==='P1'?'p1':'p2');
     h+='<div class="card act"><div class="arow"><span class="'+zc+'">'+(r.zone==='A'?'老闫物理':'张姐规划')+'</span>'
-      +'<span class="pri '+pc+'">'+r.pri+'</span></div>'
+      +'<span class="pri '+pc+'">'+r.pri+'</span>'+qcFlag(r)+'</div>'
       +'<div class="at">'+esc(r.title)+'</div>'
       +'<div class="aw"><b>为什么今天发：</b>'+esc(r.why)+'</div>'
+      +(r.depth?'<div class="aw"><b>底层逻辑：</b>'+esc(r.depth)+'</div>':'')
+      +(r.solution?'<div class="asol"><b>可落地动作：</b><br>'+esc(r.solution).replace(/\n/g,'<br>')+'</div>':'')
       +'<div class="row"><button class="btn" onclick="showOut(genToday(TODAY.recs['+TODAY.recs.indexOf(r)+'],'+TODAY.recs.indexOf(r)+'))">⚡ 一键出稿</button>'+favBtn('home','rec_'+TODAY.recs.indexOf(r), r.title)+'</div></div>';
   });
   h+='</div>';
