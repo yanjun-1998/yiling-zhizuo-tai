@@ -279,6 +279,7 @@ function renderHome(){
   const PRI={P0:3,P1:2,P2:1};
   const recs=(TODAY.recs||[]).slice().sort((a,b)=>PRI[b.pri]-PRI[a.pri]);
   let h='<div class="banner"><b>今日策略（'+esc(TODAY.date)+'）</b><br>'+esc(TODAY.strategy)+'</div>';
+  h += todayFreshBarHTML();
   h += qcBarHTML();
   h += hotZoneHTML('AB');
   h += renderTier1();
@@ -1418,10 +1419,82 @@ function bindAddHot(){
   if(c) c.onclick=closeAddHot; if(s) s.onclick=addMyEvent; if(y) y.onclick=syncMyHot;
   ov.addEventListener('click', function(e){ if(e.target===ov) closeAddHot(); });
 }
+/* 热点新鲜度条：让「今天到底搜到几条新的」一眼可见 */
+/* 数据年龄（小时）：优先用 updatedAt 精确时间戳，退化用 date 日期 */
+function dataAgeHours(obj){
+  if(!obj) return null;
+  if(obj.updatedAt){
+    const t=Date.parse(obj.updatedAt);
+    if(!isNaN(t)) return (Date.now()-t)/3600000;
+  }
+  if(obj.date){
+    const t=Date.parse(obj.date+'T08:00:00+08:00');
+    if(!isNaN(t)) return (Date.now()-t)/3600000;
+  }
+  return null;
+}
+function ageText(h){
+  if(h==null) return '未知';
+  if(h<1) return Math.max(1,Math.round(h*60))+' 分钟前';
+  if(h<24) return h.toFixed(1)+' 小时前';
+  return (h/24).toFixed(1)+' 天前';
+}
+/* 下一班自动更新时刻（每日 08:00 / 20:00） */
+function nextRunText(){
+  const d=new Date(); const hh=d.getHours();
+  if(hh<8) return '今天 08:00';
+  if(hh<20) return '今天 20:00';
+  return '明天 08:00';
+}
+/* 阈值：>14h 说明至少漏了一班（8→20 间隔12h，留2h容差） */
+var STALE_H = 14;
+
+/* 首页顶部：今日行动数据的新鲜度 + 漏跑告警（老闫第一眼就能看见） */
+function todayFreshBarHTML(){
+  const T=window.TODAY_FEED||window.TODAY||{};
+  const age=dataAgeHours(T);
+  const nNew=(T.recs||[]).filter(function(r){return r.fresh==='new';}).length;
+  const stale=(age!=null && age>STALE_H);
+  const cls= stale ? 'freshbar bad' : 'freshbar';
+  let t='<div class="'+cls+'">📅 今日行动数据：更新于 <b>'+esc(ageText(age))+'</b>'
+    +(nNew?' ｜ 🆕 新增 <b>'+nNew+'</b> 条':'')
+    +' ｜ 下次自动更新：'+nextRunText();
+  if(stale){
+    t+='<div class="fbwarn"><b>⚠ 今日行动已超 '+STALE_H+' 小时没刷新——自动化漏跑了。</b>'
+      +'原因通常是到点时电脑关机/休眠。「漏跑守护」会在开机后 2 小时内自动补跑；'
+      +'急用就跟我（AI）说「补跑今天热点」。</div>';
+  }
+  return t+'</div>';
+}
+
+function freshBarHTML(){
+  const H=window.HOT||{};
+  const evs=H.events||[];
+  if(!evs.length) return '';
+  const nNew=evs.filter(function(e){return e.fresh==='new';}).length;
+  const nCarry=evs.filter(function(e){return e.fresh==='carry';}).length;
+  const age=dataAgeHours(H);
+  const stale = (age!=null && age>STALE_H);
+  const cls = stale ? 'freshbar bad' : ((nNew<3) ? 'freshbar warn' : 'freshbar');
+  let t='<div class="'+cls+'">🛰 热点新鲜度：更新于 <b>'+esc(ageText(age))+'</b>（'+esc(H.date||'?')+'）'
+    +' ｜ 🆕 新增 <b>'+nNew+'</b> 条 ｜ ↻ 延续 <b>'+nCarry+'</b> 条'
+    +' ｜ 下次自动更新：'+nextRunText();
+  if(stale){
+    t+='<div class="fbwarn"><b>⚠ 数据已超 '+STALE_H+' 小时未更新——自动化漏跑了。</b>'
+      +'常见原因：到点时电脑关机/休眠，调度器没运行。'
+      +'「漏跑守护」会在电脑开机后 2 小时内自动补跑一班；'
+      +'若急需，直接跟我（AI）说「补跑今天热点」。</div>';
+  } else if(nNew<3){
+    t+=' ｜ <b>⚠ 新增偏少，下班次需加强搜索</b>';
+  }
+  return t+'</div>';
+}
+
 function hotZoneHTML(zoneFilter){
   rebuildAll();
   const evs=ALL.filter(function(e){ return zoneFilter==='AB' ? true : (e.zone===zoneFilter || e.zone==='AB'); });
   let h='<h2 class="sec">🔥 实时时事（点热点即出稿）</h2>';
+  h+=freshBarHTML();
   h+='<div class="row" style="margin:-2px 0 10px;align-items:center;gap:10px">'
     +'<button class="btn s" onclick="openAddHot()">➕ 我刷到的热点</button>'
     +'<button class="btn s o" onclick="aiEnrichAll()">🤖 AI补全待补</button>'
@@ -1436,8 +1509,10 @@ function hotZoneHTML(zoneFilter){
     const zlabel = ev.zone==='A'?'老闫物理':(ev.zone==='B'?'张姐规划':'双号');
     const src = ev._src==='mine'?'<span class="badge mine">我的</span>':(ev._src==='share'?'<span class="badge share">共享</span>':'<span class="badge auto">自动</span>');
     const del = ev._src==='mine' ? '<button class="btn s x" onclick="delMyEvent(\''+ev.id+'\')">✕删</button><button class="btn s o" onclick="aiEnrichOne(\''+ev.id+'\')">🤖补全</button>' : '';
+    const fb = ev.fresh==='new' ? '<span class="badge fresh-n">🆕今日新增</span>'
+             : (ev.fresh==='carry' ? '<span class="badge fresh-c">↻延续</span>' : '');
     h+='<div class="card hot"><div class="arow"><span class="'+zc+'">'+zlabel+'</span>'
-      +'<span class="pri '+pc+'">'+ev.pri+'</span>'+src+'</div>'
+      +'<span class="pri '+pc+'">'+ev.pri+'</span>'+src+fb+'</div>'
       +'<div class="at">'+esc(ev.title)+'</div>'
       +'<div class="aw">'+esc(ev.data)+'</div>'
       +'<div class="row">'

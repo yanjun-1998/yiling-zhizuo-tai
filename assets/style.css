@@ -354,3 +354,14 @@ th{background:var(--blue-l);color:var(--blue-d);font-weight:600;white-space:nowr
 .qcbad{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:9px;background:#ffe9e9;color:#c0392b;border:1px solid #f5c2c2;font-size:11px}
 .asol{margin-top:6px;padding:8px 10px;background:#f6f9ff;border-left:3px solid #4a86ff;border-radius:0 6px 6px 0;font-size:13px;line-height:1.75;color:#243}
 .asol b{color:#1a5bd8}
+
+/* 数据新鲜度哨兵 */
+.freshbar{background:linear-gradient(90deg,#eef7ff,#f8fcff);border:1px solid #cfe3f7;border-radius:10px;padding:9px 13px;margin:8px 0 4px;font-size:13px;color:#1c3a55}
+.freshbar b{color:#0f5ca8;font-weight:600}
+.freshbar.warn{background:linear-gradient(90deg,#fff8e9,#fffdf7);border-color:#f0d9a6;color:#7a5210}
+.freshbar.warn b{color:#a86b00}
+.freshbar.bad{background:linear-gradient(90deg,#ffeded,#fff7f7);border-color:#f3bcbc;color:#8c2020}
+.freshbar.bad b{color:#c0392b}
+.fbwarn{margin-top:6px;padding:7px 10px;background:#fff;border-left:3px solid #e05252;border-radius:0 6px 6px 0;font-size:12.5px;line-height:1.7;color:#7a2b2b}
+.badge.fresh-n{background:#e6f9ee;color:#12794a;border:1px solid #b6e8cd}
+.badge.fresh-c{background:#f1f3f6;color:#5a6673;border:1px solid #dde2e8}
