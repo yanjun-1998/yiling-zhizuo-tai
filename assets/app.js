@@ -584,10 +584,30 @@ function renderEduplan(){
   h+='<h2 class="sec">政策库 / 院校库 / 智能规划（Phase 2 占位）</h2><div class="grid g2">';
   EDU.phase2.forEach(p=>{ h+='<div class="card"><div class="ct">'+esc(p.n)+'</div><div class="cb">'+esc(p.d)+'</div></div>'; });
   h+='</div>';
+
+  /* 三年分数线（agent采集） */
+  if(window.SCORELINES && SCORELINES.schools){
+    const SL=SCORELINES;
+    h+='<h2 class="sec">📊 太原中考三年录取分数线（联网采集 '+esc(SL.collectedAt)+'）</h2>';
+    h+='<div class="muted" style="font-size:13px;margin-bottom:10px">'+esc(SL.note||'')+'</div>';
+    if(SL.cityLine){
+      h+='<div class="card" style="margin-bottom:10px"><div class="ct">普高最低控制线</div><div class="cb"><div class="grid g3">';
+      ['2026','2025','2024'].forEach(function(y){ var c=SL.cityLine[y]; if(c) h+='<div><b style="font-size:18px;color:#1a5bd8">'+esc(y)+'</b>：'+esc(String(c.putong||c.score||'待公布'))+' 分</div>'; });
+      h+='</div></div></div>';
+    }
+    h+='<div class="card"><table class="mtb"><tr><th>学校</th><th>区</th><th>2026</th><th>2025</th><th>2024</th><th>置信度</th></tr>';
+    SL.schools.forEach(function(s){
+      var cl=s.confidence==='high'?'✅':(s.confidence==='medium'?'⚠️':'❓');
+      h+='<tr><td><b>'+esc(s.short||s.schoolName)+'</b></td><td>'+esc(s.district||'-')+'</td>'
+        +'<td>'+fmtScore(s.lines,'2026')+'</td><td>'+fmtScore(s.lines,'2025')+'</td><td>'+fmtScore(s.lines,'2024')+'</td>'
+        +'<td style="font-size:12px">'+cl+'</td></tr>';
+    });
+    h+='</table><p class="muted" style="font-size:12px;margin-top:8px">数据来源已标注置信度：✅=官方/权威媒体；⚠️=本地媒体转载；❓=存疑。具体以各校官方通知为准。</p></div>';
+  }
+
   $('#eduplan').innerHTML=h;
 }
-
-/* ===== 脚本工厂 ===== */
+function fmtScore(lines,y){ if(!lines||!lines[y]) return '-'; var v=lines[y]; if(typeof v==='number') return String(v); return esc(String(v).slice(0,12)); }
 let factoryRendered=false;
 function renderFactory(){
   let h='<div class="banner"><b>脚本工厂 · 填空即出稿</b><br>选模板 → 填空（或点"填入示例"）→ 生成带时间轴的口播稿。今日行动 / 选题库点 ⚡ 出的稿也会落在这里。</div>';
@@ -842,6 +862,10 @@ function liveFilterQA(f){
   list.forEach(q=>{ h+='<div class="card"><div class="at">Q：'+esc(q.q)+' <span class="lv">'+(q.acc==='A'?'老闫物理':'张姐规划')+'</span></div><div class="aw">A：'+esc(q.a)+'</div></div>'; });
   box.innerHTML=h;
 }
+/* 直播手卡 */
+var livecardOpen={};
+function livecardToggle(i){ livecardOpen[i]=!livecardOpen[i]; renderLive(); }
+function livecardShowAll(){ if(window.LIVECARD){ LIVECARD.cards.forEach(function(c,i){livecardOpen[i]=true;}); renderLive(); } }
 function renderLive(){
   let h='<div class="banner"><b>直播工作台 · 双号通用</b><br>'+esc(LIVE.note)+'</div>';
   h += '<h2 class="sec">📤 本场成稿（点「生成」后，内容直接显示在这里，不用跳页）</h2><div id="live-out"></div>';
@@ -901,6 +925,57 @@ function renderLive(){
   h+='<div class="card"><div class="ct">选好上方账号和主题，一键出全套开播物料</div><div class="cb">';
   h+='<div class="row"><button class="btn" onclick="genLiveMaterial()">⚡ 生成开播物料包</button>';
   h+='<span class="tag">含 PPT分镜 + 志愿卡文字 + 数据截图清单 + 福袋设置</span></div></div>';
+
+  /* 可打印手卡（agent生成） */
+  if(window.LIVECARD && LIVECARD.cards){
+    h+='<h2 class="sec">🃏 直播可打印手卡（低头一扫就能念）</h2>';
+    h+='<div class="muted" style="font-size:13px;margin-bottom:10px">'+esc(LIVECARD.note||'')+' ｜ 共 '+LIVECARD.cards.length+' 张</div>';
+    h+='<div class="row" style="margin-bottom:10px;flex-wrap:wrap">';
+    h+='<button class="btn s" onclick="window.print()">🖨 打印全部手卡</button>';
+    h+='<button class="btn s o" onclick="livecardShowAll()">展开全部</button>';
+    h+='</div>';
+    LIVECARD.cards.forEach(function(c,i){
+      var zc=c.zone==='A'?'za':'zb';
+      h+='<div class="card livecard" id="lc_'+i+'">';
+      h+='<div class="arow"><span class="'+zc+'">'+(c.zone==='A'?'老闫物理':'张姐规划')+'</span>'
+        +'<span class="tag">'+esc(c.dur||'60分钟')+'</span>'
+        +'<button class="btn xs" onclick="livecardToggle('+i+')">'+(livecardOpen[i]?'收起':'展开')+'</button></div>';
+      h+='<div class="at" style="font-size:15px">'+esc(c.theme)+'</div>';
+      if(livecardOpen[i]){
+        h+='<div class="lc-body">';
+        h+='<div class="lc-sec"><b>🎬 开场30秒逐字稿：</b><div class="lc-text">'+esc(c.opening)+'</div></div>';
+        if(c.hooks && c.hooks.length){
+          h+='<div class="lc-sec"><b>🪝 留人钩子（每15分钟抛一次）：</b><ul class="lc-list">'+c.hooks.map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ul></div>';
+        }
+        if(c.flow && c.flow.length){
+          h+='<div class="lc-sec"><b>⏱ 时间轴：</b><table class="mtb"><tr><th>时段</th><th>做什么</th><th>说什么</th><th>注意</th></tr>';
+          c.flow.forEach(function(f){ h+='<tr><td>'+esc(f.t)+'</td><td>'+esc(f.do)+'</td><td>'+esc(f.say)+'</td><td>'+esc(f.note||'')+'</td></tr>'; });
+          h+='</table></div>';
+        }
+        if(c.keypoints && c.keypoints.length){
+          h+='<div class="lc-sec"><b>🔑 硬核干货点：</b><ul class="lc-list">'+c.keypoints.map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ul></div>';
+        }
+        if(c.qa && c.qa.length){
+          h+='<div class="lc-sec"><b>❓ 家长高频问答：</b><table class="mtb"><tr><th>问题</th><th>标准答法</th></tr>';
+          c.qa.forEach(function(qa){ h+='<tr><td>'+esc(qa.q)+'</td><td>'+esc(qa.a)+'</td></tr>'; });
+          h+='</table></div>';
+        }
+        if(c.objection && c.objection.length){
+          h+='<div class="lc-sec"><b>🛡 抬杠化解：</b><table class="mtb"><tr><th>质疑话术</th><th>化解答法</th></tr>';
+          c.objection.forEach(function(o){ h+='<tr><td>'+esc(o.q)+'</td><td>'+esc(o.a)+'</td></tr>'; });
+          h+='</table></div>';
+        }
+        if(c.cta && c.cta.length){
+          h+='<div class="lc-sec"><b>📢 转化话术：</b><ul class="lc-list">'+c.cta.map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ul></div>';
+        }
+        if(c.redline && c.redline.length){
+          h+='<div class="lc-sec" style="border-left:3px solid #c0392b;padding-left:10px"><b style="color:#c0392b">🚫 本场绝不能说：</b><ul class="lc-list">'+c.redline.map(function(x){return '<li style="color:#c0392b">'+esc(x)+'</li>';}).join('')+'</ul></div>';
+        }
+        h+='</div>';
+      }
+      h+='</div>';
+    });
+  }
 
   $('#live').innerHTML=h;
   syncLiveMode();
@@ -1168,8 +1243,50 @@ function renderCopy(){
     +'<label class="fld"><span>自定义标题(可选)</span><input id="cpTitle" placeholder="留空自动生成"></label>'
     +'<button class="btn" onclick="cpGenArticle()">⚡ 生成推文</button></div>'
     +'<div id="cpArticleOut" style="margin-top:12px"></div></div>';
+
+  /* 推文模板库（agent生成） */
+  if(window.ARTICLE && ARTICLE.posts){
+    h+='<h2 class="sec" style="margin-top:18px">📰 公众号推文模板库（'+ARTICLE.posts.length+' 篇成品 + 6 类结构模板）</h2>';
+    h+='<div class="muted" style="font-size:13px;margin-bottom:10px">'+esc(ARTICLE.note||'')+'</div>';
+    /* 类型模板 */
+    h+='<div class="card" style="margin-bottom:10px"><div class="ct">6 类推文结构模板</div><div class="cb"><div class="grid g2">';
+    ARTICLE.types.forEach(function(t){
+      h+='<div class="card" style="margin:0;border:1px solid #e0e6ed"><div class="at" style="font-size:14px">'+esc(t.name)+'</div>'
+        +'<div class="muted" style="font-size:12px">'+esc(t.when||'')+'</div>'
+        +'<ul style="font-size:12px;margin-top:4px;padding-left:16px">'+t.struct.map(function(s){return '<li>'+esc(s)+'</li>';}).join('')+'</ul>'
+        +'<div class="muted" style="font-size:11px">标题公式：'+(t.titleFormula||[]).map(function(f){return esc(f);}).join(' / ')+'</div>'
+        +'<div class="tag">'+esc(t.len||'')+'</div></div>';
+    });
+    h+='</div></div></div>';
+    /* 成品推文 */
+    h+='<div class="grid g2">';
+    ARTICLE.posts.forEach(function(p,i){
+      var zc=p.zone==='A'?'za':'zb';
+      h+='<div class="card"><div class="arow"><span class="'+zc+'">'+(p.zone==='A'?'老闫物理':'张姐规划')+'</span></div>'
+        +'<div class="at">'+esc(p.title)+'</div>'
+        +'<div class="aw" style="font-size:13px">'+esc(p.subtitle||'')+'</div>'
+        +'<div class="muted" style="font-size:13px;margin-top:4px"><b>开头钩子：</b>'+esc(p.hook||'')+'</div>';
+      if(p.outline && p.outline.length){
+        h+='<details style="margin-top:6px"><summary style="cursor:pointer;font-size:13px;color:#1a5bd8">查看大纲（'+p.outline.length+'小节）</summary><ul style="font-size:12px;padding-left:18px;margin-top:4px">';
+        p.outline.forEach(function(o){ h+='<li><b>'+esc(o.h)+'</b>：'+esc(o.p)+'</li>'; });
+        h+='</ul></details>';
+      }
+      if(p.depth){
+        h+='<div class="asol" style="margin-top:6px"><b>底层逻辑：</b>'+esc(p.depth)+'</div>';
+      }
+      if(p.solution){
+        h+='<div class="asol" style="margin-top:4px"><b>可落地动作：</b>'+esc(p.solution)+'</div>';
+      }
+      h+='<div class="row" style="margin-top:6px"><button class="btn s" onclick="artCopyPost('+i+')">📋 复制全文大纲</button>'
+        + favBtn('article', 'art_'+i, p.title)
+        +'<span class="tag">'+esc((p.tags||[]).join(' / '))+'</span></div></div>';
+    });
+    h+='</div>';
+  }
+
   $('#copy').innerHTML=h;
 }
+function artCopyPost(i){ if(window.ARTICLE && ARTICLE.posts[i]){ var p=ARTICLE.posts[i]; var t=p.title+'\n\n'+(p.subtitle||'')+'\n\n'+(p.hook||'')+'\n'; if(p.outline){ p.outline.forEach(function(o){ t+='\n'+o.h+'\n'+o.p+'\n'; }); } if(p.depth) t+='\n底层逻辑：'+p.depth; if(p.solution) t+='\n可落地动作：'+p.solution; if(p.cta) t+='\n\n'+p.cta; copyText(t); wbToast('已复制推文大纲'); } }
 function cpGenMoment(){
   var z=$('#cpZone').value, th=$('#cpTheme').value.trim(), sc=$('#cpSchool').value;
   CP_MOMENT=genMoment(z,th,sc);
@@ -1307,7 +1424,7 @@ window.renderSchool=renderSchool; window.schoolSub=schoolSub; window.renderSchoo
 window.renderCollect=renderCollect; window.schoolCompleteness=schoolCompleteness; window.collectListHTML=collectListHTML; window.renderCollectList=renderCollectList; window.genSchoolBrief=genSchoolBrief; window.aiCollectOne=aiCollectOne; window.aiCollectBatch=aiCollectBatch; window.openSchoolFill=openSchoolFill; window.closeSchoolFill=closeSchoolFill; window.renderEduplan=renderEduplan; window.renderLive=renderLive;
 window.schoolSub=schoolSub; window.renderSchoolOverview=renderSchoolOverview; window.renderKeySchools=renderKeySchools; window.renderOpeningCalendar=renderOpeningCalendar; window.renderSchoolMap=renderSchoolMap; window.schoolDetail=schoolDetail; window.schoolDetailByName=schoolDetailByName; window.schoolDetailToTopic=schoolDetailToTopic; window.soView=soView; window.soRender=soRender; window.soRenderBody=soRenderBody; window.schoolCard=schoolCard; window.groupCards=groupCards; window.allSchools=allSchools; window.segOf=segOf; window.uniq=uniq; window.findSchool=findSchool; window.artSchool=artSchool; window.closeSchoolDetail=closeSchoolDetail; window.showOverlay=showOverlay; window.schoolScoreHTML=schoolScoreHTML; window.schoolClassHTML=schoolClassHTML; window.schoolPlacementHTML=schoolPlacementHTML; window.schoolCalendarHTML=schoolCalendarHTML; window.schoolCampusHTML=schoolCampusHTML; window.renderRival=renderRival; window.renderParent=renderParent;
 window.reviewLiveNew=reviewLiveNew; window.liveFilterQA=liveFilterQA;
-window.renderCopy=renderCopy; window.cpGenMoment=cpGenMoment; window.cpCopyMoment=cpCopyMoment; window.cpGenArticle=cpGenArticle; window.cpDownloadArticle=cpDownloadArticle; window.cpCopyArticleText=cpCopyArticleText; window.cpSaveArticleDraft=cpSaveArticleDraft; window.genMoment=genMoment; window.buildArticleDoc=buildArticleDoc;
+window.renderCopy=renderCopy; window.cpGenMoment=cpGenMoment; window.cpCopyMoment=cpCopyMoment; window.cpGenArticle=cpGenArticle; window.cpDownloadArticle=cpDownloadArticle; window.cpCopyArticleText=cpCopyArticleText; window.cpSaveArticleDraft=cpSaveArticleDraft; window.genMoment=genMoment; window.buildArticleDoc=buildArticleDoc; window.artCopyPost=artCopyPost; window.fmtScore=fmtScore; window.livecardToggle=livecardToggle; window.livecardShowAll=livecardShowAll;
 window.renderMoment=renderMoment; window.moGen=moGen; window.moCopyText=moCopyText; window.moCopyImg=moCopyImg; window.genMomentCopy=genMomentCopy; window.renderMomentGallery=renderMomentGallery; window.moCopyGallery=moCopyGallery; window.moCopyIter=moCopyIter; window.renderIterate=renderIterate; window.renderHub=renderHub; window.renderZoneA=renderZoneA; window.renderPolitics=renderPolitics;
 window.renderHome=renderHome;
 window.renderTier1=renderTier1; window.genTier1=genTier1; window.tier1Resolve=tier1Resolve;
