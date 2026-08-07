@@ -66,15 +66,15 @@ function switchTab(v){
 
 /* ---------- 身份 / 脚本生成引擎 ---------- */
 function intro(zone){
-  if(zone==='A') return '我是老闫，在太原教了10年初高中物理，专治"听懂了不会做"。';
+  if(zone==='A') return '我是老闫，在太原教了7年初高中物理，专讲听得懂、做得出的物理方法。';
   return '我是张姐，在太原做教育咨询第5年，晋源区亿领教育主理人。';
 }
 function genTopic(t, zone){
   const me = zone==='A'
-    ? '我是老闫，在太原教了10年初高中物理，专治"听懂了不会做"。'
+    ? '我是老闫，在太原教了7年初高中物理，专讲听得懂、做得出的物理方法。'
     : '我是张姐，在太原做教育咨询第5年，晋源区亿领教育主理人。';
   const nm = zone==='A' ? '老闫' : '张姐';
-  const cta = '评论区扣「'+t.ck+'」，我把对应资料包发你。有具体问题直接喊"'+nm+'救我"。';
+  const cta = '评论区扣「'+t.ck+'」，我把对应资料包发你。有问题直接评论区扣「'+nm+'」或@我，我挨个看。';
   const ang = t.angle || '';
   const body = t.body || '';
   let s='';
@@ -106,10 +106,10 @@ function genTopic(t, zone){
 function genToday(r, i){
   const zone=r.zone;
   const me = zone==='A'
-    ? '我是老闫，在太原教了10年初高中物理，专治"听懂了不会做"。'
+    ? '我是老闫，在太原教了7年初高中物理，专讲听得懂、做得出的物理方法。'
     : '我是张姐，在太原做教育咨询第5年，晋源区亿领教育主理人。';
   const nm = zone==='A' ? '老闫' : '张姐';
-  const cta = '评论区扣「'+r.ck+'」，我把对应资料包发你。有具体问题直接喊"'+nm+'救我"。';
+  const cta = '评论区扣「'+r.ck+'」，我把对应资料包发你。有问题直接评论区扣「'+nm+'」或@我，我挨个看。';
   let s='';
   s+='【今日行动 #'+(i+1)+' · 优先级 '+r.pri+' · '+(zone==='A'?'老闫物理 A':'张姐规划 B')+'】\n';
   s+='【账号/形式】'+(zone==='A'?'老闫物理（A区）':'张姐规划（B区）')+'　|　'+r.fmt+'　|　'+r.dur+'　|　不露脸\n\n';
@@ -345,8 +345,8 @@ function tier1Resolve(){
 function genTier1(d, zone){
   zone = zone || 'B';
   const nm = zone==='A'?'老闫':'张姐';
-  const me = zone==='A' ? '我是老闫，在太原教了10年初高中物理，专治"听懂了不会做"。' : '我是张姐，在太原做教育咨询第5年，晋源区亿领教育主理人。';
-  const cta = '评论区扣「'+(zone==='A'?'分班考':'一类校')+'」，我把这类校的备考节奏表发你。有具体问题直接喊"'+nm+'救我"。';
+  const me = zone==='A' ? '我是老闫，在太原教了7年初高中物理，专讲听得懂、做得出的物理方法。' : '我是张姐，在太原做教育咨询第5年，晋源区亿领教育主理人。';
+  const cta = '评论区扣「'+(zone==='A'?'分班考':'一类校')+'」，我把这类校的备考节奏表发你。有问题直接评论区扣「'+nm+'」或@我，我挨个看。';
   const L=d.placement||{}, M=d.military||{}, Mo=d.monthly||{}, Di=d.difficulty||{}, Pr=d.progress||{};
   let s='';
   s+='【第一梯队校动态 · '+(d.short||d.school)+'（'+(d.district||'')+'·'+(d.tier||'')+'）】\n';
@@ -801,7 +801,7 @@ function buildLiveVersion(theme, zone, mins, goal, fudai, m, solution, depth){
   const modMins = Math.max(8, Math.round(mins*0.6/3));
   const open = zone==='B'
     ? '（开场钩子）'+theme+'——报志愿最怕信息差，今天我把压箱底的方法一次讲透。'
-    : '（开场钩子）'+theme+'——物理提分不靠刷题量，靠把模型吃透，今天教你。';
+    : '（开场钩子）'+theme+'——物理成绩上不去，多半不是刷题少，是模型没吃透，今天拆给你看。';
   const g1 = zone==='B' ? '模块1：用一分一段表做位次定位，把"分数"翻译成"能上的学校区间"' : '模块1：力学三大模型拆解，受力分析不再丢分';
   const g2 = zone==='B' ? '模块2：冲稳保梯度怎么排，志愿顺序错了直接滑档' : '模块2：实验题五步法，白送的12分先拿稳';
   const g3 = zone==='B' ? '模块3：专业vs学校取舍，中分段优先专业、行业性强' : '模块3：近3年山西高考物理考点分布，刷题对准考纲';
@@ -809,10 +809,10 @@ function buildLiveVersion(theme, zone, mins, goal, fudai, m, solution, depth){
   const solSteps = solution ? solution.replace(/\n/g,'；') : '';
   const convert = zone==='B'
     ? '想要《山西院校近3年录取位次表》的，扣「位次」，我发你。更细的定位可以进粉丝群，下播我挑典型帮你看。'
-    : '想要《物理高频考点速记卡》的扣「物理」，我发你。卡壳的题评论区喊"老闫救我"，下播挑典型讲。';
+    : '想要《物理高频考点速记卡》的扣「物理」，我发你。卡壳的题评论区扣「物理」或@我，下播挑典型讲。';
   const end = '明晚同一时间讲「'+(zone==='B'?'提前批报考避坑':'物理选择题秒杀技巧')+'」，点关注开播不迷路。';
   let s='【'+m+'版 ｜ 画面备注：'+cam+'】\n';
-  s+='▶ 开场留人（前90秒）\n· '+open+depthLine+'\n· 价值：今天讲完你能自己上手'+(zone==='B'?'冲稳保定位':'物理提分3步')+'。\n· 预告：最后抽'+fudai+'，想要的扣666。\n\n';
+  s+='▶ 开场留人（前90秒）\n· '+open+depthLine+'\n· 价值：今天讲完你能自己上手'+(zone==='B'?'冲稳保定位':'物理解题3步')+'。\n· 预告：最后抽'+fudai+'，想要的扣666。\n\n';
   s+='▶ 干货模块（共约'+mins+'分钟）\n';
   s+='· 模块1（深度拆解）：'+(depth?depth:g1)+'（'+modMins+'分钟）\n';
   s+='· 模块2（具体落地动作）：'+(solSteps?solSteps:g2)+'（'+modMins+'分钟）\n';
@@ -998,7 +998,7 @@ function genMoment(zone, theme, school){
   var picks=pool.slice(0,3);
   var cta=(window.COPY&&COPY.cta[zone])||'评论区扣「资料」领取。';
   var nm=zone==='A'?'老闫':'张姐';
-  var intro=zone==='A'?'我是老闫，太原10年初高中物理。':'我是张姐，太原教育咨询第5年。';
+  var intro=zone==='A'?'我是老闫，太原7年初高中物理。':'我是张姐，太原教育咨询第5年。';
   var schFact='';
   var m=findSchool(school);
   if(m){ schFact=m.short+'（'+m.district+'·'+m.nature+'·'+(segOf(m)==='high'?'高中':'初中')+(m.dingxiang?'·定向生校':'')+'）'; }
@@ -1226,10 +1226,79 @@ function buildArticleDoc(o){
     +'<div class="article"><div class="title">'+esc(title)+'</div><div class="byline">'+(cover.mpName||'太原升学指南')+'　·　'+dateStr()+'　·　数据来自教育局/学校官方公开信息</div>'+body+endHTML()+'</div></div></body></html>';
   return doc;
 }
+/* ===== 平台合规自检器（被抖音处罚后建立 · 发布前必查） ===== */
+function complianceHTML(){
+  var c=window.COMPLIANCE; if(!c) return '';
+  var h='<div class="card" style="margin-top:16px;border:1px solid #e7c3c3;background:#fff8f8"><div class="card-h" style="color:#b42318">🛡️ 平台合规自检器 · 发布前必查一遍</div>'
+    +'<div class="muted" style="font-size:13px;margin-bottom:8px">'+esc(c.note||'')+'</div>'
+    +'<div class="row form2" style="align-items:start"><label class="fld" style="flex:1"><span>粘贴要发的文案（简介 / 标题 / 口播 / 朋友圈 / 推文）</span>'
+    +'<textarea id="cpComplianceInput" rows="5" placeholder="把准备对外发的文字粘进来，点检测…"></textarea></label></div>'
+    +'<div class="row" style="margin-top:8px"><button class="btn" onclick="cpComplianceCheck()">🔍 检测雷词</button>'
+    +'<span class="muted" style="font-size:12px">依据：广告法第9/24条 · 反不正当竞争法 · 抖音社区规范</span></div>'
+    +'<div id="cpComplianceOut" style="margin-top:10px"></div></div>';
+
+  if(c.bios && c.bios.length){
+    h+='<div class="card" style="margin-top:14px"><div class="card-h">✅ 合规简介（直接复制填抖音）</div>'
+      +'<div class="muted" style="font-size:12px;margin-bottom:8px">被罚期间从 V1 起步；V3 含「1000+学生」属事实陈述，但被罚期内不要用。点击「复制简介」直接取文本。</div>'
+      +'<div class="grid g2">';
+    c.bios.forEach(function(b){
+      h+='<div class="card" style="margin:0;border:1px solid #e0e6ed"><div class="at" style="font-size:14px">'+esc(b.id)+' · '+esc(b.name)+' <span class="tag">风险 '+esc(b.risk)+'</span></div>'
+        +'<div class="muted" style="font-size:12px">'+esc(b.when||'')+'</div>'
+        +'<div class="box" style="white-space:pre-wrap;font-size:13px;margin:8px 0;line-height:1.6">'+esc(b.text)+'</div>'
+        +'<div class="muted" style="font-size:11px">✔ '+esc(b.check||'')+'</div>'
+        +'<div class="row" style="margin-top:8px"><button class="btn s" onclick="cpCopyBio(\''+esc(b.id)+'\')">复制简介</button></div></div>';
+    });
+    h+='</div></div>';
+  }
+
+  if(c.appeal){
+    h+='<div class="card" style="margin-top:14px"><div class="card-h">⚠️ '+esc(c.appeal.title)+'</div><ol style="font-size:13px;padding-left:20px;margin:6px 0">';
+    c.appeal.steps.forEach(function(s){
+      h+='<li style="margin-bottom:8px"><b>'+s.n+'. '+esc(s.t)+'</b><br><span class="muted" style="font-size:12px">'+esc(s.d)+'</span></li>';
+    });
+    h+='</ol><div style="background:#fff4e5;border-left:3px solid #f59e0b;padding:8px 10px;font-size:12px;border-radius:6px">'+esc(c.appeal.warn)+'</div></div>';
+  }
+  return h;
+}
+function cpComplianceCheck(){
+  var c=window.COMPLIANCE; if(!c){ wbToast('合规库未加载'); return; }
+  var el=document.getElementById('cpComplianceInput'); if(!el) return;
+  var txt=(el.value||'').trim();
+  if(!txt){ wbToast('先粘贴文案'); return; }
+  var hits=[];
+  c.rules.forEach(function(r){
+    (r.words||[]).forEach(function(w){ if(txt.indexOf(w)>=0){ hits.push({level:r.level,cat:r.cat,word:w,why:r.why,fix:r.fix}); } });
+  });
+  var out='';
+  if(!hits.length){
+    out='<div style="background:#ecfdf3;border-left:3px solid #16a34a;padding:10px;border-radius:6px;font-size:13px;color:#14532d">✅ 未检出合规红线词，可以发。仍建议对照上方简介与处置流程自查一遍。</div>';
+  } else {
+    var p0=hits.filter(function(x){return x.level==='P0';});
+    var p1=hits.filter(function(x){return x.level==='P1';});
+    var p2=hits.filter(function(x){return x.level==='P2';});
+    out='<div class="muted" style="font-size:12px;margin-bottom:6px">检出 <b style="color:#b42318">'+hits.length+'</b> 处问题（P0 法条红线 '+p0.length+' · P1 高风险 '+p1.length+' · P2 软风险 '+p2.length+'）。P0/P1 必须改完才能发。</div><div style="font-size:13px">';
+    hits.forEach(function(x){
+      var color=x.level==='P0'?'#b42318':(x.level==='P1'?'#b45309':'#a16207');
+      out+='<div style="border:1px solid #eee;border-left:3px solid '+color+';border-radius:6px;padding:8px;margin-bottom:8px">'
+        +'<b style="color:'+color+'">['+x.level+'] '+esc(x.cat)+'</b> 命中词「<b>'+esc(x.word)+'</b>」<br>'
+        +'<span class="muted" style="font-size:12px">为什么：'+esc(x.why)+'</span><br>'
+        +'<span style="font-size:12px">改法：'+esc(x.fix)+'</span></div>';
+    });
+    out+='</div>';
+  }
+  var box=document.getElementById('cpComplianceOut'); if(box) box.innerHTML=out;
+}
+function cpCopyBio(id){
+  var c=window.COMPLIANCE; if(!c) return;
+  var b=(c.bios||[]).filter(function(x){return x.id===id;})[0];
+  if(b){ copyText(b.text); wbToast('已复制 '+id+' 简介'); }
+}
+
 function renderCopy(){
   var hs=allSchoolList();
   var opt='<option value="">（不指定，按主题生成）</option>'+hs.map(function(s){return '<option value="'+esc(s.name)+'">'+esc(s.short||s.name)+'</option>';}).join('');
   var h='<div class="banner"><b>文案中心 · 双号共用</b><br>一键生成「朋友圈文案」与「公众号推文」，内容直接调用情报底座（学校/政策/考试/开学轴）真实数据，推文可<b>导出成 .html 文件</b>直接进公众号编辑器。</div>';
+  h+=complianceHTML();
   h+='<div class="card" style="margin-top:12px"><div class="card-h">📱 朋友圈文案</div><div class="row form2" style="align-items:end">'
     +'<label class="fld"><span>账号</span><select id="cpZone"><option value="B">张姐规划 B</option><option value="A">老闫物理 A</option></select></label>'
     +'<label class="fld"><span>主题</span><input id="cpTheme" placeholder="如：开学分班考 / 物理入门"></label>'
@@ -1363,7 +1432,7 @@ function moCopyGallery(i){
 function genMomentCopy(zone, theme){
   zone = zone||'B';
   var M = window.MOMENT || {beliefs:[],taiyuanHooks:[],landing:{},img:{}};
-  var intro = zone==='A' ? '我是老闫，在太原教了10年初高中物理，专治"听懂了不会做"。' : '我是张姐，晋源区亿领教育主理人。';
+  var intro = zone==='A' ? '我是老闫，在太原教了7年初高中物理，专讲听得懂、做得出的物理方法。' : '我是张姐，晋源区亿领教育主理人。';
   var pool = theme==='taiyuan' ? (M.taiyuanHooks||[]) : (M.beliefs||[]);
   if(!pool.length) pool = M.beliefs||[];
   var landings = (M.landing&&M.landing[zone]) || (M.landing&&M.landing.B) || [];
@@ -1695,7 +1764,7 @@ function genLiveMaterial(){
     +'· 倒计时：开播后5分钟发，倒计时3分钟\n'
     +'· 发放：下播前私信 / 粉丝群发放，引导先点关注 + 加群\n'
     +'· 引流：想深度了解「'+theme+'」的扣「诊断」，进粉丝群领参与方式（不裸奔「加我微信」）\n\n';
-  out+='【五、本场钩子话术】\n· 开场：'+theme+'——'+(zone==='B'?'报志愿最怕信息差，今天把压箱底方法讲透':'物理提分不靠刷题量，靠把模型吃透，今天教你')+'\n\n';
+  out+='【五、本场钩子话术】\n· 开场：'+theme+'——'+(zone==='B'?'报志愿最怕信息差，今天把压箱底方法讲透':'物理成绩上不去，多半不是刷题少，是模型没吃透，今天拆给你看')+'\n\n';
   out+='【六、相关高频QA（按账号挑3条，直播前过一遍）】\n'+LIVE.qa.filter(function(q){return q.acc===zone;}).slice(0,3).map(function(q){return 'Q：'+q.q+'\nA：'+q.a;}).join('\n\n')+'\n';
   showLive(out, '开播物料包 · '+theme, '直播物料');
 }

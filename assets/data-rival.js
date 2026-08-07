@@ -228,6 +228,526 @@ window.RIVAL = {
       "threat": "-",
       "zone": "我方",
       "src": "项目自身"
+    },
+    {
+      "name": "李老师的升学笔记",
+      "platform": "抖音",
+      "url": "抖音号:tkzcqzy",
+      "followers": "21.2w",
+      "track": "升学规划",
+      "region": "太原",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "太原升学咨询",
+      "platform": "抖音",
+      "url": "抖音号:tysxw",
+      "followers": "1.0万",
+      "track": "升学规划",
+      "region": "太原",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "马老师聊升学",
+      "platform": "抖音",
+      "url": "抖音号:mlsjsx666",
+      "followers": "10.3w",
+      "track": "升学规划",
+      "region": "未知",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "会放羊的教书匠",
+      "platform": "抖音",
+      "url": "抖音号:hfydjsj",
+      "followers": "98.2w",
+      "track": "全科/初高中",
+      "region": "未知",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "教数学的班主任",
+      "platform": "抖音",
+      "url": "抖音号:1019092694",
+      "followers": "26.1w",
+      "track": "数学",
+      "region": "未知",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "高中数学张伟",
+      "platform": "抖音",
+      "url": "抖音号:zw92_",
+      "followers": "未知",
+      "track": "数学",
+      "region": "太原",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "张属化学(太原)",
+      "platform": "抖音",
+      "url": "抖音号:1044790368",
+      "followers": "未知",
+      "track": "化学",
+      "region": "太原",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "物理何先生",
+      "platform": "抖音",
+      "url": "抖音号:Hxw18634424555",
+      "followers": "未知(获赞约7万)",
+      "track": "高中物理",
+      "region": "大同(山西)",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "初中数理化—三味学堂",
+      "platform": "抖音",
+      "url": "抖音号:sanweixuetang",
+      "followers": "未知",
+      "track": "数理化",
+      "region": "山西",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "初中数学米老师",
+      "platform": "抖音",
+      "url": "抖音号:96810319364",
+      "followers": "未知",
+      "track": "数学",
+      "region": "未知",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "马哥初中数学",
+      "platform": "抖音",
+      "url": "抖音号:搜索\"马哥初中数学\"",
+      "followers": "33.1万",
+      "track": "数学",
+      "region": "未知",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "高中班主任李老师",
+      "platform": "抖音",
+      "url": "抖音号:68356084343",
+      "followers": "未知",
+      "track": "高中数学/高考志愿",
+      "region": "未知",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "高中火箭班班主任郭老师",
+      "platform": "抖音",
+      "url": "抖音号:56505422095",
+      "followers": "53.8w",
+      "track": "学习方法(全科)",
+      "region": "未知",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "太原市金桥双语中学校",
+      "platform": "抖音",
+      "url": "抖音号:jq2729199",
+      "followers": "未知",
+      "track": "机构号",
+      "region": "太原",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "王老师升学提分志愿规划",
+      "platform": "抖音",
+      "url": "抖音号:wanglaoshish64",
+      "followers": "1.3w",
+      "track": "高考志愿",
+      "region": "山西",
+      "active30d": "是",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "运城家长帮/学有径升学内参杨老师",
+      "platform": "抖音",
+      "url": "抖音号:926392562",
+      "followers": "4.8w",
+      "track": "升学规划",
+      "region": "运城(山西)",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "刘泽石老师",
+      "platform": "抖音",
+      "url": "抖音号:209980750",
+      "followers": "72.6w",
+      "track": "升学规划",
+      "region": "未知",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "中考物理徐老师",
+      "platform": "抖音",
+      "url": "抖音号:wulixulaoshi678",
+      "followers": "82.2w",
+      "track": "初中物理",
+      "region": "未知",
+      "active30d": "是",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "HE物理课堂",
+      "platform": "抖音",
+      "url": "抖音号:67527527",
+      "followers": "150.1w",
+      "track": "中学物理",
+      "region": "未知",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "太原续娜佳演培训学校",
+      "platform": "抖音",
+      "url": "抖音号:huanghexuna",
+      "followers": "11.9w",
+      "track": "艺考志愿/机构号",
+      "region": "太原",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "山西高考志愿填报王老师",
+      "platform": "抖音",
+      "url": "抖音号:2021314521yf",
+      "followers": "3.0w",
+      "track": "高考志愿",
+      "region": "山西",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "升学规划任老师",
+      "platform": "抖音",
+      "url": "抖音号:40060789793",
+      "followers": "9w",
+      "track": "升学规划",
+      "region": "未知",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "做教育的褚老师",
+      "platform": "抖音",
+      "url": "抖音号:teacher.chu",
+      "followers": "9w",
+      "track": "升学规划",
+      "region": "山西",
+      "active30d": "是",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "诚师双语张校长",
+      "platform": "抖音",
+      "url": "抖音号:taiyuancheng88",
+      "followers": "3.8万",
+      "track": "机构号",
+      "region": "未知",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "物理学霸110(王培鉴)",
+      "platform": "抖音",
+      "url": "抖音号:未知(搜索\"物理学霸110 王培鉴\")",
+      "followers": "未知",
+      "track": "高中物理",
+      "region": "太原",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "太原雷哥教数学",
+      "platform": "好看视频/百度",
+      "url": "https://haokan.baidu.com/author/1792747109619009",
+      "followers": "未知(视频数600+)",
+      "track": "数学",
+      "region": "太原",
+      "active30d": "是",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "升学规划李老师-立德",
+      "platform": "抖音",
+      "url": "抖音号:23434654707",
+      "followers": "7095",
+      "track": "高考志愿",
+      "region": "山西",
+      "active30d": "是",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "物理之家(赵老师)",
+      "platform": "抖音",
+      "url": "https://www.douyin.com/user/MS4wLjABAAAA_wxB8muInSB-no8d1XCfxcr1IlR4j-zyCqJZyvE0QFE",
+      "followers": "未知",
+      "track": "高中物理",
+      "region": "山西",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "数理化张老师",
+      "platform": "抖音",
+      "url": "抖音号:搜索\"数理化张老师\"",
+      "followers": "118.0万",
+      "track": "数学/化学",
+      "region": "未知",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "张志浩在剥柚",
+      "platform": "抖音",
+      "url": "抖音号:搜索\"张志浩在剥柚\"",
+      "followers": "未知",
+      "track": "历史/语文",
+      "region": "太原",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "王淏然老师(学而思)",
+      "platform": "抖音",
+      "url": "抖音号:未知(太原学而思网校高中语文)",
+      "followers": "百万(全网)",
+      "track": "语文/全科",
+      "region": "太原",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "谭逸枫(犀利数学)",
+      "platform": "抖音",
+      "url": "https://edu.ablesky.com/org/35225_ms_50544",
+      "followers": "未知",
+      "track": "数学",
+      "region": "太原",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "马晋伟",
+      "platform": "抖音",
+      "url": "https://wkzj.com/shared/ucenter/index/353793",
+      "followers": "未知(微课之家105粉丝)",
+      "track": "数学",
+      "region": "太原",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "教语文的大芳老师",
+      "platform": "小红书",
+      "url": "小红书ID:6206876411",
+      "followers": "13.2w",
+      "track": "语文",
+      "region": "太原",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "马清山/清山笔记",
+      "platform": "小红书",
+      "url": "小红书:搜索\"马清山 清山笔记\"",
+      "followers": "10万+",
+      "track": "语文",
+      "region": "太原",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "半墨书院~行书",
+      "platform": "小红书",
+      "url": "小红书ID:5439644155",
+      "followers": "15.3w",
+      "track": "书法教育",
+      "region": "太原",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "潇潇老师(海归留学版)",
+      "platform": "小红书",
+      "url": "小红书ID:4778464790",
+      "followers": "7.1w",
+      "track": "留学教育",
+      "region": "太原",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "英语盖老师",
+      "platform": "B站",
+      "url": "UID:395867084",
+      "followers": "203.9w",
+      "track": "英语",
+      "region": "山西",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "老卢侃数",
+      "platform": "B站",
+      "url": "UID:544003942",
+      "followers": "未知",
+      "track": "数学",
+      "region": "太原",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "一锅物理",
+      "platform": "B站",
+      "url": "https://search.bilibili.com/upuser?keyword=一锅物理",
+      "followers": "未知",
+      "track": "物理",
+      "region": "山西",
+      "active30d": "是",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "星宙数学",
+      "platform": "B站",
+      "url": "https://search.bilibili.com/upuser?keyword=星宙数学",
+      "followers": "未知",
+      "track": "数学",
+      "region": "山西",
+      "active30d": "是",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "江涛数学",
+      "platform": "B站",
+      "url": "https://search.bilibili.com/upuser?keyword=江涛数学",
+      "followers": "未知",
+      "track": "数学",
+      "region": "山西",
+      "active30d": "是",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "火柴数理化",
+      "platform": "B站",
+      "url": "https://search.bilibili.com/upuser?keyword=火柴数理化",
+      "followers": "未知",
+      "track": "化学",
+      "region": "山西",
+      "active30d": "是",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "化学Mr徐老师",
+      "platform": "B站",
+      "url": "https://search.bilibili.com/upuser?keyword=化学Mr徐老师",
+      "followers": "未知",
+      "track": "化学",
+      "region": "山西",
+      "active30d": "是",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "理科大王子林老师",
+      "platform": "B站",
+      "url": "https://search.bilibili.com/upuser?keyword=理科大王子林老师",
+      "followers": "未知",
+      "track": "物理",
+      "region": "山西",
+      "active30d": "是",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "景尘老师规划师",
+      "platform": "教育宝/机构",
+      "url": "https://www.jiaoyubao.cn/ka/733281.html",
+      "followers": "未知",
+      "track": "中考升学规划",
+      "region": "太原",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "正德书院升学规划",
+      "platform": "教育宝/机构",
+      "url": "https://ty.jiaoyubao.cn",
+      "followers": "未知",
+      "track": "机构号/升学规划",
+      "region": "太原",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "太原学益教育",
+      "platform": "教育宝/机构",
+      "url": "https://www.jiaoyubao.cn/edu/tyxyjy/details.html",
+      "followers": "未知",
+      "track": "机构号/升学规划",
+      "region": "太原",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "太原锐思教育",
+      "platform": "教育宝/机构",
+      "url": "https://m.jiaoyubao.cn/baike/15968.html",
+      "followers": "未知",
+      "track": "机构号/升学规划",
+      "region": "太原",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "太原新东方教育",
+      "platform": "教育宝/机构",
+      "url": "https://m.jiaoyubao.cn/baike/15968.html",
+      "followers": "未知",
+      "track": "机构号/升学规划",
+      "region": "太原",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "太原诚明教育",
+      "platform": "教育宝/机构",
+      "url": "https://m.jiaoyubao.cn/baike/15968.html",
+      "followers": "未知",
+      "track": "机构号/升学规划",
+      "region": "太原",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
+    },
+    {
+      "name": "大正德教育",
+      "platform": "教育宝/机构",
+      "url": "https://m.jiaoyubao.cn/baike/15968.html",
+      "followers": "未知",
+      "track": "机构号/升学规划",
+      "region": "太原",
+      "active30d": "未知",
+      "src": "联网核验 2026-08-07"
     }
   ],
   "institutions": [

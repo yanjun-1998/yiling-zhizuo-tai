@@ -146,6 +146,106 @@ function checkFresh() {
   return { out, fail };
 }
 
+/* ============ 平台合规闸门（雷词扫描）============
+ * 缘起：2026-08-07 老闫物理号简介因「专治/10年/提分/救我」被抖音处罚。
+ * 目的：把「凭感觉写文案」变成机器过闸——任何数据文件里出现 P0/P1 雷词，质检直接判不合格。
+ * 词库来源：assets/data-compliance.js（COMPLIANCE.rules），改词只改那一个文件。
+ * 用法：node tools/qc.js --bio   （全量质检时自动包含）
+ */
+function checkBio() {
+  const out = [];
+  let fail = 0;
+
+  const C = loadVar('data-compliance.js', 'COMPLIANCE');
+  if (!C || C.__err || !C.rules) {
+    out.push('❌ data-compliance.js 无法解析，雷词库缺失');
+    return { out, fail: 1 };
+  }
+
+  /* 只扫 P0/P1（P2 为软风险，仅提示不判死） */
+  const hard = C.rules.filter(r => r.level === 'P0' || r.level === 'P1');
+  const soft = C.rules.filter(r => r.level === 'P2');
+
+  /* 「文案类」文件 = 内容会被直接搬到抖音/朋友圈/公众号发出去的。
+     其余为「情报类」（学校库/分数线/政策/校园动态），里面出现
+     "招生、报名、第一中学" 属客观陈述，只对它们扫 scope:'all' 的绝对红线。 */
+  const COPY_FILES = new Set([
+    'data-core.js', 'data-strategy.js', 'data-tpl.js', 'data-copy.js',
+    'data-live.js', 'data-livecard.js', 'data-article.js',
+    'moments.js', 'data-moment.js',
+    'data-a.js', 'data-b.js', 'data-physics-content.js',
+    'data-politics.js', 'data-eduplan.js', 'data-methods.js',
+    'today-feed.js', 'data-today.js', 'data-iterate-override.js'
+  ]);
+  const isCopy = f => COPY_FILES.has(f);
+  const applies = (rule, f) => (rule.scope === 'all') || isCopy(f);
+
+  /* 「情报类」文件整体豁免：里面记录的是客观事实与他人内容，
+     例如竞品账号的简介原文里带「提分」、学校库里的真实校名「太钢一中」、
+     民办校学费、政策原文。这些不会变成我方对外文案，判违规纯属误伤。 */
+  const INTEL_FILES = new Set([
+    'data-schools.js', 'data-school-aliases.js', 'data-scorelines.js',
+    'data-rival.js', 'data-calendar.js', 'data-policy.js', 'data-exam.js',
+    'data-tier1.js', 'data-taiyuan-geo.js', 'data-parent-weekly.js',
+    'school-news.js', 'school-shared.js', 'school-scan-list.js',
+    'my-events.js', 'iterate-latest.js', 'hot-events.js'
+  ]);
+
+  /* 扫描范围：assets 下所有 .js，排除词库自身、归档与情报类 */
+  const SKIP = new Set(['data-compliance.js', 'hot-archive.js']);
+  const files = fs.readdirSync(ASSETS)
+    .filter(f => f.endsWith('.js') && !SKIP.has(f) && !INTEL_FILES.has(f));
+
+  const hits = [];     // P0/P1 命中
+  const softHits = []; // P2 命中
+
+  files.forEach(f => {
+    const src = fs.readFileSync(path.join(ASSETS, f), 'utf8');
+    const lines = src.split('\n');
+    lines.forEach((line, idx) => {
+      /* 跳过注释行，避免把说明文字误判 */
+      const t = line.trim();
+      if (t.startsWith('//') || t.startsWith('*') || t.startsWith('/*')) return;
+      /* 白名单：合规红线清单、敏感词替换对照表这类「故意写出雷词做反面教材」的行，
+         在行尾加 /* qc-ok *​/ 标记即可豁免。防止防火墙把自己烧了。 */
+      if (line.includes('qc-ok')) return;
+      hard.forEach(rule => {
+        if (!applies(rule, f)) return;
+        rule.words.forEach(w => {
+          if (line.includes(w)) {
+            hits.push({ f, ln: idx + 1, w, level: rule.level, cat: rule.cat, fix: rule.fix });
+          }
+        });
+      });
+      soft.forEach(rule => {
+        if (!applies(rule, f)) return;
+        rule.words.forEach(w => {
+          if (line.includes(w)) softHits.push({ f, ln: idx + 1, w, cat: rule.cat });
+        });
+      });
+    });
+  });
+
+  if (hits.length) {
+    fail = hits.length;
+    out.push('❌ 发现 ' + hits.length + ' 处 P0/P1 违规表述（会导致平台处罚，必须清除）：');
+    hits.forEach(h => {
+      out.push('   [' + h.level + '·' + h.cat + '] ' + h.f + ':' + h.ln + ' → 「' + h.w + '」');
+      out.push('        整改：' + h.fix);
+    });
+  } else {
+    out.push('✅ 全站 ' + files.length + ' 个数据文件，无 P0/P1 违规表述');
+  }
+
+  if (softHits.length) {
+    out.push('⚠️  另有 ' + softHits.length + ' 处 P2 软风险（不判不合格，但叠加会加重处罚）：');
+    softHits.slice(0, 10).forEach(h => out.push('   [P2·' + h.cat + '] ' + h.f + ':' + h.ln + ' → 「' + h.w + '」'));
+    if (softHits.length > 10) out.push('   … 其余 ' + (softHits.length - 10) + ' 处略');
+  }
+
+  return { out, fail };
+}
+
 /* ── 过期判定（供「漏跑守护」自动化调用）───────────────────────────
  * node tools/qc.js --stale
  *   exit 0 = 数据新鲜，无需补跑
@@ -291,6 +391,24 @@ function main() {
     console.log(freshFail ? '新鲜度不合格：' + freshFail + ' 项' : '新鲜度全部通过');
   }
 
+  /* ── 合规闸门：任何时候都跑（雷词是硬伤，比内容干瘪严重得多）── */
+  let bioFail = 0;
+  {
+    const r = checkBio();
+    bioFail = r.fail;
+    console.log('\n=== 平台合规质检（抖音雷词扫描）===');
+    r.out.forEach(l => console.log(l));
+    console.log('---');
+    console.log(bioFail ? '合规不合格：' + bioFail + ' 处 P0/P1 违规' : '合规全部通过');
+  }
+
+  if (bioFail) {
+    console.log('\n【合规不合格处理要求】这是会导致账号被处罚的硬伤，优先级高于一切：');
+    console.log('  1. 按上面每条的「整改」提示逐处改写，不要只删词、要换成合规表达；');
+    console.log('  2. 改完重跑 node tools/qc.js 确认归零，再部署；');
+    console.log('  3. 词库在 assets/data-compliance.js（COMPLIANCE.rules），新踩的坑要补进去，别只改文案。');
+  }
+
   if (badAll) {
     console.log('\n【质量不合格处理要求】必须重写上述条目的 depth / solution：');
     console.log('  depth    = 一句话底层逻辑（为什么是这样的机制/规律，≥15字）');
@@ -313,7 +431,7 @@ function main() {
     console.log('  3. fresh:"carry" 的条目必须再加 "progress"：今天比昨天多了什么新进展。');
   }
 
-  process.exit(badAll || freshFail || structFail ? 1 : 0);
+  process.exit(badAll || freshFail || structFail || bioFail ? 1 : 0);
 }
 
 main();
