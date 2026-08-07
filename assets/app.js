@@ -279,6 +279,7 @@ function renderHome(){
   const PRI={P0:3,P1:2,P2:1};
   const recs=(TODAY.recs||[]).slice().sort((a,b)=>PRI[b.pri]-PRI[a.pri]);
   let h='<div class="banner"><b>今日策略（'+esc(TODAY.date)+'）</b><br>'+esc(TODAY.strategy)+'</div>';
+  if(window.__FEED_DEGRADED){ h+='<div class="banner" style="border-color:#b42318;background:#fff8f8;color:#b42318"><b>⚠️ 限流降级模式</b>：自动化/AI 今日未产出，以下内容由「预生成缓冲」自动加载（零AI、零编造）。恢复正常后自动切回实时内容。可在「📦 预生成缓冲」页手动切换日期。</div>'; }
   h += todayFreshBarHTML();
   h += qcBarHTML();
   h += hotZoneHTML('AB');
@@ -1456,10 +1457,47 @@ function genMomentCopy(zone, theme){
   return out;
 }
 
+/* ===== 批量预生成缓冲（限流降级保底 · 零AI调用） ===== */
+function renderPrebuf(){
+  var B=window.PREBUF;
+  if(!B||!B.days){ $('#prebuf').innerHTML='<p class="muted">缓冲未生成。在台子侧运行 <code>node tools/pregen.js</code> 即可生成 30 天内容。</p>'; return; }
+  var todayKey=ymd(new Date());
+  var srcDay=bufferDayFor(new Date());
+  var h='<div class="banner"><b>📦 批量预生成缓冲（限流降级保底）</b><br>'
+    +'由 <code>tools/pregen.js</code> 从校历/考试历确定性生成，<b>零 AI 调用、零编造</b>。共 '+B.days.length+' 天（从 '+esc(B.base)+' 起）。<br>'
+    +'<span class="muted">用途：当平台限流、自动化/AI 停摆导致今日行动台为空时，台子自动降级加载当天缓冲内容，对外不断更。需手动切换日期时，点任一天的「→ 降为今日」即可。</span></div>';
+  h+='<div class="kv" style="margin:10px 0"><b>当前状态</b><span>'+(srcDay?('✅ 今天已有缓冲可用（'+srcDay.recs.length+' 条），限流时自动启用'):'⚠️ 今天无缓冲（请重跑 pregen）')+'</span></div>';
+  h+='<div class="grid g2">';
+  B.days.forEach(function(d){
+    var isToday=d.date===todayKey;
+    var isSrc=srcDay&&srcDay.date===d.date;
+    h+='<div class="card" style="'+(isToday?'border-color:#b42318':'')+'">';
+    h+='<div class="ct">'+(isToday?'🔵 ':'')+esc(d.date)+(isToday?' · 今日':'')+(isSrc?' <span class="badge b">可降级源</span>':'')+'</div>';
+    h+='<div class="cb"><p class="muted" style="margin:2px 0 8px">'+d.recs.length+' 条预生成内容</p>';
+    d.recs.forEach(function(r){
+      h+='<div style="border-top:1px dashed #eee;padding:6px 0"><b>['+esc(r.zone)+'/'+esc(r.pri)+']</b> '+esc(r.title)
+        +'<div class="muted" style="font-size:12px">'+esc((r.depth||'').slice(0,38))+'…</div></div>';
+    });
+    h+='<div class="row" style="margin-top:8px"><button class="btn s" onclick="applyBufferToToday(\''+d.date+'\')">→ 降为今日行动台</button></div>';
+    h+='</div></div>';
+  });
+  h+='</div>';
+  $('#prebuf').innerHTML=h;
+}
+function applyBufferToToday(date){
+  var B=window.PREBUF; if(!B){ wbToast('缓冲未生成'); return; }
+  var day=B.days.find(function(x){return x.date===date;}); if(!day){ wbToast('未找到该日缓冲'); return; }
+  var fake={date:day.date, strategy:'(手动降级)本日内容来自预生成缓冲。', recs:day.recs};
+  window.TODAY_FEED=fake; window.TODAY=fake; window.__FEED_DEGRADED=true;
+  switchTab('home'); try{ renderHome(); }catch(e){}
+  wbToast('已把 '+date+' 的缓冲降为今日行动台');
+  try{ document.getElementById('today').innerHTML='📅 '+esc(fake.date)+' · 今日：'+esc(fake.recs[0]?fake.recs[0].title:''); }catch(e){}
+}
+
 /* ===== 初始化 ===== */
 function init(){
   $('#today').innerHTML = '📅 '+esc(TODAY.date)+' · 今日：'+(TODAY.recs[0]?esc(TODAY.recs[0].title):'');
-  $$('.tab').forEach(t=>t.addEventListener('click', ()=>switchTab(t.dataset.v)));
+  $$('.tab').forEach(t=>t.addEventListener('click', ()=>{ switchTab(t.dataset.v); if(t.dataset.v==='prebuf'){ try{ renderPrebuf(); }catch(e){} } }));
   renderHome();
   renderZoneA();
   renderPolitics();
@@ -1472,6 +1510,8 @@ function init(){
   renderMoment();
   renderHub();
   renderFav(); updateFavBadge();
+  renderPrebuf();
+  refreshFeed();
   switchTab('home');
   bindAddHot();
   bindAddSchool();
@@ -1496,6 +1536,7 @@ window.reviewLiveNew=reviewLiveNew; window.liveFilterQA=liveFilterQA;
 window.renderCopy=renderCopy; window.cpGenMoment=cpGenMoment; window.cpCopyMoment=cpCopyMoment; window.cpGenArticle=cpGenArticle; window.cpDownloadArticle=cpDownloadArticle; window.cpCopyArticleText=cpCopyArticleText; window.cpSaveArticleDraft=cpSaveArticleDraft; window.genMoment=genMoment; window.buildArticleDoc=buildArticleDoc; window.artCopyPost=artCopyPost; window.fmtScore=fmtScore; window.livecardToggle=livecardToggle; window.livecardShowAll=livecardShowAll;
 window.renderMoment=renderMoment; window.moGen=moGen; window.moCopyText=moCopyText; window.moCopyImg=moCopyImg; window.genMomentCopy=genMomentCopy; window.renderMomentGallery=renderMomentGallery; window.moCopyGallery=moCopyGallery; window.moCopyIter=moCopyIter; window.renderIterate=renderIterate; window.renderHub=renderHub; window.renderZoneA=renderZoneA; window.renderPolitics=renderPolitics;
 window.renderHome=renderHome;
+window.renderPrebuf=renderPrebuf; window.applyBufferToToday=applyBufferToToday; window.refreshFeed=refreshFeed; window.bufferDayFor=bufferDayFor;
 window.renderTier1=renderTier1; window.genTier1=genTier1; window.tier1Resolve=tier1Resolve;
 
 /* ===== 密码锁 ===== */
@@ -1526,20 +1567,34 @@ function setupLock(){
   setTimeout(function(){ try{inp.focus();}catch(e){} }, 60);
 }
 /* 云端/本地实时拉取最新今日Feed，覆盖部署快照（绕过浏览器缓存） */
+/* 限流降级：把日期格式化为 YYYY-MM-DD，供缓冲按日匹配 */
+function ymd(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function bufferDayFor(d){
+  if(!window.PREBUF||!window.PREBUF.days) return null;
+  var k=ymd(d); return window.PREBUF.days.find(function(x){return x.date===k;})||null;
+}
+function applyBufferFallback(cb){
+  var day=bufferDayFor(new Date());
+  if(day){
+    var fake={date:day.date, strategy:'（限流降级保底）本日内容由预生成缓冲自动加载，非实时产出。', recs:day.recs};
+    window.TODAY_FEED=fake; window.__FEED_DEGRADED=true; cb&&cb(fake);
+  } else { window.__FEED_DEGRADED=false; cb&&cb(null); }
+}
 function loadLiveFeed(cb){
   if(window.TODAY_FEED && window.TODAY_FEED.recs && window.TODAY_FEED.recs.length){ cb&&cb(window.TODAY_FEED); return; }
   try{
     fetch('assets/today-feed.js',{cache:'no-store'}).then(function(r){return r.text();}).then(function(txt){
-      try{ var obj=new Function(txt+'\nreturn window.TODAY_FEED;')(); if(obj&&obj.recs&&obj.recs.length){ window.TODAY_FEED=obj; cb&&cb(obj); } else cb&&cb(null); }
-      catch(e){ cb&&cb(null); }
-    }).catch(function(){ cb&&cb(null); });
-  }catch(e){ cb&&cb(null); }
+      try{ var obj=new Function(txt+'\nreturn window.TODAY_FEED;')(); if(obj&&obj.recs&&obj.recs.length){ window.TODAY_FEED=obj; window.__FEED_DEGRADED=false; cb&&cb(obj); } else applyBufferFallback(cb); }
+      catch(e){ applyBufferFallback(cb); }
+    }).catch(function(){ applyBufferFallback(cb); });
+  }catch(e){ applyBufferFallback(cb); }
 }
 function refreshFeed(){
   loadLiveFeed(function(feed){
     if(feed){ TODAY=feed;
       try{ document.getElementById('today').innerHTML='📅 '+esc(feed.date)+' · 今日：'+(feed.recs[0]?esc(feed.recs[0].title):''); }catch(e){}
       try{ renderHome(); }catch(e){}
+      if(window.__FEED_DEGRADED){ wbToast('⚠️ 自动化未产出，已自动降级到预生成缓冲（限流保底）'); }
     }
   });
 }
