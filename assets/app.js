@@ -2139,6 +2139,7 @@ function schoolDetail(name){
   const seg = segOf(s)==='high'?'高中':'初中';
   let h='<div class="lock-box" style="max-width:560px;text-align:left"><h3>'+esc(s.name)+'</h3>'
     +'<div class="muted">'+esc(s.district||'')+' · '+esc(s.nature||'')+' · '+esc(s.tier||'')+' · '+seg+'（'+esc(s.type||'')+'）'+(s.dingxiang?' · 定向生校':'')+'</div>'
+    + (s.intro?'<div class="intro-box" style="margin:10px 0;padding:10px 12px;background:#f7f9fc;border-left:3px solid #c9d6e5;border-radius:6px;font-size:13px;line-height:1.75">'+esc(s.intro)+'</div>':'')
     +'<ul class="kv" style="margin-top:10px">'
     +'<li><span class="k">行政区</span><span>'+esc(s.district||'-')+'</span></li>'
     +'<li><span class="k">办学性质</span><span>'+esc(s.nature||'-')+'</span></li>'
