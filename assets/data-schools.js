@@ -29,11 +29,30 @@ window.SCHOOLS = {
       "type": "十二年一贯制",
       "tier": "民办普通",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 659,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 572,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2025,
+          "score": 659,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2026,
+          "score": 649.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        }
+      ],
       "classes": null
     },
     {
@@ -47,7 +66,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "未检索到独立高中统招录取线，以官方通知为准。",
       "events": [],
       "scores5": [],
       "classes": null
@@ -61,11 +80,30 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 645.1,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 546,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2025,
+          "score": 645.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2026,
+          "score": 629.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        }
+      ],
       "classes": null
     },
     {
@@ -77,11 +115,30 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 683,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 576,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2025,
+          "score": 683,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2026,
+          "score": 684.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        }
+      ],
       "classes": null
     },
     {
@@ -93,11 +150,30 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 700.1,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 576,
+          "campus": "",
+          "src": "JYJ_27ZHONG,BDB_2026,BDB_2025,BDB_2024,ZK52_2024"
+        },
+        {
+          "year": 2025,
+          "score": 700.1,
+          "campus": "",
+          "src": "JYJ_27ZHONG,BDB_2026,BDB_2025,BDB_2024,ZK52_2024"
+        },
+        {
+          "year": 2026,
+          "score": 704.1,
+          "campus": "",
+          "src": "JYJ_27ZHONG,BDB_2026,BDB_2025,BDB_2024,ZK52_2024"
+        }
+      ],
       "classes": null
     },
     {
@@ -173,7 +249,7 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "一类重点",
       "dingxiang": true,
-      "score2025": null,
+      "score2025": 755.1,
       "group": "",
       "note": "2002年由太原市教育局举办的完全中学，山西省示范高中，市教育局直属。太原市文华中学校原为该校参与举办的公参民学校，2021年转公后成为四十八中高中部两个校区之一，两校区性质一致、管理一体（太原本地宝）；两校在市教育局公示的2026年特长生简章中留有同一地址与电话。2026年特长生计划50人（200米3、400米2、800米1、110米栏1、足球9、篮球9、排球6、羽毛球2、钢琴2、民族舞8、书法4、绘画3）。2026年二次定向线：定向阳曲县733分、定向娄烦县703分、定向城六区739.5分（太原晚报）。",
       "events": [],
@@ -247,11 +323,30 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 735.1,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 606,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2025,
+          "score": 735.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2026,
+          "score": 724.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        }
+      ],
       "classes": null
     },
     {
@@ -391,29 +486,11 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "民办优质",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 783,
       "group": "",
       "note": "前身为2015年经批准由山西大学附属中学校与山西竞杰房地产开发有限公司共同举办的“太原市知达常青藤中学校”，2023年6月更名为“太原市常青藤中学校”，现行分数线均以新校名公布（来源：教育宝转载学校官方微信、太原本地宝）。学费：2023年高中30000元/学年、住宿费2200元/学年（教育宝转载学校官方微信；本地宝另有“30000元/生·学期”表述，两者口径不一致，未核实）。2026年该校统招线在太原民办高中中位居前列。",
       "events": [],
       "scores5": [
-        {
-          "year": 2022,
-          "score": 597,
-          "campus": "",
-          "src": "太原市招考中心/教育局公告"
-        },
-        {
-          "year": 2023,
-          "score": 655,
-          "campus": "",
-          "src": "太原市招考中心/教育局公告"
-        },
-        {
-          "year": 2024,
-          "score": 655,
-          "campus": "",
-          "src": "太原市招考中心/教育局公告"
-        },
         {
           "year": 2022,
           "score": 597,
@@ -466,11 +543,30 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 624.5,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 526,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2025,
+          "score": 624.5,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2026,
+          "score": 609.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        }
+      ],
       "classes": null
     },
     {
@@ -521,7 +617,14 @@ window.SCHOOLS = {
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2026,
+          "score": 603,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        }
+      ],
       "classes": null
     },
     {
@@ -599,11 +702,30 @@ window.SCHOOLS = {
       "type": "高级中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 725.1,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 601,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2025,
+          "score": 725.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2026,
+          "score": 719.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        }
+      ],
       "classes": null
     },
     {
@@ -615,7 +737,7 @@ window.SCHOOLS = {
       "type": "高级中学",
       "tier": "一类重点",
       "dingxiang": true,
-      "score2025": null,
+      "score2025": 665.1,
       "group": "",
       "note": "县（市、区）属省级示范高中，特长生专业考试列入第一批次（太原市教育局2026年特长生通知）。2026年特长生计划20人（体育）。2026年二次定向线730.5分（太原晚报）。",
       "events": [],
@@ -795,11 +917,18 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 715.1,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2025,
+          "score": 715.1,
+          "campus": "",
+          "src": "http://epaper.tyrbw.com/tywb/resfile/2025-07-11/04/tywb2028071104.pdf（图2 太原市招考中心官方表格，校代码65037）"
+        }
+      ],
       "classes": null
     },
     {
@@ -1048,11 +1177,30 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 640.1,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 541,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2025,
+          "score": 640.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2026,
+          "score": 639.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        }
+      ],
       "classes": null
     },
     {
@@ -1064,7 +1212,7 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "一类重点",
       "dingxiang": true,
-      "score2025": null,
+      "score2025": 789,
       "group": "",
       "note": "由太原师范学院主办、山西省教育厅主管的公办完全中学，山西省首批示范高中，编码65014。现有侯家巷、富力、桃园、龙城、综改5个校区，分布于迎泽、杏花岭、小店三城区。2026年5月25日签约落户万柏林区，规划72班九年一贯制公办分校（小学48班、初中24班，约3360人），目前仅完成签约、尚未建成移交。师苑中学为其关联校。2026年定向二次分配线：774.5分（太原晚报/市招考中心）。",
       "events": [],
@@ -1128,11 +1276,30 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 773.5,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 641,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2025,
+          "score": 773.5,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2026,
+          "score": 764.5,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        }
+      ],
       "classes": null
     },
     {
@@ -1346,11 +1513,30 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 685.1,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 566,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2025,
+          "score": 685.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2026,
+          "score": 749.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        }
+      ],
       "classes": null
     },
     {
@@ -1362,11 +1548,30 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 685.1,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 571,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2025,
+          "score": 685.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2026,
+          "score": 685,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        }
+      ],
       "classes": null
     },
     {
@@ -1444,7 +1649,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "未检索到独立高中统招录取线，以官方通知为准。",
       "events": [],
       "scores5": [],
       "classes": null
@@ -1515,11 +1720,30 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 685.1,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 573,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2025,
+          "score": 685.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2026,
+          "score": 679.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        }
+      ],
       "classes": null
     },
     {
@@ -1531,7 +1755,7 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "一类重点",
       "dingxiang": true,
-      "score2025": null,
+      "score2025": 745.1,
       "group": "",
       "note": "",
       "events": [],
@@ -1559,6 +1783,12 @@ window.SCHOOLS = {
           "score": 720,
           "campus": "",
           "src": "太原市招考中心/教育局公告"
+        },
+        {
+          "year": 2025,
+          "score": 745.1,
+          "campus": "",
+          "src": "https://m.ty.bendibao.com/edu/68004.shtm（数据来源：太原市教育局官网）；https://ty.bendibao.com/wangdian/dian/6235371.shtm"
         }
       ],
       "classes": null
@@ -1572,7 +1802,7 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "一类重点",
       "dingxiang": true,
-      "score2025": null,
+      "score2025": 770.1,
       "group": "",
       "note": "省级示范高中、山西省首批重点中学、全国中小学人工智能教育基地，编码：旱西关65012、国樾龙城66012。太原市直属学校首个集团化办学的完全中学，形成“一个集团、五个校区”格局（含富力华庭、师爱中学等）。人工智能实验班为市级特色办学实验班，提前批单独录取，分数线控制在中考总分85%（2026年为713.2分）基础上择优录取。2026年定向二次分配线：旱西关755.5分、国樾龙城759.5分（太原晚报/市招考中心）。",
       "events": [],
@@ -1686,11 +1916,18 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 675.1,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2025,
+          "score": 675.1,
+          "campus": "",
+          "src": "http://epaper.tyrbw.com/tywb/resfile/2025-07-11/04/tywb2028071104.pdf（图2 太原市招考中心官方表格，校代码65019/65020区段）"
+        }
+      ],
       "classes": null
     },
     {
@@ -1704,7 +1941,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "未检索到独立高中统招录取线，以官方通知为准。",
       "events": [],
       "scores5": [],
       "classes": null
@@ -1718,7 +1955,7 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "一类重点",
       "dingxiang": true,
-      "score2025": null,
+      "score2025": 765.1,
       "group": "",
       "note": "又名太原市第二外国语学校，同心外国语中学校（杏花岭区国师街23号）与其同属一个教育集团、录取通知书统一在坝陵校区发放。晋源校区外语实验班属全市4个“特色办学实验班”之一，2026年特色班分数线控制在中考总分85%即713.2分，实际录取774.0分（2025年为774.5分，2024年648分，2023年656分）。该校与太原市外国语学校为全市两所可招小语种（非英语语种）班的学校，小语种考生在普高最低控制线上按计划择优录取。2026年特长生22人（女排8人、男足10人、男乒4人）。2026年二次定向线：坝陵校区749分、晋源校区755分（太原晚报）。",
       "events": [],
@@ -1938,7 +2175,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "未检索到独立高中统招录取线，以官方通知为准。",
       "events": [],
       "scores5": [],
       "classes": null
@@ -2021,11 +2258,30 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 660.1,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 546,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2025,
+          "score": 660.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2026,
+          "score": 664.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        }
+      ],
       "classes": null
     },
     {
@@ -2039,7 +2295,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "未检索到独立高中统招录取线，以官方通知为准。",
       "events": [],
       "scores5": [],
       "classes": null
@@ -2222,11 +2478,30 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 638.5,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 536,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2025,
+          "score": 638.5,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2026,
+          "score": 644.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        }
+      ],
       "classes": null
     },
     {
@@ -2324,7 +2599,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "未检索到独立高中统招录取线，以官方通知为准。",
       "events": [],
       "scores5": [],
       "classes": null
@@ -2338,11 +2613,30 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 645.1,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 546,
+          "campus": "",
+          "src": "BDB_2026,BDB_2025,BDB_2024,ZK52_2024"
+        },
+        {
+          "year": 2025,
+          "score": 645.1,
+          "campus": "",
+          "src": "BDB_2026,BDB_2025,BDB_2024,ZK52_2024"
+        },
+        {
+          "year": 2026,
+          "score": 639.1,
+          "campus": "",
+          "src": "BDB_2026,BDB_2025,BDB_2024,ZK52_2024"
+        }
+      ],
       "classes": null
     },
     {
@@ -2356,7 +2650,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "未检索到独立高中统招录取线，以官方通知为准。",
       "events": [],
       "scores5": [],
       "classes": null
@@ -2370,11 +2664,30 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 620.1,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 523,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2025,
+          "score": 620.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2026,
+          "score": 604.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        }
+      ],
       "classes": null
     },
     {
@@ -2386,11 +2699,30 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 705.1,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 581,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2025,
+          "score": 705.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2026,
+          "score": 689.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        }
+      ],
       "classes": null
     },
     {
@@ -2402,7 +2734,7 @@ window.SCHOOLS = {
       "type": "高级中学",
       "tier": "一类重点",
       "dingxiang": true,
-      "score2025": null,
+      "score2025": 640.1,
       "group": "",
       "note": "",
       "events": [],
@@ -2430,6 +2762,12 @@ window.SCHOOLS = {
           "score": 710.5,
           "campus": "",
           "src": "太原市招考中心/教育局公告"
+        },
+        {
+          "year": 2025,
+          "score": 640.1,
+          "campus": "",
+          "src": "http://epaper.tyrbw.com/tywb/resfile/2025-07-11/04/tywb2028071104.pdf（图2 太原市招考中心官方表格，校代码65052）"
         }
       ],
       "classes": null
@@ -2443,11 +2781,30 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 625.1,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 531,
+          "campus": "",
+          "src": "BDB_2026,BDB_2025,BDB_2024,ZK52_2024"
+        },
+        {
+          "year": 2025,
+          "score": 625.1,
+          "campus": "",
+          "src": "BDB_2026,BDB_2025,BDB_2024,ZK52_2024"
+        },
+        {
+          "year": 2026,
+          "score": 619.1,
+          "campus": "",
+          "src": "BDB_2026,BDB_2025,BDB_2024,ZK52_2024"
+        }
+      ],
       "classes": null
     },
     {
@@ -2459,11 +2816,30 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 635.1,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 536,
+          "campus": "",
+          "src": "BDB_2026,BDB_2025,BDB_2024,ZK52_2024"
+        },
+        {
+          "year": 2025,
+          "score": 635.1,
+          "campus": "",
+          "src": "BDB_2026,BDB_2025,BDB_2024,ZK52_2024"
+        },
+        {
+          "year": 2026,
+          "score": 624.1,
+          "campus": "",
+          "src": "BDB_2026,BDB_2025,BDB_2024,ZK52_2024"
+        }
+      ],
       "classes": null
     },
     {
@@ -2475,11 +2851,30 @@ window.SCHOOLS = {
       "type": "十二年一贯制",
       "tier": "民办普通",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 615,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 523,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2025,
+          "score": 615,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2026,
+          "score": 674.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        }
+      ],
       "classes": null
     },
     {
@@ -2493,7 +2888,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "未检索到独立高中统招录取线，以官方通知为准。",
       "events": [],
       "scores5": [],
       "classes": null
@@ -2509,7 +2904,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "未检索到独立高中统招录取线，以官方通知为准。",
       "events": [],
       "scores5": [],
       "classes": null
@@ -2523,11 +2918,30 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 665.1,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 556,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2025,
+          "score": 665.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2026,
+          "score": 654.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        }
+      ],
       "classes": null
     },
     {
@@ -2539,11 +2953,30 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 660.1,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 566,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2025,
+          "score": 660.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2026,
+          "score": 674.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        }
+      ],
       "classes": null
     },
     {
@@ -2557,7 +2990,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "未检索到独立高中统招录取线，以官方通知为准。",
       "events": [],
       "scores5": [],
       "classes": null
@@ -2575,7 +3008,20 @@ window.SCHOOLS = {
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 551,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2026,
+          "score": 650.5,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        }
+      ],
       "classes": null
     },
     {
@@ -2587,11 +3033,30 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 625.1,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 566,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2025,
+          "score": 625.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2026,
+          "score": 694.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        }
+      ],
       "classes": null
     },
     {
@@ -2603,11 +3068,30 @@ window.SCHOOLS = {
       "type": "高级中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 625,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 526,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2025,
+          "score": 625,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2026,
+          "score": 619.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        }
+      ],
       "classes": null
     },
     {
@@ -2619,11 +3103,30 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 660.5,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 556,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2025,
+          "score": 660.5,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2026,
+          "score": 659.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        }
+      ],
       "classes": null
     },
     {
@@ -2635,11 +3138,30 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 625.1,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 531,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2025,
+          "score": 625.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2026,
+          "score": 624.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        }
+      ],
       "classes": null
     },
     {
@@ -2651,11 +3173,18 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 700.1,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2025,
+          "score": 700.1,
+          "campus": "",
+          "src": "http://epaper.tyrbw.com/tywb/resfile/2025-07-11/04/tywb2028071104.pdf（图2 太原市招考中心官方表格，校代码65019）"
+        }
+      ],
       "classes": null
     },
     {
@@ -2667,11 +3196,30 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 770.1,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 617,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2025,
+          "score": 770.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2026,
+          "score": 763.5,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        }
+      ],
       "classes": null
     },
     {
@@ -2683,11 +3231,30 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 635.1,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 536,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2025,
+          "score": 635.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2026,
+          "score": 629.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        }
+      ],
       "classes": null
     },
     {
@@ -2801,11 +3368,30 @@ window.SCHOOLS = {
       "type": "高级中学",
       "tier": "民办普通",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 615,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 523,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2025,
+          "score": 615,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2026,
+          "score": 604.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        }
+      ],
       "classes": null
     },
     {
@@ -2817,11 +3403,30 @@ window.SCHOOLS = {
       "type": "十二年一贯制",
       "tier": "民办普通",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 615,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 523,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2025,
+          "score": 615,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2026,
+          "score": 603,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        }
+      ],
       "classes": null
     },
     {
@@ -2833,11 +3438,30 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 675.1,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 566,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2025,
+          "score": 675.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2026,
+          "score": 669.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        }
+      ],
       "classes": null
     },
     {
@@ -2849,11 +3473,30 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 660.1,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 561,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2025,
+          "score": 660.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2026,
+          "score": 659,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        }
+      ],
       "classes": null
     },
     {
@@ -2867,7 +3510,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "未检索到独立高中统招录取线，以官方通知为准。",
       "events": [],
       "scores5": [],
       "classes": null
@@ -2881,11 +3524,30 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 650.1,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 546,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2025,
+          "score": 650.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2026,
+          "score": 639.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        }
+      ],
       "classes": null
     },
     {
@@ -2897,11 +3559,30 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 715.1,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 592,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2025,
+          "score": 715.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2026,
+          "score": 714.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        }
+      ],
       "classes": null
     },
     {
@@ -2913,7 +3594,7 @@ window.SCHOOLS = {
       "type": "高级中学",
       "tier": "一类重点",
       "dingxiang": true,
-      "score2025": null,
+      "score2025": 735.1,
       "group": "",
       "note": "清徐县属高中，创建于1946年。2026级高一新生7月26日上午7:00—12:00报到（太原市梗阳中学校学籍学生同日下午13:00—18:00在同一地点报到，两校缴费与就餐系统共用）。学费800元/生·学年，预收秋季学期课本费950元；建档立卡户、农村低保户、孤儿或持残疾证学生免学费800元。校园禁止携带手机等电子产品。太原市招考中心公告明确：古交一中、清徐中学、徐沟中学若在统招线下50分内（含二次定向）未完成定向指标，可将定向录取率按90%为限继续下移分数线，其余10%转为统招计划。2026年二次定向线：定向清徐县704.5分（太原晚报）。",
       "events": [],
@@ -2977,7 +3658,7 @@ window.SCHOOLS = {
       "type": "高级中学",
       "tier": "一类重点",
       "dingxiang": true,
-      "score2025": null,
+      "score2025": 735.1,
       "group": "",
       "note": "清徐县属高中，2026年统招线774.1分，为本组7校中最高，高于多数城六区省级示范高中。太原市招考中心公告明确：古交一中、清徐中学、徐沟中学若在统招线下50分内（含二次定向）未完成定向指标，可将定向录取率按90%为限继续下移分数线，其余10%转为统招计划。2026年二次定向线：定向清徐县754分、定向阳曲县733分（太原晚报）。",
       "events": [],
@@ -3041,7 +3722,7 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "民办优质",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 742.5,
       "group": "",
       "note": "",
       "events": [],
@@ -3070,11 +3751,30 @@ window.SCHOOLS = {
       "type": "高级中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 720.1,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 596,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2025,
+          "score": 720.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2026,
+          "score": 729.1,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        }
+      ],
       "classes": null
     },
     {
@@ -3109,7 +3809,7 @@ window.SCHOOLS = {
       "type": "十二年一贯制",
       "tier": "民办优质",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 783,
       "group": "",
       "note": "",
       "events": [],
@@ -3144,11 +3844,18 @@ window.SCHOOLS = {
       "type": "高级中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 699.5,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2025,
+          "score": 699.5,
+          "campus": "",
+          "src": "http://epaper.tyrbw.com/tywb/resfile/2025-07-11/04/tywb2028071104.pdf（图2 太原市招考中心官方表格，校代码65043）"
+        }
+      ],
       "classes": null
     },
     {
@@ -3160,11 +3867,30 @@ window.SCHOOLS = {
       "type": "十二年一贯制",
       "tier": "民办普通",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 727.5,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 615,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2025,
+          "score": 727.5,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2026,
+          "score": 735,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        }
+      ],
       "classes": null
     },
     {
@@ -3176,11 +3902,18 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 675.1,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2025,
+          "score": 675.1,
+          "campus": "",
+          "src": "http://epaper.tyrbw.com/tywb/resfile/2025-07-11/04/tywb2028071104.pdf（图2 太原市招考中心官方表格，校代码65042）"
+        }
+      ],
       "classes": null
     },
     {
@@ -3192,11 +3925,30 @@ window.SCHOOLS = {
       "type": "完全中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 615,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2024,
+          "score": 523,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2025,
+          "score": 615,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        },
+        {
+          "year": 2026,
+          "score": 603,
+          "campus": "",
+          "src": "本地宝/太原晚报中考分数线汇总"
+        }
+      ],
       "classes": null
     },
     {
@@ -3208,7 +3960,7 @@ window.SCHOOLS = {
       "type": "高级中学",
       "tier": "一类重点",
       "dingxiang": true,
-      "score2025": null,
+      "score2025": 650.1,
       "group": "",
       "note": "",
       "events": [],
@@ -3218,6 +3970,12 @@ window.SCHOOLS = {
           "score": 591,
           "campus": "",
           "src": "太原市招考中心/教育局公告"
+        },
+        {
+          "year": 2025,
+          "score": 650.1,
+          "campus": "",
+          "src": "https://m.ty.bendibao.com/edu/67971.shtm（数据来源：太原市教育局官网）"
         }
       ],
       "classes": null
@@ -3231,11 +3989,18 @@ window.SCHOOLS = {
       "type": "高级中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 626,
       "group": "",
       "note": "",
       "events": [],
-      "scores5": [],
+      "scores5": [
+        {
+          "year": 2025,
+          "score": 626,
+          "campus": "",
+          "src": "http://epaper.tyrbw.com/tywb/resfile/2025-07-11/04/tywb2028071104.pdf（图2 太原市招考中心官方表格，校代码65040）"
+        }
+      ],
       "classes": null
     },
     {
@@ -3249,7 +4014,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市迎泽区公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3265,7 +4030,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市迎泽区公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3281,7 +4046,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市迎泽区公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3297,7 +4062,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "民转公初中，招生按太原市当年民办义务教育学校招生政策执行（报名人数超计划则电脑随机派位）；具体班型与招生计划以官方公告为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3313,7 +4078,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市迎泽区公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3329,7 +4094,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "民转公初中，招生按太原市当年民办义务教育学校招生政策执行（报名人数超计划则电脑随机派位）；具体班型与招生计划以官方公告为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3345,7 +4110,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市迎泽区公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3361,7 +4126,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市杏花岭区公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3377,7 +4142,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市杏花岭区公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3393,7 +4158,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市杏花岭区公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3409,7 +4174,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市杏花岭区公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3425,7 +4190,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市杏花岭区公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3441,7 +4206,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市杏花岭区公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3457,7 +4222,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "民转公初中，招生按太原市当年民办义务教育学校招生政策执行（报名人数超计划则电脑随机派位）；具体班型与招生计划以官方公告为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3471,11 +4236,18 @@ window.SCHOOLS = {
       "type": "初级中学",
       "tier": "公办一般",
       "dingxiang": false,
-      "score2025": null,
+      "score2025": 625,
       "group": "",
-      "note": "",
+      "note": "太原市杏花岭区公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
-      "scores5": null,
+      "scores5": [
+        {
+          "year": 2025,
+          "score": 625,
+          "campus": "",
+          "src": "http://epaper.tyrbw.com/tywb/resfile/2025-07-11/04/tywb2028071104.pdf（图2 太原市招考中心官方表格，校代码65014）；交叉印证：https://jiaoyu.57cha.com/html/b1f9a570d3bd6970.html"
+        }
+      ],
       "classes": null
     },
     {
@@ -3489,7 +4261,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "民办初中，招生按太原市当年民办义务教育学校招生政策执行（报名人数超计划则电脑随机派位）；具体班型与招生计划以官方公告为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3505,7 +4277,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市杏花岭区公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3521,7 +4293,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "民转公初中，招生按太原市当年民办义务教育学校招生政策执行（报名人数超计划则电脑随机派位）；具体班型与招生计划以官方公告为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3537,7 +4309,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "民办初中，招生按太原市当年民办义务教育学校招生政策执行（报名人数超计划则电脑随机派位）；具体班型与招生计划以官方公告为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3553,7 +4325,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市尖草坪区公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3569,7 +4341,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市尖草坪区公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3585,7 +4357,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "民办初中，招生按太原市当年民办义务教育学校招生政策执行（报名人数超计划则电脑随机派位）；具体班型与招生计划以官方公告为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3601,7 +4373,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市尖草坪区公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3617,7 +4389,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市尖草坪区公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3633,7 +4405,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市尖草坪区公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3649,7 +4421,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市尖草坪区公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3665,7 +4437,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市尖草坪区公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3681,7 +4453,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "民办初中，招生按太原市当年民办义务教育学校招生政策执行（报名人数超计划则电脑随机派位）；具体班型与招生计划以官方公告为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3697,7 +4469,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市万柏林区公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3713,7 +4485,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市万柏林区公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3729,7 +4501,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市万柏林区公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3745,7 +4517,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市万柏林区公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3761,7 +4533,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "民办初中，招生按太原市当年民办义务教育学校招生政策执行（报名人数超计划则电脑随机派位）；具体班型与招生计划以官方公告为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3777,7 +4549,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "民办初中，招生按太原市当年民办义务教育学校招生政策执行（报名人数超计划则电脑随机派位）；具体班型与招生计划以官方公告为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3793,7 +4565,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市晋源区公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3809,7 +4581,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市晋源区公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3825,7 +4597,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市晋源区公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3841,7 +4613,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市晋源区公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3857,7 +4629,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市晋源区公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3873,7 +4645,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市晋源区公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3889,7 +4661,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市晋源区公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3905,7 +4677,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "民办初中，招生按太原市当年民办义务教育学校招生政策执行（报名人数超计划则电脑随机派位）；具体班型与招生计划以官方公告为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3921,7 +4693,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市清徐县公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3937,7 +4709,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市清徐县公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3953,7 +4725,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市清徐县公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3969,7 +4741,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市清徐县公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -3985,7 +4757,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市清徐县公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4001,7 +4773,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市清徐县公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4017,7 +4789,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市清徐县公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4033,7 +4805,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市清徐县公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4049,7 +4821,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市清徐县公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4065,7 +4837,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市清徐县公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4081,7 +4853,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市清徐县公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4097,7 +4869,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市清徐县公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4113,7 +4885,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市清徐县公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4129,7 +4901,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市清徐县公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4145,7 +4917,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市清徐县公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4161,7 +4933,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "民办初中，招生按太原市当年民办义务教育学校招生政策执行（报名人数超计划则电脑随机派位）；具体班型与招生计划以官方公告为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4177,7 +4949,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "民办初中，招生按太原市当年民办义务教育学校招生政策执行（报名人数超计划则电脑随机派位）；具体班型与招生计划以官方公告为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4193,7 +4965,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "民办初中，招生按太原市当年民办义务教育学校招生政策执行（报名人数超计划则电脑随机派位）；具体班型与招生计划以官方公告为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4209,7 +4981,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "民办初中，招生按太原市当年民办义务教育学校招生政策执行（报名人数超计划则电脑随机派位）；具体班型与招生计划以官方公告为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4225,7 +4997,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市阳曲县公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4241,7 +5013,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市阳曲县公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4257,7 +5029,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市阳曲县公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4273,7 +5045,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市阳曲县公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4289,7 +5061,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市阳曲县公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4305,7 +5077,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市阳曲县公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4321,7 +5093,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市娄烦县公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4337,7 +5109,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市娄烦县公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4353,7 +5125,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市娄烦县公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4369,7 +5141,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "民办初中，招生按太原市当年民办义务教育学校招生政策执行（报名人数超计划则电脑随机派位）；具体班型与招生计划以官方公告为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4385,7 +5157,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市古交市公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4401,7 +5173,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市古交市公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4417,7 +5189,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市古交市公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4433,7 +5205,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "民办初中，招生按太原市当年民办义务教育学校招生政策执行（报名人数超计划则电脑随机派位）；具体班型与招生计划以官方公告为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4449,7 +5221,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市古交市公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4465,7 +5237,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市古交市公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4481,7 +5253,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市古交市公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4497,7 +5269,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市古交市公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4513,7 +5285,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市古交市公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4529,7 +5301,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市古交市公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4545,7 +5317,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市古交市公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4561,7 +5333,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市古交市公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4577,7 +5349,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市古交市公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4593,7 +5365,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市古交市公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4609,7 +5381,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市古交市公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4625,7 +5397,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市古交市公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4641,7 +5413,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市古交市公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4657,7 +5429,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市古交市公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4673,7 +5445,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市古交市公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4689,7 +5461,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市小店区公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4705,7 +5477,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市小店区公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4721,7 +5493,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市小店区公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4737,7 +5509,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市小店区公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4753,7 +5525,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市小店区公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4769,7 +5541,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "民办初中，招生按太原市当年民办义务教育学校招生政策执行（报名人数超计划则电脑随机派位）；具体班型与招生计划以官方公告为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4785,7 +5557,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "太原市小店区公办初中，实行免试就近入学、均衡编班（不设立重点班/实验班分层）；招生划片范围、班额以区教育局当年通知为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4801,7 +5573,7 @@ window.SCHOOLS = {
       "dingxiang": false,
       "score2025": null,
       "group": "",
-      "note": "",
+      "note": "民办初中，招生按太原市当年民办义务教育学校招生政策执行（报名人数超计划则电脑随机派位）；具体班型与招生计划以官方公告为准。",
       "events": [],
       "scores5": null,
       "classes": null
@@ -4926,7 +5698,8 @@ window.SCHOOLS = {
       "type": "初中",
       "note": "初级中学；来源：太原市教育局《初中学校名录》2023-10-08。2025/2026年小店区小升初派位名单中未出现，现状以官方为准（联网核验补全 2026-08-07，以官方为准）",
       "source": "太原市教育局初中学校名录/小店区教体局 2026-08-07核验",
-      "score2025": "以官方为准"
+      "score2025": "以官方为准",
+      "tier": "公办一般"
     },
     {
       "name": "太原市第三十八中学校",
@@ -4936,7 +5709,8 @@ window.SCHOOLS = {
       "type": "初中",
       "note": "初级中学；本部含军民路校区、并州路校区（官方注：初一在并州路校区，初二初三在军民路校区）。工作台仅收录了「三十八中北校」，本部疑为缺失，建议按官方名录核对（联网核验补全 2026-08-07，以官方为准）",
       "source": "太原市教育局初中学校名录/小店区教体局 2026-08-07核验",
-      "score2025": "以官方为准"
+      "score2025": "以官方为准",
+      "tier": "公办一般"
     },
     {
       "name": "太原市第三十八中学校龙城校区",
@@ -4946,7 +5720,8 @@ window.SCHOOLS = {
       "type": "九年一贯制",
       "note": "九年一贯制/小区配建校（山钢龙城一品小区配建）；参加2026年多校划片18所初中之一（联网核验补全 2026-08-07，以官方为准）",
       "source": "太原市教育局初中学校名录/小店区教体局 2026-08-07核验",
-      "score2025": "以官方为准"
+      "score2025": "以官方为准",
+      "tier": "公办一般"
     },
     {
       "name": "三十八中南中环校区（九一小学南中环校区）",
@@ -4956,7 +5731,8 @@ window.SCHOOLS = {
       "type": "九年一贯制",
       "note": "九年一贯制含小学；2026年九年一贯直升校及多校划片校之一。具体街道以官方为准（联网核验补全 2026-08-07，以官方为准）",
       "source": "太原市教育局初中学校名录/小店区教体局 2026-08-07核验",
-      "score2025": "以官方为准"
+      "score2025": "以官方为准",
+      "tier": "公办一般"
     },
     {
       "name": "太原市教育园区学校",
@@ -4966,7 +5742,8 @@ window.SCHOOLS = {
       "type": "九年一贯制",
       "note": "九年一贯制含小学；举办者为地级教育部门。来源：太原市教育局《初中学校名录》（联网核验补全 2026-08-07，以官方为准）",
       "source": "太原市教育局初中学校名录/小店区教体局 2026-08-07核验",
-      "score2025": "以官方为准"
+      "score2025": "以官方为准",
+      "tier": "公办一般"
     },
     {
       "name": "太原市小店区第三中学校",
@@ -4976,7 +5753,8 @@ window.SCHOOLS = {
       "type": "九年一贯制",
       "note": "九年一贯制含小学；主校区即晨光校区，2026年学区对口直升校（联网核验补全 2026-08-07，以官方为准）",
       "source": "太原市教育局初中学校名录/小店区教体局 2026-08-07核验",
-      "score2025": "以官方为准"
+      "score2025": "以官方为准",
+      "tier": "公办一般"
     },
     {
       "name": "太原市小店区启明学校",
@@ -4986,7 +5764,8 @@ window.SCHOOLS = {
       "type": "九年一贯制",
       "note": "九年一贯制含小学，小学44班+初中20班；原名「小店三中正阳校区」，2026年3月更名并独立建制，仍延续小店三中集团化办学。来源：小店区教体局官方留言回复（联网核验补全 2026-08-07，以官方为准）",
       "source": "太原市教育局初中学校名录/小店区教体局 2026-08-07核验",
-      "score2025": "以官方为准"
+      "score2025": "以官方为准",
+      "tier": "公办一般"
     },
     {
       "name": "小店区三中汾东南路校区",
@@ -4996,7 +5775,8 @@ window.SCHOOLS = {
       "type": "初中",
       "note": "小店区三中下设校区；2026年可由招商时代小区业主子女自愿直升。具体地址以官方为准（联网核验补全 2026-08-07，以官方为准）",
       "source": "太原市教育局初中学校名录/小店区教体局 2026-08-07核验",
-      "score2025": "以官方为准"
+      "score2025": "以官方为准",
+      "tier": "公办一般"
     },
     {
       "name": "太原市小店区第十一中学校",
@@ -5006,7 +5786,8 @@ window.SCHOOLS = {
       "type": "初中",
       "note": "初级中学；原黄陵中学，现挂牌「太原师范学院附属中学龙城校区」，校址在和悦路与龙城南街交叉口（联网核验补全 2026-08-07，以官方为准）",
       "source": "太原市教育局初中学校名录/小店区教体局 2026-08-07核验",
-      "score2025": "以官方为准"
+      "score2025": "以官方为准",
+      "tier": "公办一般"
     },
     {
       "name": "太原市小店区第十二中学校",
@@ -5016,7 +5797,8 @@ window.SCHOOLS = {
       "type": "九年一贯制",
       "note": "九年一贯制含小学；原煤机学校。来源：太原市教育局《初中学校名录》（联网核验补全 2026-08-07，以官方为准）",
       "source": "太原市教育局初中学校名录/小店区教体局 2026-08-07核验",
-      "score2025": "以官方为准"
+      "score2025": "以官方为准",
+      "tier": "公办一般"
     },
     {
       "name": "太原市小店区体育职业学校",
@@ -5026,7 +5808,8 @@ window.SCHOOLS = {
       "type": "初中",
       "note": "办学类型登记为初级中学；来源：太原市教育局《初中学校名录》（联网核验补全 2026-08-07，以官方为准）",
       "source": "太原市教育局初中学校名录/小店区教体局 2026-08-07核验",
-      "score2025": "以官方为准"
+      "score2025": "以官方为准",
+      "tier": "公办一般"
     },
     {
       "name": "太原市小店区九一实验学校",
@@ -5036,7 +5819,8 @@ window.SCHOOLS = {
       "type": "九年一贯制",
       "note": "九年一贯制含小学；2026年九年一贯直升校。工作台已有「太原市九一学校」，二者是否同一实体需按官方名录核对（联网核验补全 2026-08-07，以官方为准）",
       "source": "太原市教育局初中学校名录/小店区教体局 2026-08-07核验",
-      "score2025": "以官方为准"
+      "score2025": "以官方为准",
+      "tier": "公办一般"
     },
     {
       "name": "太原市小店区学府街学校",
@@ -5046,7 +5830,8 @@ window.SCHOOLS = {
       "type": "九年一贯制",
       "note": "九年一贯制含小学；前身华北工业研究所子弟学校，原名中辐院学校，2022年更名。工作台以旧名「太原市中辐院学校」收录，建议更名而非新增（联网核验补全 2026-08-07，以官方为准）",
       "source": "太原市教育局初中学校名录/小店区教体局 2026-08-07核验",
-      "score2025": "以官方为准"
+      "score2025": "以官方为准",
+      "tier": "公办一般"
     },
     {
       "name": "山西师范大学附属学校",
@@ -5056,7 +5841,8 @@ window.SCHOOLS = {
       "type": "九年一贯制",
       "note": "九年一贯制含小学；又名小店区东中环学校、九一小学东中环校区，2021年7月启用，2022年与山西师范大学合作办学。来源：新华网山西频道/小店区融媒体中心（联网核验补全 2026-08-07，以官方为准）",
       "source": "太原市教育局初中学校名录/小店区教体局 2026-08-07核验",
-      "score2025": "以官方为准"
+      "score2025": "以官方为准",
+      "tier": "公办一般"
     },
     {
       "name": "和煦路学校（小店区一中和煦路校区）",
@@ -5066,7 +5852,8 @@ window.SCHOOLS = {
       "type": "九年一贯制",
       "note": "九年一贯制含小学；2026年九年一贯直升校及多校划片18校之一。具体街道以官方为准（联网核验补全 2026-08-07，以官方为准）",
       "source": "太原市教育局初中学校名录/小店区教体局 2026-08-07核验",
-      "score2025": "以官方为准"
+      "score2025": "以官方为准",
+      "tier": "公办一般"
     },
     {
       "name": "小店区一中昌盛街校区初中部",
@@ -5076,7 +5863,8 @@ window.SCHOOLS = {
       "type": "九年一贯制",
       "note": "小店区一中下设初中部；承接实验小学、恒大小学未直升三中晨光校区的毕业生。工作台仅收录小店区一中（高级中学），初中部为独立办学点。具体地址以官方为准（联网核验补全 2026-08-07，以官方为准）",
       "source": "太原市教育局初中学校名录/小店区教体局 2026-08-07核验",
-      "score2025": "以官方为准"
+      "score2025": "以官方为准",
+      "tier": "公办一般"
     },
     {
       "name": "山西大学附属中学校汾东学校",
@@ -5086,7 +5874,8 @@ window.SCHOOLS = {
       "type": "初中",
       "note": "又名小店区汾东中学校；2026年学区对口直升校，与山大附中本部不得兼报（联网核验补全 2026-08-07，以官方为准）",
       "source": "太原市教育局初中学校名录/小店区教体局 2026-08-07核验",
-      "score2025": "以官方为准"
+      "score2025": "以官方为准",
+      "tier": "公办一般"
     },
     {
       "name": "太原师范学院附属中学综改校区",
@@ -5096,7 +5885,8 @@ window.SCHOOLS = {
       "type": "九年一贯制",
       "note": "含小学部，小学部毕业可对口直升本校初中；2026年学区对口直升校。来源：太原师院附中2025年教师招聘公告（联网核验补全 2026-08-07，以官方为准）",
       "source": "太原市教育局初中学校名录/小店区教体局 2026-08-07核验",
-      "score2025": "以官方为准"
+      "score2025": "以官方为准",
+      "tier": "公办一般"
     },
     {
       "name": "太原市第五中学校龙城校区",
@@ -5106,7 +5896,8 @@ window.SCHOOLS = {
       "type": "初中",
       "note": "太原五中在小店区的初中办学点；2026年学区对口直升校。具体地址以官方为准（联网核验补全 2026-08-07，以官方为准）",
       "source": "太原市教育局初中学校名录/小店区教体局 2026-08-07核验",
-      "score2025": "以官方为准"
+      "score2025": "以官方为准",
+      "tier": "公办一般"
     },
     {
       "name": "太原市第三实验中学校民航校区",
@@ -5116,7 +5907,8 @@ window.SCHOOLS = {
       "type": "九年一贯制",
       "note": "含小学部，面向民航机场集团职工子女；2026年多校划片18校之一。具体地址以官方为准（联网核验补全 2026-08-07，以官方为准）",
       "source": "太原市教育局初中学校名录/小店区教体局 2026-08-07核验",
-      "score2025": "以官方为准"
+      "score2025": "以官方为准",
+      "tier": "公办一般"
     },
     {
       "name": "太原市第五十一中学校长风校区",
@@ -5126,7 +5918,8 @@ window.SCHOOLS = {
       "type": "九年一贯制",
       "note": "官方注明办学地点在原长风小学；与学府校区（原五十一中）分列，属北部片区派位校。具体地址以官方为准（联网核验补全 2026-08-07，以官方为准）",
       "source": "太原市教育局初中学校名录/小店区教体局 2026-08-07核验",
-      "score2025": "以官方为准"
+      "score2025": "以官方为准",
+      "tier": "公办一般"
     },
     {
       "name": "太原市小店区现代实验中学校",
@@ -5136,7 +5929,8 @@ window.SCHOOLS = {
       "type": "初中",
       "note": "即现代双语禧悦城校区，官方明确办学模式为「公办学校+民办服务」，学校性质为公办；2026年多校划片18校之一。具体地址以官方为准（联网核验补全 2026-08-07，以官方为准）",
       "source": "太原市教育局初中学校名录/小店区教体局 2026-08-07核验",
-      "score2025": "以官方为准"
+      "score2025": "以官方为准",
+      "tier": "公办一般"
     }
   ]
 };
