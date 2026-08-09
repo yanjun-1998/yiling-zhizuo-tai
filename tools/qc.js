@@ -131,8 +131,10 @@ function checkFresh() {
   if (badCarry.length) { out.push('❌ F4 有 ' + badCarry.length + ' 条延续热点未写 progress(最新进展)：' + badCarry.map(e => (e.title || '').slice(0, 18)).join(' / ')); fail++; }
   else out.push('✅ F4 延续条目均已写最新进展');
 
-  /* F5 与归档去重 */
-  const recent = (ARCH.days || []).slice(0, 3);
+  /* F5 与归档去重
+     注意：必须排除「今天」这一天的归档条目。正常流程是「质检通过 → 再把当天标题写入归档」，
+     若补跑后再次复检，今天的标题已在档内，不排除就会拿自己跟自己比，误报 100% 重复。 */
+  const recent = (ARCH.days || []).filter(d => d.date !== TODAY).slice(0, 3);
   const oldTitles = new Set(recent.flatMap(d => d.titles || []));
   const dup = evs.filter(e => oldTitles.has(e.title));
   if (dup.length) { out.push('❌ F5 有 ' + dup.length + ' 条标题与最近3天完全相同（原样搬运）：' + dup.map(e => e.title.slice(0, 20)).join(' / ')); fail++; }
@@ -184,7 +186,7 @@ function checkBio() {
      例如竞品账号的简介原文里带「提分」、学校库里的真实校名「太钢一中」、
      民办校学费、政策原文。这些不会变成我方对外文案，判违规纯属误伤。 */
   const INTEL_FILES = new Set([
-    'data-schools.js', 'data-school-aliases.js', 'data-scorelines.js',
+    'data-schools.js', 'data-school-aliases.js', 'data-school-history.js', 'data-scorelines.js',
     'data-rival.js', 'data-calendar.js', 'data-policy.js', 'data-exam.js',
     'data-tier1.js', 'data-taiyuan-geo.js', 'data-parent-weekly.js',
     'school-news.js', 'school-shared.js', 'school-scan-list.js',

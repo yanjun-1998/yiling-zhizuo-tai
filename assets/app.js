@@ -185,32 +185,64 @@ function loadDrafts(){ try{ const r=localStorage.getItem(DRAFT_KEY); DRAFTS=r?JS
 function saveDrafts(){ try{ localStorage.setItem(DRAFT_KEY, JSON.stringify(DRAFTS)); }catch(e){} }
 function draftTagClass(t){ return ({'短视频':'dt-s','直播':'dt-l','直播物料':'dt-m','清单':'dt-c','复盘':'dt-r','合并':'dt-m'})[t]||'dt-s'; }
 function draftHTML(){
-  if(!DRAFTS.length) return '<p class="muted" style="padding:18px;text-align:center">还没有成稿。点任意「⚡ 出稿」按钮，内容会自动收进这里，按类型分好、不覆盖。</p>';
+  if(!DRAFTS.length) return '<p class="muted" style="padding:18px;text-align:center">还没有内容。点任意「⚡ 出稿」或推荐流的「入待审」，内容会自动收进这里，按类型分好、不覆盖。</p>';
   return DRAFTS.slice().reverse().map(function(d){
     const fn=esc(d.title).replace(/["']/g,'');
+    const st = d.status==='sent' ? '<span class="draft-st st-sent">✓ 已发</span>' : '<span class="draft-st st-pending">⏳ 待审</span>';
+    const sentBtn = d.status==='sent' ? '' : '<button class="btn s o" onclick="markSent(\''+esc(d.id)+'\')">标记已发</button>';
     return '<div class="draft-item"><div class="draft-top"><span class="draft-tag '+draftTagClass(d.tag)+'">'+esc(d.tag)+'</span>'
+      + st
+      + (d.from?'<span class="draft-from">'+esc(d.from)+'</span>':'')
       +'<span class="draft-title">'+esc(d.title)+'</span><span class="draft-time">'+esc(d.t)+'</span></div>'
       +'<textarea class="draft-text" readonly>'+esc(d.text)+'</textarea>'
       +'<div class="row"><button class="btn s" onclick="copy(this.parentNode.previousElementSibling.value)">复制</button>'
       +'<button class="btn s" onclick="download(this.parentNode.previousElementSibling.value,\''+fn+'.txt\')">下载</button>'
+      + sentBtn
       +'<button class="btn s x" onclick="delDraft(\''+esc(d.id)+'\')">删除</button></div></div>';
   }).join('');
+}
+function renderDraftsViewSafe(){ try{ const el=document.getElementById('draft'); if(el) renderDraftsView(); }catch(e){} }
+function renderDraftsView(){
+  const el=document.getElementById('draft'); if(!el) return;
+  const pending=DRAFTS.filter(function(d){return d.status!=='sent';});
+  const sent=DRAFTS.filter(function(d){return d.status==='sent';});
+  const card=function(d){
+    const fn=esc(d.title).replace(/["']/g,'');
+    const st = d.status==='sent' ? '<span class="draft-st st-sent">✓ 已发 '+esc(d.sentAt||'')+'</span>' : '<span class="draft-st st-pending">⏳ 待审</span>';
+    const sentBtn = d.status==='sent' ? '' : '<button class="btn s o" onclick="markSent(\''+esc(d.id)+'\')">标记已发</button>';
+    return '<div class="draft-item"><div class="draft-top"><span class="draft-tag '+draftTagClass(d.tag)+'">'+esc(d.tag)+'</span>'+st+(d.from?'<span class="draft-from">'+esc(d.from)+'</span>':'')+'<span class="draft-title">'+esc(d.title)+'</span><span class="draft-time">'+esc(d.t)+'</span></div>'
+      +'<textarea class="draft-text" readonly>'+esc(d.text)+'</textarea>'
+      +'<div class="row"><button class="btn s" onclick="copy(this.parentNode.previousElementSibling.value)">复制</button>'
+      +'<button class="btn s" onclick="download(this.parentNode.previousElementSibling.value,\''+fn+'.txt\')">下载</button>'+sentBtn+'<button class="btn s x" onclick="delDraft(\''+esc(d.id)+'\')">删除</button></div></div>';
+  };
+  let h='<div class="banner"><b>📝 待审箱</b> · 自治层（推荐流 / 自动化）的产出先到这里，你审过、点「标记已发」才算对外发。</div>';
+  h+='<div class="rec-note">共 '+DRAFTS.length+' 篇：<b>'+pending.length+'</b> 篇待审、'+sent.length+' 篇已发。点「标记已发」即视为你已审核通过。</div>';
+  h+='<h4 class="dg-h">⏳ 待审（'+pending.length+'）</h4>'+(pending.length?'<div class="grid g1">'+pending.slice().reverse().map(card).join('')+'</div>':'<p class="muted" style="padding:6px 2px 16px">空。去「今日推荐」挑几条入待审，或等自动化产出。</p>');
+  h+='<h4 class="dg-h">✅ 已发（'+sent.length+'）</h4>'+(sent.length?'<div class="grid g1">'+sent.slice().reverse().map(card).join('')+'</div>':'<p class="muted" style="padding:6px 2px 16px">还没有标记已发的。</p>');
+  el.innerHTML=h;
 }
 function renderDraftList(){
   const html=draftHTML();
   ['draftList','factory-drafts'].forEach(function(id){ const el=document.getElementById(id); if(el) el.innerHTML=html; });
 }
-function updateDraftBadge(){ const b=document.getElementById('draftCount'); if(b) b.textContent=DRAFTS.length; }
+function updateDraftBadge(){ const p=DRAFTS.filter(function(d){return d.status!=='sent';}).length; ['draftCount','draftCount2'].forEach(function(id){ const b=document.getElementById(id); if(b) b.textContent=p; }); }
 function openDraftPanel(){ const p=document.getElementById('draftPanel'); if(p) p.classList.remove('hide'); renderDraftList(); }
 function closeDraftPanel(){ const p=document.getElementById('draftPanel'); if(p) p.classList.add('hide'); }
-function pushDraft(title, text, tag){
+function pushDraft(title, text, tag, opts){
+  opts=opts||{};
   text=(text||'').replace(/\r\n/g,'\n');
-  DRAFTS.push({id:Date.now()+'-'+Math.floor(Math.random()*1000), title:title||'未命名成稿', text:text, tag:tag||'短视频', t:new Date().toLocaleString('zh-CN',{hour12:false})});
+  DRAFTS.push({id:Date.now()+'-'+Math.floor(Math.random()*1000), title:title||'未命名成稿', text:text, tag:tag||'短视频', t:new Date().toLocaleString('zh-CN',{hour12:false}), status:opts.status||'pending', from:opts.from||'', sentAt:''});
   if(DRAFTS.length>60) DRAFTS=DRAFTS.slice(-60);
   saveDrafts(); renderDraftList(); updateDraftBadge();
 }
-function delDraft(id){ DRAFTS=DRAFTS.filter(function(d){return d.id!==id;}); saveDrafts(); renderDraftList(); updateDraftBadge(); }
-function clearDrafts(){ if(!DRAFTS.length){ wbToast('成稿箱是空的'); return; } DRAFTS=[]; saveDrafts(); renderDraftList(); updateDraftBadge(); wbToast('已清空'); }
+function markSent(id){
+  const d=DRAFTS.find(function(x){return x.id===id;}); if(!d) return;
+  d.status='sent'; d.sentAt=new Date().toLocaleString('zh-CN',{hour12:false});
+  saveDrafts(); renderDraftList(); updateDraftBadge(); renderDraftsViewSafe();
+  wbToast('已标记「已发」· '+d.title);
+}
+function delDraft(id){ DRAFTS=DRAFTS.filter(function(d){return d.id!==id;}); saveDrafts(); renderDraftList(); updateDraftBadge(); renderDraftsViewSafe(); }
+function clearDrafts(){ if(!DRAFTS.length){ wbToast('待审箱是空的'); return; } DRAFTS=[]; saveDrafts(); renderDraftList(); updateDraftBadge(); renderDraftsViewSafe(); wbToast('已清空'); }
 function mergeDrafts(){
   if(DRAFTS.length<2){ wbToast('至少2篇才能合并'); return; }
   const parts=DRAFTS.slice().reverse().map(function(d){ return '【'+d.tag+'】'+d.title+'\n'+d.text; });
@@ -317,6 +349,133 @@ function renderHome(){
   h+='</div>';
   $('#home').innerHTML=h;
 }
+
+/* ===== 今日推荐流：用户要的"大数据推荐你发什么 + 给我选择" ===== */
+function normFmt(fmt){
+  fmt=String(fmt||'');
+  if(/直播/.test(fmt)) return '直播';
+  if(/朋友/.test(fmt)) return '朋友圈';
+  return '短视频';
+}
+function titleNorm(s){ return String(s||'').replace(/[^\u4e00-\u9fa5a-zA-Z0-9]/g,''); }
+function titleOverlap(a,b){
+  a=titleNorm(a); b=titleNorm(b);
+  if(!a||!b) return false;
+  return a.indexOf(b.slice(0,6))>=0 || b.indexOf(a.slice(0,6))>=0;
+}
+function matchSignal(r){
+  const txt=(r.title||'')+(r.why||'')+(r.hook||'');
+  const hot=(window.HOT&&window.HOT.events)||[];
+  for(const e of hot){ if((e.title&&txt.indexOf(e.title.slice(0,6))>=0)||(e.angle&&txt.indexOf(e.angle.slice(0,4))>=0)) return {tag:'🔥 实时热点',cls:'sig-hot'}; }
+  const news=(window.SCHOOL&&window.SCHOOL.items)||[];
+  for(const s of news){ if((s.title&&txt.indexOf(s.title.slice(0,6))>=0)||(s.angle&&txt.indexOf(s.angle.slice(0,4))>=0)) return {tag:'🏫 官方动态',cls:'sig-sch'}; }
+  return r.zone==='A'?{tag:'👨 老闫物理选题',cls:'sig-plan'}:{tag:'📋 张姐规划选题',cls:'sig-plan'};
+}
+function recommendToday(){
+  const PRI={P0:3,P1:2,P2:1};
+  const KINDW={school:3,hot:2,rec:1}; // 同优先级：官方动态优先于热点优先于选题
+  const TD=window.TODAY_FEED||window.TODAY||{};
+  const out=[]; const seenKey=new Set(); const seenTitle=[];
+  const push=function(o){
+    if(!o||seenKey.has(o.key)) return;
+    for(const t of seenTitle){ if(titleOverlap(t,o.title)) return; }
+    seenKey.add(o.key); seenTitle.push(o.title); out.push(o);
+  };
+  // 推荐理由：优先用"给家长的话(topic/hook)"，比罗列数据更像"为什么发这条"，全部来自真实字段，不编造
+  const whyOf=function(o){
+    if(o.why) return o.why;
+    const parts=[];
+    if(o.topic) parts.push(o.topic);
+    else if(o.angle) parts.push(o.angle);
+    if(o.hook && parts.indexOf(o.hook)<0) parts.push('（'+o.hook+'）');
+    return parts.join('。');
+  };
+  (TD.recs||[]).forEach(function(r){
+    push({ key:'rec_'+r.id, type:normFmt(r.fmt), title:r.title, zone:r.zone, pri:r.pri, fresh:r.fresh,
+      reason:whyOf(r), signal:matchSignal(r), src:r, kind:'rec' });
+  });
+  (window.HOT&&window.HOT.events||[]).forEach(function(e){
+    if(PRI[e.pri]<2) return;
+    push({ key:'hot_'+e.id, type:'短视频', title:e.title, zone:e.zone, pri:e.pri, fresh:e.fresh,
+      reason:whyOf(e), signal:{tag:'🔥 实时热点',cls:'sig-hot'}, src:e, kind:'hot' });
+  });
+  ((window.SCHOOL&&window.SCHOOL.items)||[]).forEach(function(s){
+    if(PRI[s.pri]<2) return;
+    const r=whyOf(s);
+    const reason=(r?r+'。':'')+(s.school?'来源：'+s.school:'');
+    push({ key:'sch_'+s.id, type:(s.type==='school'?'短视频':'图文'), title:s.title, zone:s.zone, pri:s.pri, fresh:s.fresh,
+      reason:reason, signal:{tag:'🏫 官方动态',cls:'sig-sch'}, src:s, kind:'school' });
+  });
+  out.sort(function(a,b){
+    if(PRI[b.pri]!==PRI[a.pri]) return PRI[b.pri]-PRI[a.pri];
+    if((KINDW[b.kind]||0)!==(KINDW[a.kind]||0)) return (KINDW[b.kind]||0)-(KINDW[a.kind]||0);
+    return (b.fresh==='new'?1:0)-(a.fresh==='new'?1:0);
+  });
+  return out.slice(0,8);
+}
+function recBodyText(r){
+  const s=r.src||{}; let t='【'+r.title+'】\n';
+  if(s.depth) t+='底层逻辑：'+s.depth+'\n';
+  if(s.solution) t+='可落地动作：'+s.solution+'\n';
+  if(s.body) t+='要点：'+s.body+'\n';
+  if(s.data&&!s.solution) t+='资料：'+s.data+'\n';
+  return t;
+}
+function closeRec(){ var o=document.getElementById('recOverlay'); if(o) o.classList.add('hide'); }
+function recView(i){
+  const r=(window.__REC||[])[i]; if(!r) return;
+  const s=r.src||{};
+  let h='<div class="lock-box" style="max-width:560px;text-align:left"><h3>'+esc(r.title)+'</h3>'
+    +'<div class="muted">'+esc(r.type)+' · '+esc(r.pri)+' · '+(r.signal?esc(r.signal.tag):'')+'</div>'
+    +(r.reason?'<div style="margin:10px 0;padding:10px 12px;background:#eef3fb;border-left:3px solid #3a6ea5;border-radius:6px;font-size:13px;line-height:1.75"><b>为什么推荐你发这条：</b>'+esc(r.reason)+'</div>':'')
+    +(s.depth?'<div class="aw"><b>底层逻辑：</b>'+esc(s.depth)+'</div>':'')
+    +(s.solution?'<div class="asol"><b>可落地动作：</b><br>'+esc(s.solution).replace(/\n/g,'<br>')+'</div>':'')
+    +(s.body?'<div class="aw"><b>要点：</b>'+esc(s.body)+'</div>':'')
+    +(s.data&&!s.solution?'<div class="aw"><b>资料：</b>'+esc(s.data)+'</div>':'')
+    +'<div class="row"><button class="btn" onclick="recCopy('+i+')">复制文案</button>'
+    +'<button class="btn s o" onclick="recDraft('+i+')">入草稿</button>'
+    +'<button class="btn s" onclick="closeRec()">关闭</button></div></div>';
+  showOverlay('recOverlay', h);
+}
+function recCopy(i){ const r=(window.__REC||[])[i]; if(!r) return; copy(recBodyText(r)); }
+function recDraft(i){
+  const r=(window.__REC||[])[i]; if(!r) return;
+  pushDraft(r.title, recBodyText(r), r.signal?r.signal.tag:'推荐', {status:'pending', from:'推荐流'});
+  window.__REC_DRAFTED=window.__REC_DRAFTED||{}; window.__REC_DRAFTED[r.key]=1;
+  wbToast('已入待审 · '+r.title);
+  try{ renderRecommend(); }catch(e){}
+}
+function renderRecommend(){
+  const recs=recommendToday(); window.__REC=recs;
+  window.__REC_DRAFTED=window.__REC_DRAFTED||{};
+  const drafted=recs.filter(function(r){ return window.__REC_DRAFTED[r.key]; }).length;
+  let h='<div class="banner"><b>📊 大数据今日推荐 · '+esc((window.TODAY_FEED||window.TODAY||{}).date||'')+'</b><br>基于实时热点 / 招生节点 / 官方动态 / 竞品情报自动计算，按优先级排好——你只管选，不用想。</div>';
+  h+= drafted ? ('<div class="rec-note">✦ 已选入待审 <b>'+drafted+'</b> 条，去「📝 待审箱」审核后即可发。下面其余点「入待审」即可，理由均来自真实数据，不编造。</div>')
+              : ('<div class="rec-note">✦ 每条都标了「为什么推荐」和「信号源」，理由均来自真实数据，不编造。点「看稿」看完整逻辑与动作，点「入待审」留着发。</div>');
+  h+='<div class="grid g1">';
+  recs.forEach(function(r,i){
+    const zn=r.zone==='A'?'badge a':'badge b';
+    const zc=r.zone==='A'?'老闫物理':'张姐规划';
+    const pc=r.pri==='P0'?'p0':(r.pri==='P1'?'p1':'p2');
+    const done=window.__REC_DRAFTED[r.key];
+    const fresh=r.fresh==='new'?'<span class="sig sig-now">🆕 实时</span>':'';
+    h+='<div class="card rec'+(done?' rec-done':'')+'"><div class="arow"><span class="'+zn+'">'+zc+'</span>'
+      +'<span class="pri '+pc+'">'+esc(r.pri)+'</span>'
+      +'<span class="sig '+(r.signal?r.signal.cls:'sig-plan')+'">'+(r.signal?esc(r.signal.tag):'')+'</span>'
+      + fresh
+      +'<span class="rectype">'+esc(r.type)+'</span></div>'
+      +'<div class="at">'+esc(r.title)+'</div>'
+      +'<div class="aw"><b>为什么推荐你发这条：</b>'+esc(r.reason)+'</div>'
+      +'<div class="row"><button class="btn" onclick="recView('+i+')">看稿</button>'
+      +(done?'<button class="btn s" disabled style="opacity:.55">✓ 已入待审</button>'
+            :'<button class="btn s o" onclick="recDraft('+i+')">入待审</button>')
+      +'<button class="btn s" onclick="recCopy('+i+')">复制文案</button></div></div>';
+  });
+  h+='</div>';
+  h+='<div style="margin-top:18px;text-align:center"><button class="btn o" onclick="renderHome()">查看完整看板（全部模块数据）</button> <button class="btn" onclick="goDraft()">去待审箱 ›</button></div>';
+  const el=document.getElementById('home'); if(el) el.innerHTML=h;
+}
+function goDraft(){ const t=document.querySelector('.tab[data-v="draft"]'); if(t){ t.click(); } else { renderDraftsView(); } }
 
 /* ===== 第一梯队校动态（需求1：分班考/军训/月考/难度/进度 + depth + solution） ===== */
 function tier1Resolve(){
@@ -1497,8 +1656,8 @@ function applyBufferToToday(date){
 /* ===== 初始化 ===== */
 function init(){
   $('#today').innerHTML = '📅 '+esc(TODAY.date)+' · 今日：'+(TODAY.recs[0]?esc(TODAY.recs[0].title):'');
-  $$('.tab').forEach(t=>t.addEventListener('click', ()=>{ switchTab(t.dataset.v); if(t.dataset.v==='prebuf'){ try{ renderPrebuf(); }catch(e){} } }));
-  renderHome();
+  $$('.tab').forEach(t=>t.addEventListener('click', ()=>{ switchTab(t.dataset.v); if(t.dataset.v==='prebuf'){ try{ renderPrebuf(); }catch(e){} } if(t.dataset.v==='draft'){ try{ renderDraftsView(); }catch(e){} } }));
+  renderRecommend();
   renderZoneA();
   renderPolitics();
   renderEduplan();
@@ -1535,7 +1694,7 @@ window.schoolSub=schoolSub; window.renderSchoolOverview=renderSchoolOverview; wi
 window.reviewLiveNew=reviewLiveNew; window.liveFilterQA=liveFilterQA;
 window.renderCopy=renderCopy; window.cpGenMoment=cpGenMoment; window.cpCopyMoment=cpCopyMoment; window.cpGenArticle=cpGenArticle; window.cpDownloadArticle=cpDownloadArticle; window.cpCopyArticleText=cpCopyArticleText; window.cpSaveArticleDraft=cpSaveArticleDraft; window.genMoment=genMoment; window.buildArticleDoc=buildArticleDoc; window.artCopyPost=artCopyPost; window.fmtScore=fmtScore; window.livecardToggle=livecardToggle; window.livecardShowAll=livecardShowAll;
 window.renderMoment=renderMoment; window.moGen=moGen; window.moCopyText=moCopyText; window.moCopyImg=moCopyImg; window.genMomentCopy=genMomentCopy; window.renderMomentGallery=renderMomentGallery; window.moCopyGallery=moCopyGallery; window.moCopyIter=moCopyIter; window.renderIterate=renderIterate; window.renderHub=renderHub; window.renderZoneA=renderZoneA; window.renderPolitics=renderPolitics;
-window.renderHome=renderHome;
+window.renderHome=renderHome; window.renderRecommend=renderRecommend; window.recommendToday=recommendToday; window.recView=recView; window.recCopy=recCopy; window.recDraft=recDraft; window.closeRec=closeRec; window.renderDraftsView=renderDraftsView; window.markSent=markSent; window.goDraft=goDraft; window.renderDraftsViewSafe=renderDraftsViewSafe;
 window.renderPrebuf=renderPrebuf; window.applyBufferToToday=applyBufferToToday; window.refreshFeed=refreshFeed; window.bufferDayFor=bufferDayFor;
 window.renderTier1=renderTier1; window.genTier1=genTier1; window.tier1Resolve=tier1Resolve;
 
@@ -1593,7 +1752,7 @@ function refreshFeed(){
   loadLiveFeed(function(feed){
     if(feed){ TODAY=feed;
       try{ document.getElementById('today').innerHTML='📅 '+esc(feed.date)+' · 今日：'+(feed.recs[0]?esc(feed.recs[0].title):''); }catch(e){}
-      try{ renderHome(); }catch(e){}
+      try{ renderRecommend(); }catch(e){}
       if(window.__FEED_DEGRADED){ wbToast('⚠️ 自动化未产出，已自动降级到预生成缓冲（限流保底）'); }
     }
   });
@@ -1611,7 +1770,7 @@ function loadHotEvents(cb){
 function refreshHot(){
   loadHotEvents(function(fb){
     if(fb){ HOT=fb;
-      try{ renderHome(); }catch(e){}
+      try{ renderRecommend(); }catch(e){}
       try{ renderZoneA(); }catch(e){}
       try{ renderPolitics(); }catch(e){}
       try{ renderEduplan(); }catch(e){}
@@ -2140,6 +2299,7 @@ function schoolDetail(name){
   let h='<div class="lock-box" style="max-width:560px;text-align:left"><h3>'+esc(s.name)+'</h3>'
     +'<div class="muted">'+esc(s.district||'')+' · '+esc(s.nature||'')+' · '+esc(s.tier||'')+' · '+seg+'（'+esc(s.type||'')+'）'+(s.dingxiang?' · 定向生校':'')+'</div>'
     + (s.intro?'<div class="intro-box" style="margin:10px 0;padding:10px 12px;background:#f7f9fc;border-left:3px solid #c9d6e5;border-radius:6px;font-size:13px;line-height:1.75">'+esc(s.intro)+'</div>':'')
+    + schoolHistoryHTML(s)
     +'<ul class="kv" style="margin-top:10px">'
     +'<li><span class="k">行政区</span><span>'+esc(s.district||'-')+'</span></li>'
     +'<li><span class="k">办学性质</span><span>'+esc(s.nature||'-')+'</span></li>'
@@ -2160,6 +2320,21 @@ function schoolDetail(name){
     +'<button class="btn s o" onclick="aiCollectOne(\''+esc(s.id)+'\')">🤖AI补全</button>'
     +'<button class="btn s o" onclick="schoolDetailToTopic(\''+esc(s.name)+'\')">⚡ 出短视频稿</button></div></div>';
   showOverlay('schoolDetailOverlay', h);
+}
+function schoolHistoryHTML(s){
+  var H = window.SCHOOL_HISTORY;
+  if(!H || !H[s.name]) return '';
+  var d = H[s.name];
+  var f = [];
+  if(d.founded != null){
+    f.push('<li><span class="k">创办</span><span>'+(typeof d.founded==='number'? d.founded+' 年' : esc(d.founded))+'</span></li>');
+  }
+  if(d.history) f.push('<li><span class="k">沿革</span><span>'+esc(d.history)+'</span></li>');
+  if(d.features && d.features.length) f.push('<li><span class="k">办学特色</span><span>'+d.features.map(esc).join('；')+'</span></li>');
+  if(d.honors && d.honors.length) f.push('<li><span class="k">主要荣誉</span><span>'+d.honors.map(esc).join('；')+'</span></li>');
+  if(d.sources && d.sources.length) f.push('<li><span class="k">资料来源</span><span class="muted">'+d.sources.map(esc).join('；')+'</span></li>');
+  return '<h3 class="sub" style="margin-top:12px">🏛️ 校史与办学特色（深挖）</h3><ul class="kv">'+f.join('')+'</ul>'
+    +'<div class="muted" style="font-size:11px;margin-top:4px">※ 以上来自公开渠道联网核查，具体以学校官方最新发布为准</div>';
 }
 function schoolDetailToTopic(name){
   const s=findSchool(name); if(!s) return;

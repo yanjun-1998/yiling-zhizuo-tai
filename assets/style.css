@@ -379,3 +379,23 @@ th{background:var(--blue-l);color:var(--blue-d);font-weight:600;white-space:nowr
   .livecard{border:1px solid #999!important;page-break-after:always}
   .lc-body{display:block!important}
 }
+
+/* 今日推荐流（大数据推荐你发什么） */
+.rec-note{font-size:12.5px;color:#5b6b7f;background:#eef3fb;border:1px solid #d6e4f5;border-radius:8px;padding:9px 12px;margin:10px 0 14px;line-height:1.6}
+.sig{font-size:11px;padding:2px 9px;border-radius:11px;font-weight:700;white-space:nowrap}
+.sig-hot{background:#fdeede;color:#c8741a;border:1px solid #f6cf9e}
+.sig-sch{background:#e8f1ff;color:#1a5bd8;border:1px solid #bcd6ff}
+.sig-plan{background:#eef3f8;color:#3a6ea5;border:1px solid #cfe0f0}
+.rectype{font-size:11.5px;color:#6b7785;margin-left:auto;padding:2px 9px;background:#f3f5f8;border-radius:8px}
+.card.rec{border-left:4px solid #3a6ea5}
+.card.rec .at{font-size:15px;font-weight:700;color:#1a3a6b;margin:6px 0 8px;line-height:1.5}
+
+/* 待审箱 / 推荐流增强 */
+.draft-st{font-size:11px;font-weight:700;padding:2px 8px;border-radius:11px;white-space:nowrap;margin-left:6px}
+.st-pending{background:#fff4e0;color:#b9770f;border:1px solid #f3d9a6}
+.st-sent{background:#e7f7ec;color:#1d8a4c;border:1px solid #b6e3c6}
+.draft-from{font-size:11px;color:#6b7785;background:#f3f5f8;padding:2px 8px;border-radius:8px;margin-left:4px}
+.dg-h{font-size:14px;font-weight:800;color:#1a3a6b;margin:18px 0 10px;padding-left:2px}
+.rec-done{border-left-color:#1d8a4c!important;opacity:.92}
+.rec-done .at{color:#1d8a4c}
+.sig-now{background:#ffe9ec;color:#d6336c;border:1px solid #f7c2cd;margin-left:6px}
