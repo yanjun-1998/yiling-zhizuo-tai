@@ -186,7 +186,7 @@ function checkBio() {
      例如竞品账号的简介原文里带「提分」、学校库里的真实校名「太钢一中」、
      民办校学费、政策原文。这些不会变成我方对外文案，判违规纯属误伤。 */
   const INTEL_FILES = new Set([
-    'data-schools.js', 'data-school-aliases.js', 'data-school-history.js', 'data-scorelines.js',
+    'data-schools.js', 'data-school-aliases.js', 'data-school-history.js', 'data-scorelines.js', 'data-politics-news.js',
     'data-rival.js', 'data-calendar.js', 'data-policy.js', 'data-exam.js',
     'data-tier1.js', 'data-taiyuan-geo.js', 'data-parent-weekly.js',
     'school-news.js', 'school-shared.js', 'school-scan-list.js',

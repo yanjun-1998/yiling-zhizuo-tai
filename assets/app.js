@@ -8,7 +8,8 @@ const esc = s => String(s==null?'':s).replace(/[&<>]/g, c=>({'&':'&amp;','<':'&l
 
 const CORE = window.CORE, DATA_A = window.DATA_A, TPL = window.TPL;
 let TODAY = window.TODAY_FEED || window.TODAY, S = window.STRATEGY;
-const POL = window.DATA_POLITICS, EDU = window.DATA_EDUPLAN, LIVE = window.LIVE;
+const POL = window.DATA_POLITICS, EDU = window.DATA_EDUPLAN, LIVE = window.LIVE, PN = window.POLITICS_NEWS;
+let PNMAP = PNMAP || {};
 let HOT = window.HOT || {events:[]};
 let MY = window.MY_HOT || {events:[]};            // 云端共享库（对话同步写入）
 let LM = [];                                       // 本机手动热点（localStorage）
@@ -216,6 +217,27 @@ function renderDraftsView(){
       +'<button class="btn s" onclick="download(this.parentNode.previousElementSibling.value,\''+fn+'.txt\')">下载</button>'+sentBtn+'<button class="btn s x" onclick="delDraft(\''+esc(d.id)+'\')">删除</button></div></div>';
   };
   let h='<div class="banner"><b>📝 待审箱</b> · 自治层（推荐流 / 自动化）的产出先到这里，你审过、点「标记已发」才算对外发。</div>';
+  /* 阶段3 · 今日自动产出确认（仅本地记录，不阻断自动发布） */
+  try{
+    const pub=loadPublished();
+    const SCH_N=window.SCHOOL||{};
+    const autoItems=[];
+    (TODAY&&TODAY.recs||[]).forEach(function(r){ if(r.pri==='P0'||r.pri==='P1') autoItems.push({id:'rec_'+(r.id||''), title:r.title, zone:r.zone, src:'今日推荐'}); });
+    (SCH_N.items||[]).forEach(function(s){ if(s.pri==='P0'||s.pri==='P1') autoItems.push({id:'sch_'+(s.id||''), title:s.title, zone:s.zone, src:s.school||'学校动态'}); });
+    if(autoItems.length){
+      h+='<h4 class="dg-h">🤖 今日自动产出（点「标记已发」做兜底确认，仅本地记录）</h4><div class="grid g1">';
+      autoItems.forEach(function(a){
+        const done=pub[a.id];
+        h+='<div class="draft-item" style="border-left:3px solid #3b82f6">'
+          +'<div class="draft-top"><span class="draft-tag '+(a.zone==='A'?'tg-a':'tg-b')+'">'+(a.zone==='A'?'老闫物理':'张姐规划')+'</span>'
+          +(done?'<span class="draft-st st-sent">✓ 已确认 '+esc(done)+'</span>':'<span class="draft-st st-pending">⏳ 待确认</span>')
+          +'<span class="draft-title">'+esc(a.title)+'</span><span class="draft-from">'+esc(a.src)+'</span></div>'
+          +'<div class="row">'+(done?'':'<button class="btn s o" onclick="markPublished(\''+a.id+'\')">标记已发</button>')
+          +'<button class="btn s" onclick="goToday()">去今日推荐</button></div></div>';
+      });
+      h+='</div>';
+    }
+  }catch(e){}
   h+='<div class="rec-note">共 '+DRAFTS.length+' 篇：<b>'+pending.length+'</b> 篇待审、'+sent.length+' 篇已发。点「标记已发」即视为你已审核通过。</div>';
   h+='<h4 class="dg-h">⏳ 待审（'+pending.length+'）</h4>'+(pending.length?'<div class="grid g1">'+pending.slice().reverse().map(card).join('')+'</div>':'<p class="muted" style="padding:6px 2px 16px">空。去「今日推荐」挑几条入待审，或等自动化产出。</p>');
   h+='<h4 class="dg-h">✅ 已发（'+sent.length+'）</h4>'+(sent.length?'<div class="grid g1">'+sent.slice().reverse().map(card).join('')+'</div>':'<p class="muted" style="padding:6px 2px 16px">还没有标记已发的。</p>');
@@ -228,6 +250,49 @@ function renderDraftList(){
 function updateDraftBadge(){ const p=DRAFTS.filter(function(d){return d.status!=='sent';}).length; ['draftCount','draftCount2'].forEach(function(id){ const b=document.getElementById(id); if(b) b.textContent=p; }); }
 function openDraftPanel(){ const p=document.getElementById('draftPanel'); if(p) p.classList.remove('hide'); renderDraftList(); }
 function closeDraftPanel(){ const p=document.getElementById('draftPanel'); if(p) p.classList.add('hide'); }
+function goToday(){ try{ switchTab('home'); }catch(e){} }
+const PUB_KEY='yiling_published_v1';
+function loadPublished(){ try{ return JSON.parse(localStorage.getItem(PUB_KEY)||'{}'); }catch(e){ return {}; } }
+function markPublished(id){ const p=loadPublished(); p[id]=new Date().toLocaleDateString('zh-CN'); try{ localStorage.setItem(PUB_KEY, JSON.stringify(p)); }catch(e){} renderDraftsViewSafe(); wbToast('已确认发布'); }
+function politicsNewsText(it){
+  let s='【张姐讲政治 · 时政素材】\n\n'+it.title+'\n\n';
+  s+='✦ 为什么现在讲：'+it.hook+'\n\n';
+  s+='▍底层逻辑：'+it.depth+'\n\n';
+  s+='▍家长能落地的动作：\n'+it.solution.replace(/①|②|③/g,function(m){return m+' ';})+'\n\n';
+  s+='（来源：'+it.src+'。以官方最新通知为准）';
+  return s;
+}
+function politicsNewsHTML(it){
+  return '<div class="ov-h">'+esc(it.title)+'</div><div class="ov-b">'
+    +'<p><b>为什么现在讲：</b>'+esc(it.hook)+'</p>'
+    +'<p><b>底层逻辑：</b>'+esc(it.depth)+'</p>'
+    +'<p><b>落地动作：</b><br>'+esc(it.solution).replace(/\n/g,'<br>')+'</p>'
+    +'<p class="src">来源：'+esc(it.src)+'（以官方最新通知为准）</p></div>';
+}
+function pnView(id){ const it=PNMAP[id]; if(!it) return; showOverlay('schoolDetailOverlay', politicsNewsHTML(it)); }
+function pnDraft(id){ const it=PNMAP[id]; if(!it) return; pushDraft(it.title, politicsNewsText(it), '时政素材'); wbToast('已入待审 · '+it.title); }
+const AUTOMATIONS=[
+  {name:'每日双推（早8+晚8）', freq:'每天 08:00 / 20:00', role:'重写今日行动 + 实时热点 + 学校动态 → 重部署', out:'首页「今日推荐」+ 学校动态', manual:'去 设置 → 自动化 手动触发'},
+  {name:'周日对标迭代（模式B）', freq:'每周日 09:00', role:'重写迭代覆盖层 → 自检 → 重部署 + 邮件', out:'各中心对标内容自动升级', manual:'去 设置 → 自动化 手动触发'},
+  {name:'每周一巡检', freq:'每周一（不擅自重部署）', role:'全站数据巡检，仅报告不发布', out:'巡检报告', manual:'去 设置 → 自动化 查看'},
+  {name:'家长周更新', freq:'每周一 09:00', role:'重写家长周报 → 自检 → 重部署 + 邮件', out:'家长周报模块', manual:'去 设置 → 自动化 手动触发'},
+  {name:'竞品雷达', freq:'每周日 21:00', role:'增量更新竞品库 → 自检 → 重部署 + 邮件', out:'竞品情报模块', manual:'去 设置 → 自动化 手动触发'}
+];
+function renderAutoCenter(){
+  const el=document.getElementById('auto'); if(!el) return;
+  let h='<div class="banner"><b>⚙️ 自动化中心</b> · 5 个自动化是你「不在时也在干活的员工」。集中看它们在做什么、产出在哪、怎么手动触发。</div>';
+  h+='<div class="rec-note">说明：自动化在云端按时运行、直接更新数据并部署；下方「今日自动产出」可在待审箱里逐条「标记已发」做兜底确认。如需让某条自动化改为「先入待审再发布」，告诉我即可调整。</div>';
+  h+='<div class="grid g1">';
+  AUTOMATIONS.forEach(function(a){
+    h+='<div class="draft-item" style="border-left:3px solid #8b5cf6">'
+      +'<div class="draft-top"><span class="draft-tag tg-auto">自动化</span><span class="draft-title">'+esc(a.name)+'</span><span class="draft-from">'+esc(a.freq)+'</span></div>'
+      +'<div class="muted" style="font-size:13px;line-height:1.7;padding:4px 2px">'+esc(a.role)+'</div>'
+      +'<div class="muted" style="font-size:13px">📤 产出位置：'+esc(a.out)+'　|　🔧 '+esc(a.manual)+'</div></div>';
+  });
+  h+='</div>';
+  h+='<div style="margin-top:18px;text-align:center"><button class="btn o" onclick="switchTab(\'draft\')">→ 去待审箱看今日自动产出</button></div>';
+  el.innerHTML=h;
+}
 function pushDraft(title, text, tag, opts){
   opts=opts||{};
   text=(text||'').replace(/\r\n/g,'\n');
@@ -689,10 +754,18 @@ function renderPolitics(){
       +'<span class="tag">'+esc(t.fmt)+' · '+esc(t.dur)+'</span></div></div>';
   });
   h+='</div>';
-  h+='<h2 class="sec">时政素材引擎 / 主观题采分（Phase 2 规划中）</h2>';
-  h+='<div class="card"><div class="ct">'+esc(POL.engine.phase)+'</div><div class="cb"><p>'+esc(POL.engine.note)+'</p></div></div>';
-  h+='<div class="grid g2" style="margin-top:12px">';
-  POL.phase2.forEach(p=>{ h+='<div class="card"><div class="ct">'+esc(p.n)+'</div><div class="cb">'+esc(p.d)+'</div></div>'; });
+  /* ===== 时政素材引擎（#116 已落地） ===== */
+  h+='<h2 class="sec">🗞️ 时政素材引擎（真实公开信息 · 不编数字）</h2>';
+  h+='<div class="muted" style="font-size:13px;margin-bottom:10px">'+esc((PN&&PN.note)||'')+'</div><div class="grid g2">';
+  ((PN&&PN.items)||[]).forEach(function(it){
+    PNMAP[it.id]=it;
+    h+='<div class="card"><div class="arow"><span class="badge b">张姐规划</span><span class="pri '+(it.pri==='P0'?'p0':(it.pri==='P1'?'p1':'p2'))+'">'+esc(it.pri)+'</span>'+(it.fresh==='new'?'<span class="sig sig-now">🆕 实时</span>':'')+'</div>'
+      +'<div class="at">'+esc(it.title)+'</div>'
+      +'<div class="aw"><b>为什么现在讲：</b>'+esc(it.hook)+'</div>'
+      +'<div class="muted" style="font-size:13px;line-height:1.7">'+esc(it.depth)+'</div>'
+      +'<div class="row"><button class="btn s" onclick="pnView(\''+it.id+'\')">看完整稿</button>'
+      +'<button class="btn s o" onclick="pnDraft(\''+it.id+'\')">入待审</button></div></div>';
+  });
   h+='</div>';
   $('#politics').innerHTML=h;
 }
@@ -1656,7 +1729,7 @@ function applyBufferToToday(date){
 /* ===== 初始化 ===== */
 function init(){
   $('#today').innerHTML = '📅 '+esc(TODAY.date)+' · 今日：'+(TODAY.recs[0]?esc(TODAY.recs[0].title):'');
-  $$('.tab').forEach(t=>t.addEventListener('click', ()=>{ switchTab(t.dataset.v); if(t.dataset.v==='prebuf'){ try{ renderPrebuf(); }catch(e){} } if(t.dataset.v==='draft'){ try{ renderDraftsView(); }catch(e){} } }));
+  $$('.tab').forEach(t=>t.addEventListener('click', ()=>{ switchTab(t.dataset.v); if(t.dataset.v==='prebuf'){ try{ renderPrebuf(); }catch(e){} } if(t.dataset.v==='draft'){ try{ renderDraftsView(); }catch(e){} } if(t.dataset.v==='auto'){ try{ renderAutoCenter(); }catch(e){} } }));
   renderRecommend();
   renderZoneA();
   renderPolitics();
@@ -1694,7 +1767,7 @@ window.schoolSub=schoolSub; window.renderSchoolOverview=renderSchoolOverview; wi
 window.reviewLiveNew=reviewLiveNew; window.liveFilterQA=liveFilterQA;
 window.renderCopy=renderCopy; window.cpGenMoment=cpGenMoment; window.cpCopyMoment=cpCopyMoment; window.cpGenArticle=cpGenArticle; window.cpDownloadArticle=cpDownloadArticle; window.cpCopyArticleText=cpCopyArticleText; window.cpSaveArticleDraft=cpSaveArticleDraft; window.genMoment=genMoment; window.buildArticleDoc=buildArticleDoc; window.artCopyPost=artCopyPost; window.fmtScore=fmtScore; window.livecardToggle=livecardToggle; window.livecardShowAll=livecardShowAll;
 window.renderMoment=renderMoment; window.moGen=moGen; window.moCopyText=moCopyText; window.moCopyImg=moCopyImg; window.genMomentCopy=genMomentCopy; window.renderMomentGallery=renderMomentGallery; window.moCopyGallery=moCopyGallery; window.moCopyIter=moCopyIter; window.renderIterate=renderIterate; window.renderHub=renderHub; window.renderZoneA=renderZoneA; window.renderPolitics=renderPolitics;
-window.renderHome=renderHome; window.renderRecommend=renderRecommend; window.recommendToday=recommendToday; window.recView=recView; window.recCopy=recCopy; window.recDraft=recDraft; window.closeRec=closeRec; window.renderDraftsView=renderDraftsView; window.markSent=markSent; window.goDraft=goDraft; window.renderDraftsViewSafe=renderDraftsViewSafe;
+window.renderHome=renderHome; window.renderRecommend=renderRecommend; window.recommendToday=recommendToday; window.recView=recView; window.recCopy=recCopy; window.recDraft=recDraft; window.closeRec=closeRec; window.renderDraftsView=renderDraftsView; window.markSent=markSent; window.goDraft=goDraft; window.renderDraftsViewSafe=renderDraftsViewSafe; window.pnView=pnView; window.pnDraft=pnDraft; window.renderAutoCenter=renderAutoCenter; window.markPublished=markPublished; window.goToday=goToday;
 window.renderPrebuf=renderPrebuf; window.applyBufferToToday=applyBufferToToday; window.refreshFeed=refreshFeed; window.bufferDayFor=bufferDayFor;
 window.renderTier1=renderTier1; window.genTier1=genTier1; window.tier1Resolve=tier1Resolve;
 
