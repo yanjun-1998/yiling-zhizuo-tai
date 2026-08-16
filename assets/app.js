@@ -9,7 +9,7 @@ const esc = s => String(s==null?'':s).replace(/[&<>]/g, c=>({'&':'&amp;','<':'&l
 const CORE = window.CORE, DATA_A = window.DATA_A, TPL = window.TPL;
 let TODAY = window.TODAY_FEED || window.TODAY, S = window.STRATEGY;
 const POL = window.DATA_POLITICS, EDU = window.DATA_EDUPLAN, LIVE = window.LIVE, PN = window.POLITICS_NEWS;
-let PNMAP = PNMAP || {};
+var PNMAP = PNMAP || {};
 let HOT = window.HOT || {events:[]};
 let MY = window.MY_HOT || {events:[]};            // 云端共享库（对话同步写入）
 let LM = [];                                       // 本机手动热点（localStorage）
@@ -1771,33 +1771,7 @@ window.renderHome=renderHome; window.renderRecommend=renderRecommend; window.rec
 window.renderPrebuf=renderPrebuf; window.applyBufferToToday=applyBufferToToday; window.refreshFeed=refreshFeed; window.bufferDayFor=bufferDayFor;
 window.renderTier1=renderTier1; window.genTier1=genTier1; window.tier1Resolve=tier1Resolve;
 
-/* ===== 密码锁 ===== */
-var APP_PASSCODE='324'; // 访问密码：改这一个数字即可（2026-08-06 起用 324）
-function setupLock(){
-  var ov=document.getElementById('lockOverlay');
-  var inp=document.getElementById('lockInput');
-  var err=document.getElementById('lockErr');
-  var btn=document.getElementById('lockBtn');
-  var box=document.querySelector('.lock-box');
-  function tryUnlock(){
-    if(inp.value.trim()===APP_PASSCODE){
-      try{localStorage.setItem('wb_unlock','1');}catch(e){}
-      ov.classList.add('hide'); init();
-    }else{
-      err.textContent='密码不对，再试试';
-      box.classList.remove('shake'); void box.offsetWidth; box.classList.add('shake');
-      inp.value=''; inp.focus();
-    }
-  }
-  btn.addEventListener('click', tryUnlock);
-  inp.addEventListener('keydown', function(e){ if(e.key==='Enter') tryUnlock(); });
-  var rb=document.getElementById('relockBtn');
-  if(rb) rb.addEventListener('click', function(){
-    try{localStorage.removeItem('wb_unlock');}catch(e){}
-    location.reload();
-  });
-  setTimeout(function(){ try{inp.focus();}catch(e){} }, 60);
-}
+/* ===== 应用内锁已于 2026-08-14 彻底移除（无锁直进） ===== */
 /* 云端/本地实时拉取最新今日Feed，覆盖部署快照（绕过浏览器缓存） */
 /* 限流降级：把日期格式化为 YYYY-MM-DD，供缓冲按日匹配 */
 function ymd(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
@@ -2808,9 +2782,7 @@ function bindAddSchool(){
 }
 
 function boot(){
-  var ok=false; try{ ok=localStorage.getItem('wb_unlock')==='1'; }catch(e){}
-  if(ok){ var ov=document.getElementById('lockOverlay'); if(ov) ov.classList.add('hide'); loadLocalMy(); loadLocalSchool(); loadDrafts(); init(); refreshFeed(); refreshHot(); refreshMy(); refreshSchool(); }
-  else { setupLock(); }
+  loadLocalMy(); loadLocalSchool(); loadDrafts(); init(); refreshFeed(); refreshHot(); refreshMy(); refreshSchool();
 }
 if(document.readyState!=='loading') boot();
 else document.addEventListener('DOMContentLoaded', boot);
