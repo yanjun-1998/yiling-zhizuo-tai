@@ -650,7 +650,76 @@ function renderZoneA(){
       +'<div class="kv"><b>注意</b><span>'+esc(f.tip)+'</span></div></div></div>';
   });
   h+='</div>';
+  h += featureHTML();
+  h += featureNewsHTML();
   $('#zoneA').innerHTML=h;
+}
+
+/* ===== 物理竞赛·强基计划 专题模块（老闫物理） ===== */
+function featureHTML(){
+  if(!window.PHYS_FEATURE) return '';
+  let h='<h2 class="sec">🏆 物理竞赛 · 强基计划 专题模块（老闫物理）</h2>';
+  h+='<div class="muted" style="font-size:13px;line-height:1.7;margin-bottom:12px">'+esc(PHYS_FEATURE.note)+'</div>';
+  let fi=0;
+  PHYS_FEATURE.cats.forEach(function(cat){
+    h+='<h3 class="sub">'+esc(cat.name)+'</h3><div class="grid g2">';
+    cat.items.forEach(function(it){
+      const key='pf_'+(fi++); TMAP[key]=it;
+      h+='<div class="card"><div class="arow"><span class="badge b">老闫物理</span><span class="pri '+(it.lv==='P0'?'p0':(it.lv==='P1'?'p1':'p2'))+'">'+esc(it.lv)+'</span></div>'
+        +'<div class="at">'+esc(it.title)+'</div>'
+        +'<div class="aw"><b>钩子：</b>'+esc(it.hook)+'</div>'
+        +'<div class="muted" style="font-size:13px;line-height:1.7"><b>底层逻辑：</b>'+esc(it.depth)+'</div>'
+        +'<div class="muted" style="font-size:13px;line-height:1.7"><b>可抄动作：</b>'+esc(it.solution)+'</div>'
+        +'<div class="row"><button class="btn s" onclick="showOut(genFeature(TMAP[\''+key+'\']))">⚡ 出稿</button>'
+        + favBtn('zoneA', key, it.title)
+        +'<span class="tag">'+esc(it.fmt)+' · '+esc(it.dur)+'</span></div></div>';
+    });
+    h+='</div>';
+  });
+  return h;
+}
+function genFeature(t){
+  const me='我是老闫，在太原教了7年初高中物理，专讲听得懂、做得出的物理方法。';
+  const cta='评论区扣「'+(t.ck||'竞赛强基')+'」，我把这份路径图/清单发你。有问题直接评论区扣「老闫」或@我，我挨个看。';
+  let s='';
+  s+='【标题】'+t.title+'\n';
+  s+='【账号/形式】老闫物理（A区）　|　'+(t.fmt||'口播')+'　|　'+(t.dur||'60s')+'　|　不露脸（手/板书/屏幕共享）\n\n';
+  s+='— 口播稿（照读即可）—\n\n';
+  const hk=t.hook||'';
+  s+= hk + (/[。！？.!?]$/.test(hk)?'':'。') + '\n\n';
+  s+= me + '\n\n';
+  if(t.depth){ s+='先讲底层逻辑：'+t.depth+'\n\n'; }
+  if(t.solution){ s+='落到具体操作，能直接抄的动作就这几步——\n'+t.solution+'\n\n'; }
+  s+='【结尾引导】'+cta+'\n';
+  if(t.ref||t.src) s+='【参考】'+(t.ref||t.src)+'（具体名额/分数线以当年官方公告为准）\n';
+  return s;
+}
+
+/* ===== 太原/山西 物理竞赛·强基 实时情报流（每周自动同步） ===== */
+function featureNewsHTML(){
+  if(!window.PHYS_FEATURE_NEWS) return '';
+  const N=PHYS_FEATURE_NEWS;
+  const items=N.items||[];
+  let h='<h2 class="sec">📡 太原/山西 物理竞赛·强基 实时情报（老闫物理 · 每周自动同步）</h2>';
+  h+='<div class="muted" style="font-size:13px;line-height:1.7;margin-bottom:6px">'+esc(N.note)+'</div>';
+  h+='<div class="muted" style="font-size:13px;margin-bottom:12px">最近同步：<b>'+esc(N.updated||'—')+'</b>　|　共 '+items.length+' 条　|　来源：山西省物理学会 / 山西教育考试院 / 阳光高考 / 试点高校招生网</div>';
+  let ni=0;
+  items.forEach(function(it){
+    const key='pn_'+(ni++); TMAP[key]=it;
+    h+='<div class="card"><div class="arow"><span class="badge b">老闫物理</span>'
+      +'<span class="badge" style="background:#eef3ff;color:#2a5bd7">'+esc(it.region||'')+'</span>'
+      +'<span class="pri '+(it.lv==='P0'?'p0':(it.lv==='P1'?'p1':'p2'))+'">'+esc(it.lv)+'</span>'
+      +'<span class="muted" style="font-size:12px">'+esc(it.date||'')+'</span></div>'
+      +'<div class="at">'+esc(it.title)+'</div>'
+      +'<div class="aw"><b>钩子：</b>'+esc(it.hook)+'</div>'
+      +'<div class="muted" style="font-size:13px;line-height:1.7"><b>底层逻辑：</b>'+esc(it.depth)+'</div>'
+      +'<div class="muted" style="font-size:13px;line-height:1.7"><b>可抄动作：</b>'+esc(it.solution)+'</div>'
+      +'<div class="muted" style="font-size:12px">来源：'+esc(it.src||'')+'</div>'
+      +'<div class="row"><button class="btn s" onclick="showOut(genFeature(TMAP[\''+key+'\']))">⚡ 出稿</button>'
+      + favBtn('zoneA', key, it.title)
+      +'<span class="tag">'+esc(it.fmt||'')+' · '+esc(it.dur||'')+'</span></div></div>';
+  });
+  return h;
 }
 
 /* ===== 选题万能公式生成器（手册5/6核心） ===== */
